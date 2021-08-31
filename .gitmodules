@@ -1,0 +1,3 @@
+[submodule "priconne-cdn-extract"]
+	path = priconne-cdn-extract
+	url = https://github.com/Andu2/priconne-cdn-extract.git
