@@ -2,10 +2,9 @@
   "name": "nozomi-v2",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    
-  },
+  "scripts": {},
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "better-sqlite3": "^7.4.3"
   }
 }
