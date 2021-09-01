@@ -60,5 +60,10 @@ collection_db.levelUpSkill(id, result[0].id, 201)
 
 collection_db.levelUpSkill(id, result[0].id, 101, true)
 
+account_db.addJewels(id, 1500)
+collection_db.levelUpBond(id, result[0].id)
+collection_db.levelUpBond(id, result[0].id)
+collection_db.levelUpBond(id, result[0].id)
+
 
 
