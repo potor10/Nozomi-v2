@@ -1,4 +1,8 @@
-const NozomiWebapp = require('./webapp/app')
+// Dependencies
+require('dotenv').config()
 
-const webapp = new NozomiWebapp()
-webapp.run()
+const NozomiApi = require('./api/app')
+
+const app = new NozomiApi()
+app.run()
+

@@ -1,0 +1,15 @@
+
+.notification {
+  background-color: red;
+  color: white;
+  margin: 0px 0px 0px 5px;
+  padding: 0px 5px;
+  border-radius: 5px;
+}
+
+.profile_pic {
+  max-width: 30px;
+  max-height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
