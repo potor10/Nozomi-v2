@@ -1,11 +1,11 @@
-import React from "react"
+import React from 'react'
 import styles from './header.module.css'
-import {Nav, Navbar, Container, NavDropdown, Dropdown} from "react-bootstrap"
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
+import {Nav, Navbar, Container, NavDropdown, Dropdown} from 'react-bootstrap'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
-import getAvatarUrl from "../lib/get_avatar_url"
-import getGuildIconUrl from "../lib/get_server_icon_url"
-import logout from "../lib/logout"
+import getAvatarUrl from '../lib/get_avatar_url'
+import getGuildIconUrl from '../lib/get_server_icon_url'
+import logout from '../lib/logout'
 
 
 const DiscordProfile = ({ discord_user }) => {

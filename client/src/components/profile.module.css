@@ -1,0 +1,23 @@
+.profile_wrapper {
+  padding-top: 40px;
+}
+
+.avatar_image {
+  max-width: 200px;
+  max-height: 200px;
+
+  min-width: 100px;
+  min-height: 100px;
+  border-radius: 50%;
+  border: 5px solid white;
+  padding: 0px !important;
+}
+
+.stat_wrapper {
+  padding: 0px 20px;
+}
+
+.stat_table {
+  margin-top: 10px;
+}
+

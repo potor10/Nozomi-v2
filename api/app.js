@@ -4,8 +4,13 @@ const session = require('express-session')
 const cors = require('cors')
 const path = require('path')
 
+// Routes
 const api_router = require('./routes/hello')
 const discord_router = require('./routes/discord_router')
+const account_router = require('./routes/account_router')
+const master_db_router = require('./routes/master_db_router')
+const gacha_router = require('./routes/gacha_router')
+const collection_router = require('./routes/collection_router')
 
 module.exports = class NozomiApi {
   constructor() {
@@ -30,6 +35,10 @@ module.exports = class NozomiApi {
   useRouter() {
     this._app.use('/testAPI', api_router)
     this._app.use('/discord', discord_router)
+    this._app.use('/account', account_router)
+    this._app.use('/masterdb', master_db_router)
+    this._app.use('/gacha', gacha_router)
+    this._app.use('/collection', collection_router)
 
     // 404, page can't be found
     this._app.use((req, res) => {
@@ -62,6 +71,18 @@ module.exports = class NozomiApi {
     this._app.use(function (req, res, next) {
       if (!req.session.login_status) {
         req.session.login_status = false
+      }
+
+      if (!req.session.mutual_servers) {
+        req.session.mutual_servers = {}
+      }
+
+      if (!req.session.user_data) {
+        req.session.user_data = {}
+      }
+
+      if (!req.session.oauth) {
+        req.session.oauth = {}
       }
 
       next()

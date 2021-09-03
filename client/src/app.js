@@ -13,10 +13,13 @@ import SelectServer from './components/select_server'
 
 // Routed
 import Profile from './components/profile'
+import Character from './components/character'
 import Characters from './components/characters'
 import Daily from './components/daily'
 import Gacha from './components/gacha'
 import Mailbox from './components/mailbox'
+
+import logout from './lib/logout'
 
 const Home = ({ discord_user, server_data }) => {
   return (
@@ -24,9 +27,10 @@ const Home = ({ discord_user, server_data }) => {
       <Header discord_user={discord_user} server_data={server_data}/>
       <main>
         <Switch>
-          <Route path="/characters" component={Characters} />
-          <Route path="/gacha" component={Gacha} />
-          <Route path="/daily" component={Daily} />
+          <Route path="/characters"><Characters server_data={server_data} /></Route>
+          <Route path="/character/:character_id"><Character server_data={server_data} /></Route>
+          <Route path="/gacha"><Gacha server_data={server_data} /></Route>
+          <Route path="/daily"><Daily server_data={server_data} /></Route>
           <Route path="/mailbox" component={Mailbox} />
           <Route path="/"><Profile discord_user={discord_user} server_data={server_data}/></Route>
         </Switch>
@@ -67,7 +71,7 @@ class App extends Component {
         body: JSON.stringify({code: code})
       }
 
-      await fetch(`http://localhost:8080/discord/login`, fetch_options)
+      await fetch(`${process.env.REACT_APP_WEB_URL}/discord/login`, fetch_options)
         .then(async res => {
           if (res.status === 200) {
             if (localStorage.getItem('discord_user') === null) {
@@ -77,6 +81,9 @@ class App extends Component {
             }
             this.setState({ login_status: 1 })
           } else {
+            // Remove possible existing data in storage
+            localStorage.removeItem('discord_user')
+            localStorage.removeItem('server_data')
             this.setState({ login_status: 0 })
           }
         })
@@ -91,10 +98,13 @@ class App extends Component {
       credentials: 'include'
     }
 
-    const res = await fetch(`http://localhost:8080/discord/user`, fetch_options)
-    const discord_user = await res.json()
-
-    return discord_user
+    const res = await fetch(`${process.env.REACT_APP_WEB_URL}/discord/user`, fetch_options)
+    if (res.status === 200) {
+      const discord_user = await res.json()
+      return discord_user
+    } else {
+      logout()
+    }
   }
 
   componentDidMount() {
@@ -103,20 +113,20 @@ class App extends Component {
     this.loginUser(query.code)
   }
 
-  loginDetermine() {
+  loginSwitch() {
     switch (this.state.login_status) {
       case 1: 
         if (this.state.server_data === null) return (<SelectServer discord_user={this.state.discord_user}/>)
         else return (<Home discord_user={this.state.discord_user} server_data={this.state.server_data}/>)
       case 0: return (<Login />)
-      case -1: return (<Loading />)
+      case -1: return (<main style={{width: '100%', height: '100%'}}><Loading /></main>)
     }
   }
 
   render() {
     return (
       <>
-        {this.loginDetermine()}
+        {this.loginSwitch()}
       </>
     )
   }

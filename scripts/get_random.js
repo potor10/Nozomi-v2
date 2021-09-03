@@ -23,9 +23,9 @@ account_db.addExp(id, 500000000)
 const Gacha = require('../lib/gacha')
 const gacha = new Gacha(server_id, master_db, account_db, collection_db)
 
-console.log(gacha.rollTen(id))
+console.log(gacha.pullTen(id))
 
-let result = gacha.rollTen(id)
+let result = gacha.pullTen(id)
 console.log(result)
 
 collection_db.addEquipment(id, result[0].id, 1)
@@ -65,5 +65,5 @@ collection_db.levelUpBond(id, result[0].id)
 collection_db.levelUpBond(id, result[0].id)
 collection_db.levelUpBond(id, result[0].id)
 
-
+account_db.getUser('blegh')
 

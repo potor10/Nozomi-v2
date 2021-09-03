@@ -54,7 +54,10 @@ exports.user = async (req, res) => {
         authorization: `${req.session.oauth.token_type} ${req.session.oauth.access_token}`,
       },
     })
-    res.status(200).json(await user_result.json())
+
+    const user_data = await user_result.json()
+    req.session.user_data = user_data
+    res.status(200).json(user_data)
   } else {
     res.status(401).send('You Must Be Logged In')
   }
@@ -80,11 +83,13 @@ exports.guilds = async (req, res) => {
       },
     })
 
+    req.session.mutual_guilds = {}
     let mutual_guilds = []
     const bot_guilds = await bot_guilds_json.json()
     for (const idx in bot_guilds) {
       const current_guild = user_guilds_ids[bot_guilds[idx].id]
       if (current_guild !== undefined) {
+        req.session.mutual_guilds[current_guild.id] = current_guild
         mutual_guilds.push(current_guild)
       }
     }

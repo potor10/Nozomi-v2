@@ -5,3 +5,29 @@
   z-index: -1;
   position: absolute;
 }
+
+.app_avatar {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10%;
+  object-position: 30% 0%;
+  border: 5px solid gray;
+
+  padding: 0px;
+}
+
+.login_wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.login_button {
+  max-width: 200px;
+  margin: 10px 5px;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+}
