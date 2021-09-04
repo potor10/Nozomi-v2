@@ -1,6 +1,6 @@
 
 const logout = () => {
-  fetch(`http://localhost:8080/discord/logout`, {
+  fetch(`${process.env.REACT_APP_WEB_URL}/api/discord/logout`, {
     method: 'POST',
     mode: 'cors',
     cache: 'no-cache',

@@ -1,0 +1,13 @@
+.profile_pic {
+  max-width: 30px;
+  max-height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.app_avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 10%;
+  margin: 0px 10px;
+}

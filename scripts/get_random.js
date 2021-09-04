@@ -1,5 +1,7 @@
 const server_id = 'lmfao'
 
+const constants = require('../lib/constants.json')
+
 // Dependencies 
 const MasterDatabase = require('../lib/master_database')
 const master_db = new MasterDatabase()
@@ -28,14 +30,14 @@ console.log(gacha.pullTen(id))
 let result = gacha.pullTen(id)
 console.log(result)
 
-collection_db.addEquipment(id, result[0].id, 1)
-collection_db.addEquipment(id, result[0].id, 2)
-collection_db.addEquipment(id, result[0].id, 3)
-collection_db.addEquipment(id, result[0].id, 4)
-collection_db.addEquipment(id, result[0].id, 5)
-collection_db.addEquipment(id, result[0].id, 6)
+collection_db.equipEquipment(id, result[0].id, 1)
+collection_db.equipEquipment(id, result[0].id, 2)
+collection_db.equipEquipment(id, result[0].id, 3)
+collection_db.equipEquipment(id, result[0].id, 4)
+collection_db.equipEquipment(id, result[0].id, 5)
+collection_db.equipEquipment(id, result[0].id, 6)
 collection_db.rankUp(id, result[0].id)
-// collection_db.addEquipment(id, result[0].id, 1)
+// collection_db.equipEquipment(id, result[0].id, 1)
 
 console.log(account_db.getUser(id).amulets)
 account_db.addAmulets(id, 50000)
@@ -66,4 +68,10 @@ collection_db.levelUpBond(id, result[0].id)
 collection_db.levelUpBond(id, result[0].id)
 
 account_db.getUser('blegh')
+
+console.log(collection_db.getAllSkillEffects(id, result[0].id))
+
+
+console.log(collection_db.getSkillEffect(id, result[0].id, constants.SKILL_NAMES[1]))
+console.log(collection_db.getSkillEffect(id, result[0].id, constants.SKILL_NAMES[2]))
 

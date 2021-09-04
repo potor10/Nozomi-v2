@@ -1,0 +1,12 @@
+.character_image {
+  width: auto;
+  height: auto;
+  max-height: 500px;
+  margin-top: 50px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}

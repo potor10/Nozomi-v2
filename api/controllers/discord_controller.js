@@ -26,7 +26,7 @@ exports.login = async (req, res) => {
           req.session.oauth = oauth_data
           req.session.login_status = true
           req.session.cookie.expires = new Date(Date.now() + (oauth_data.expires_in * 1000))
-          res.status(200).send('Successfully Logged In')
+          res.status(200).send({ success: true })
         } else { 
           res.status(401).send('You Must Provide A Valid Code')
         }
@@ -35,10 +35,10 @@ exports.login = async (req, res) => {
         res.status(500).send('Server Error While Logging In')
       }
     } else {
-      res.status(204).send('No Code Found')
+      res.status(200).send({ success: false })
     }
   } else {
-    res.status(200).send('Successfully Logged In')
+    res.status(200).send({ success: true })
   }
 }
 

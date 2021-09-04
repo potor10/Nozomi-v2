@@ -16,7 +16,9 @@ code {
     monospace;
 }
 
-#root {
+#root, main {
+  display: flex;
+  flex-flow: column;
   width: 100%;
   height: 100%;
 }

@@ -20,6 +20,8 @@ exports.pull_ten = async (req, res) => {
         console.log(e)
         res.status(e.getStatus()).send(e.getErrorMessage())
       }
+      account_db.close()
+      collection_db.close()
     } else {
       res.status(400).send('Please Select A Valid Server')
     }

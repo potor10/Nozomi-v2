@@ -11,6 +11,7 @@ exports.get_me = async (req, res) => {
       const account_db = new AccountDatabase(req.params.server_id, master_db)
       const user = account_db.getUser(req.session.user_data.id)
       res.status(200).json(user)
+      account_db.close()
     } else {
       res.status(400).send('Please Select A Valid Server')
     }
@@ -25,6 +26,7 @@ exports.get_user = async (req, res) => {
       const account_db = new AccountDatabase(req.params.server_id, master_db)
       const user = account_db.getUser(req.params.discord_id)
       res.status(200).json(user)
+      account_db.close()
     } else {
       res.status(400).send('Please Select A Valid Server')
     }
@@ -51,6 +53,7 @@ exports.get_all = async (req, res) => {
 
       const leaderboard = account_db.getAll(member_ids)
       res.status(200).json(leaderboard)
+      account_db.close()
     } else {
       res.status(400).send('Please Select A Valid Server')
     }
@@ -66,10 +69,11 @@ exports.daily = async (req, res) => {
       const account_db = new AccountDatabase(req.params.server_id, master_db)
       console.log(req.session.user_data.id)
       if (account_db.daily(req.session.user_data.id)) {
-        res.status(200).send('Successful Daily Claim')
+        res.status(200).json({ success: true })
       } else {
-        res.status(204).send('Already Claimed')
+        res.status(200).json({ success: false })
       }
+      account_db.close()
     } else {
       res.status(400).send('Please Select A Valid Server')
     }

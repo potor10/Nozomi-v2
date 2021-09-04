@@ -1,0 +1,26 @@
+.skill_wrapper {
+  margin: 20px 0;
+}
+
+.skill_description {
+
+}
+
+.skill_image {
+  width: 100px;
+  height: 100px;
+}
+
+.skill_title {
+  font-size: 20px;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.skill_level {
+  display: inline-block;
+}
+
+.skill_action {
+  display: block;
+}

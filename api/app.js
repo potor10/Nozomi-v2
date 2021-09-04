@@ -34,11 +34,11 @@ module.exports = class NozomiApi {
 
   useRouter() {
     this._app.use('/testAPI', api_router)
-    this._app.use('/discord', discord_router)
-    this._app.use('/account', account_router)
-    this._app.use('/masterdb', master_db_router)
-    this._app.use('/gacha', gacha_router)
-    this._app.use('/collection', collection_router)
+    this._app.use('/api/discord', discord_router)
+    this._app.use('/api/account', account_router)
+    this._app.use('/api/masterdb', master_db_router)
+    this._app.use('/api/gacha', gacha_router)
+    this._app.use('/api/collection', collection_router)
 
     // 404, page can't be found
     this._app.use((req, res) => {

@@ -14,3 +14,43 @@ exports.exp = (req, res) => {
     res.status(401).send('You Must Be Logged In')
   }
 }
+
+exports.needed_equipment = (req, res) => {
+  if (req.session.login_status === true) {
+    try {
+      const equipment_needed = master_db.getUnitPromotion(req.params.unit_id, req.params.promotion_level)
+      res.status(200).json(equipment_needed)
+    } catch (e) {
+      res.status(e.getStatus()).send(e.getErrorMessage())
+    }
+  } else {
+    res.status(401).send('You Must Be Logged In')
+  }
+}
+
+exports.get_equipment = (req, res) => {
+  if (req.session.login_status === true) {
+    try {
+      const equipment = master_db.getMaxedEquipment(req.params.equipment_id)
+      res.status(200).json(equipment)
+    } catch (e) {
+      console.log(e)
+      res.status(200).json({ equipment_id: 999999 })
+    }
+  } else {
+    res.status(401).send('You Must Be Logged In')
+  }
+}
+
+exports.max_rarity = (req, res) => {
+  if (req.session.login_status === true) {
+    try {
+      const max_rarity = master_db.getMaxRarity(req.params.unit_id)
+      res.status(200).json(max_rarity)
+    } catch (e) {
+      res.status(e.getStatus()).send(e.getErrorMessage())
+    }
+  } else {
+    res.status(401).send('You Must Be Logged In')
+  }
+}

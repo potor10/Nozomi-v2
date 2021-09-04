@@ -1,23 +1,25 @@
 import React, { Component } from 'react'
 import {Container, Row, Col, Card, Form, Button } from "react-bootstrap"
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
+import Particles from 'react-particles-js'
+
 import QueryString from 'query-string'
 
 import './styles/app.css'
 
-import Header from './components/header'
+import Header from './components/header/header'
 
-import Login from './components/login'
-import Loading from './components/loading'
-import SelectServer from './components/select_server'
+import Login from './pages/login/login'
+import Loading from './components/loading/loading'
+import SelectServer from './pages/select_server/select_server'
 
 // Routed
-import Profile from './components/profile'
-import Character from './components/character'
-import Characters from './components/characters'
-import Daily from './components/daily'
-import Gacha from './components/gacha'
-import Mailbox from './components/mailbox'
+import Profile from './pages/profile/profile'
+import Character from './pages/character/character'
+import Characters from './pages/characters/characters'
+import Daily from './pages/daily/daily'
+import Gacha from './pages/gacha/gacha'
+import Leaderboard from './pages/leaderboard/leaderboard'
 
 import logout from './lib/logout'
 
@@ -31,7 +33,7 @@ const Home = ({ discord_user, server_data }) => {
           <Route path="/character/:character_id"><Character server_data={server_data} /></Route>
           <Route path="/gacha"><Gacha server_data={server_data} /></Route>
           <Route path="/daily"><Daily server_data={server_data} /></Route>
-          <Route path="/mailbox" component={Mailbox} />
+          <Route path="/leaderboard" component={Leaderboard} />
           <Route path="/"><Profile discord_user={discord_user} server_data={server_data}/></Route>
         </Switch>
       </main>
@@ -71,9 +73,9 @@ class App extends Component {
         body: JSON.stringify({code: code})
       }
 
-      await fetch(`${process.env.REACT_APP_WEB_URL}/discord/login`, fetch_options)
+      await fetch(`${process.env.REACT_APP_WEB_URL}/api/discord/login`, fetch_options)
         .then(async res => {
-          if (res.status === 200) {
+          if (res.status === 200 && (await res.json()).success) {
             if (localStorage.getItem('discord_user') === null) {
               const discord_user = await this.getDiscordInfo()
               localStorage.setItem('discord_user', JSON.stringify(discord_user))
@@ -98,7 +100,7 @@ class App extends Component {
       credentials: 'include'
     }
 
-    const res = await fetch(`${process.env.REACT_APP_WEB_URL}/discord/user`, fetch_options)
+    const res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/discord/user`, fetch_options)
     if (res.status === 200) {
       const discord_user = await res.json()
       return discord_user
@@ -113,7 +115,7 @@ class App extends Component {
     this.loginUser(query.code)
   }
 
-  loginSwitch() {
+  loginRender() {
     switch (this.state.login_status) {
       case 1: 
         if (this.state.server_data === null) return (<SelectServer discord_user={this.state.discord_user}/>)
@@ -126,7 +128,8 @@ class App extends Component {
   render() {
     return (
       <>
-        {this.loginSwitch()}
+        {this.loginRender()}
+        <Particles className="particles"/>
       </>
     )
   }
