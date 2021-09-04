@@ -11,6 +11,11 @@
 # production
 /build
 
+# datamine
+/public/images/banner
+/public/images/icon
+/public/images/unit
+
 # misc
 .DS_Store
 .env.local
