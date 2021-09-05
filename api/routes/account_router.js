@@ -11,6 +11,6 @@ router.get('/user/:server_id/:discord_id', account_controller.get_user)
 
 router.get('/all/:server_id', account_controller.get_all)
 
-router.get('/daily/:server_id', account_controller.daily)
+router.post('/daily', account_controller.daily)
 
 module.exports = router
