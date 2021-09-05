@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Container, Row, Col, ProgressBar, Table } from 'react-bootstrap'
 import Loading from '../../components/loading/loading'
+import UserStatTable from '../../components/user_stat_table/user_stat_table'
+
 import getAvatarUrl from '../../lib/get_avatar_url'
 import getGuildIconUrl from '../../lib/get_server_icon_url'
 
@@ -19,26 +21,10 @@ const StatsWindow = ({ user_stats }) => {
       </Row>
       <ProgressBar animated variant="warning" now={exp/needed_exp * 100} label={`${exp}/${needed_exp}`} />
       <Row className="text-center">
-        <Table striped bordered hover variant="dark" className={styles.stat_table}>
-          <tbody>
-            <tr>
-              <td><img className="icon-sm" src="/images/assets/mana.png"/></td>
-              <td>{user_stats.mana}</td>
-            </tr>
-            <tr>
-              <td><img className="icon-sm" src="/images/assets/jewel.png"/></td>
-              <td>{user_stats.jewels}</td>
-            </tr>
-            <tr>
-              <td><img className="icon-sm" src="/images/assets/amulet.png"/></td>
-              <td>{user_stats.amulets}</td>
-            </tr>
-            <tr>
-              <td><img className="icon-sm" src="/images/assets/power.png"/></td>
-              <td>{user_stats.total_power}</td>
-            </tr>
-          </tbody>
-        </Table>
+        <small>Talk In Discord Servers To Increase Your Player Level!</small>
+      </Row>
+      <Row className="text-center">
+        <UserStatTable user_stats={user_stats} />
       </Row>
     </div>
   )
@@ -106,7 +92,7 @@ class Profile extends Component {
           </Col>
         </Row>
         <Row className={`d-flex text-center justify-content-center`}>
-          <h1>News</h1>
+          <h1>Featured Here</h1>
         </Row>
       </Container>
     )

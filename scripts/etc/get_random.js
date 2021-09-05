@@ -1,16 +1,16 @@
 const server_id = 'lmfao'
 
-const constants = require('../lib/constants.json')
+const constants = require('../../lib/constants.json')
 
 // Dependencies 
-const MasterDatabase = require('../lib/master_database')
+const MasterDatabase = require('../../lib/master_database')
 const master_db = new MasterDatabase()
 
-const AccountDatabase = require('../lib/account_database')
+const AccountDatabase = require('../../lib/account_database')
 const account_db = new AccountDatabase(server_id, master_db)
 account_db.reset()
 
-const CollectionDatabase = require('../lib/collection_database')
+const CollectionDatabase = require('../../lib/collection_database')
 const collection_db = new CollectionDatabase(server_id, master_db, account_db)
 collection_db.reset()
 
@@ -22,7 +22,7 @@ account_db.daily(id)
 
 account_db.addExp(id, 500000000)
 
-const Gacha = require('../lib/gacha')
+const Gacha = require('../../lib/gacha')
 const gacha = new Gacha(server_id, master_db, account_db, collection_db)
 
 console.log(gacha.pullTen(id))
@@ -57,10 +57,10 @@ collection_db.levelUpUnit(id, result[0].id)
 console.log(collection_db.levelUpCost(id, result[0].id, true))
 collection_db.levelUpUnit(id, result[0].id, true)
 
-collection_db.levelUpSkill(id, result[0].id, 101)
-collection_db.levelUpSkill(id, result[0].id, 201)
+collection_db.levelUpSkill(id, result[0].id, 'union_burst')
+collection_db.levelUpSkill(id, result[0].id, 'main_skill_1')
 
-collection_db.levelUpSkill(id, result[0].id, 101, true)
+collection_db.levelUpSkill(id, result[0].id, 'union_burst', true)
 
 account_db.addJewels(id, 1500)
 collection_db.levelUpBond(id, result[0].id)
@@ -75,3 +75,4 @@ console.log(collection_db.getAllSkillEffects(id, result[0].id))
 console.log(collection_db.getSkillEffect(id, result[0].id, constants.SKILL_NAMES[1]))
 console.log(collection_db.getSkillEffect(id, result[0].id, constants.SKILL_NAMES[2]))
 
+collection_db.levelUpSkillCost(id, result[0].id, 'union_burst')

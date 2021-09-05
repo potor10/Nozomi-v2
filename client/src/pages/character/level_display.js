@@ -93,7 +93,8 @@ class LevelDisplay extends Component {
               Lv. <b>{this.props.character.level}</b> &#8250; Lv. <b>{this.props.character.level + 1}</b>
             </span>
             <Button onClick={() => this.levelUp(false)} variant={(can_buy_level) ? "info" : "secondary"}
-              disabled={!can_buy_level} className={[styles.level_button, styles.level_button_active]}>
+              disabled={!can_buy_level} 
+              className={[styles.level_button, (can_buy_level) ? (styles.level_button_active) : (undefined)]}>
               <span className="d-flex align-items-center justify-content-center">
                 {this.state.level_cost}&nbsp;<img className="icon-sm" src="/images/assets/mana.png"/>
               </span>
@@ -104,7 +105,8 @@ class LevelDisplay extends Component {
               Lv. <b>{this.props.character.level}</b> &#8250; Lv. <b>{this.props.user_stats.level} (MAX)</b>
             </span>
             <Button onClick={() => this.levelUp(true)} variant={(can_buy_max) ? "info" : "secondary"}
-              disabled={!can_buy_max} className={[styles.level_button, styles.level_button_active]}>
+              disabled={!can_buy_max} 
+              className={[styles.level_button, (can_buy_level) ? (styles.level_button_active) : (undefined)]}>
               <span className="d-flex align-items-center justify-content-center">
                 {this.state.level_cost_max}&nbsp;<img className="icon-sm" src="/images/assets/mana.png"/>
               </span>

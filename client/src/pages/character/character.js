@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+
+import { Container, Row, Col } from 'react-bootstrap'
+
 import Loading from '../../components/loading/loading'
+
 import CharacterDisplay from './character_display'
+import UserStatTable from '../../components/user_stat_table/user_stat_table'
+
+import styles from './character.module.css'
 
 class Character extends Component {
   constructor(props) {
@@ -124,12 +131,21 @@ class Character extends Component {
     if (this.state.character_loaded === 1 && 
       this.state.equipment_loaded === 1) {
       return (
-        <CharacterDisplay character={this.state.character}
-          server_data={this.props.server_data} equipment={this.state.equipment}
-          user_stats={this.state.user_stats}
-          reload_character={this.getCharacter} reload_equipment={this.getEquipment}
-          reload_user={this.getUserStats}
-          set_popup={this.setPopup} />
+        <>
+          <Container className={styles.stat_table} >
+            <Row className="d-flex justify-content-center">
+              <Col md={8}>
+                <UserStatTable user_stats={this.state.user_stats} />
+              </Col>
+            </Row>
+          </Container>
+          <CharacterDisplay character={this.state.character}
+            server_data={this.props.server_data} equipment={this.state.equipment}
+            user_stats={this.state.user_stats}
+            reload_character={this.getCharacter} reload_equipment={this.getEquipment}
+            reload_user={this.getUserStats}
+            set_popup={this.setPopup} />
+        </>
       )
     }
 

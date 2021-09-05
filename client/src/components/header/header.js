@@ -38,6 +38,7 @@ const Header = ({ discord_user, server_data }) => {
               <Nav.Link href="/gacha">Gacha</Nav.Link>
               <Nav.Link href="/daily">Daily</Nav.Link>
               <Nav.Link href="/leaderboard">Leaderboard</Nav.Link>
+              <Nav.Link href="/support">Support</Nav.Link>
             </Nav>
             <Nav>
               <NavDropdown title={<DiscordProfile discord_user={discord_user}/>} id="collasible-nav-dropdown">

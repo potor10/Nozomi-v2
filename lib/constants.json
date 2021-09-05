@@ -48,15 +48,6 @@
     "6": "equip_slot_6"
   },
 
-  "MANA_TO_XP": 0.375,
-
-  "NUMBER_TO_SKILL": { 
-    "101": "union_burst", 
-    "201": "main_skill_1", 
-    "202": "main_skill_2", 
-    "301": "ex_skill_1"
-  },
-
   "STAT_DISPLAY_NAMES": {
     "hp": "HP",
     "atk": "Physical Attack",
@@ -91,6 +82,22 @@
     "14": "don't know"
   },
 
-  "SKILL_NAMES": ["union_burst", "main_skill_1", "main_skill_2", "ex_skill_1"]
+  "SKILL_NAMES": ["union_burst", "main_skill_1", "main_skill_2", "ex_skill_1"],
+
+  "SKILL_TO_NUMBER": {
+    "union_burst": 101, 
+    "main_skill_1": 201,
+    "main_skill_2": 202,
+    "ex_skill_1": 301 
+  },
+
+  "NUMBER_TO_SKILL": { 
+    "101": "union_burst", 
+    "201": "main_skill_1", 
+    "202": "main_skill_2", 
+    "301": "ex_skill_1"
+  },
+
+  "MANA_TO_XP": 0.375
 
 }

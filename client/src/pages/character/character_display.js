@@ -14,9 +14,6 @@ class CharacterDisplay extends Component {
     super(props)
     this.state = {}
 
-    this.state.unit_profile = `/images/unit/thumb_unit_profile_` + 
-      `${this.props.character.base_id}${(this.props.character.rarity < 3) ? 1 : 3}1.png`
-
     let can_rank_up = true
     for (let i = 1; i <= 6; i++) {
       if (this.props.character[constants.NUMBER_TO_EQUIP[i]] === 0) {
@@ -81,17 +78,20 @@ class CharacterDisplay extends Component {
   }
 
   render() {
+    let unit_profile = `/images/unit/thumb_unit_profile_` + 
+      `${this.props.character.base_id}${(this.props.character.rarity < 3) ? 1 : 3}1.png`
+
     return (
       <Container className={styles.character_wrapper}>
-        <Row style={{backgroundImage: `url(${this.state.unit_profile})`}} 
+        <Row style={{backgroundImage: `url(${unit_profile})`}} 
           className={`${styles.character_background} text-center d-flex`}>
-          <Col md={6} style={{backgroundImage: `url(${this.state.unit_profile})`}} 
+          <Col md={6} style={{backgroundImage: `url(${unit_profile})`}} 
             className={styles.pad_left}/>
           <Col md={6} className={styles.character_data}>
             <h1 className={styles.character_name}>{this.props.character.name}</h1>
             <span className={styles.badge_wrapper}>
               <Badge style={{ backgroundColor: lighten('#F3C2E2', 
-                -50 + (10) * this.props.character.promotion_level) }}
+                -50 + (5) * this.props.character.promotion_level) }}
                 className={styles.character_rank}>Rank {this.props.character.promotion_level}</Badge>
               <Badge style={{ backgroundColor: lighten('#DCC8F5', 
                 -50 + this.props.character.promotion_level)}}
@@ -117,6 +117,9 @@ class CharacterDisplay extends Component {
             </div>
           </Col>
         </Row>
+        <UpgradeDisplay character={this.props.character} server_data={this.props.server_data} 
+          user_stats={this.props.user_stats} reload_character={this.props.reload_character} 
+          reload_user={this.props.reload_user} />
         <Row>
           <Col className="text-center">
             <h1>Stats</h1>
@@ -135,9 +138,6 @@ class CharacterDisplay extends Component {
             </Table>
           </Col>
         </Row>
-        <UpgradeDisplay character={this.props.character} server_data={this.props.server_data} 
-          user_stats={this.props.user_stats} reload_character={this.props.reload_character} 
-          reload_user={this.props.reload_user} />
       </Container>
     )
   }
