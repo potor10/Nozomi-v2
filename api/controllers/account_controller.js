@@ -65,8 +65,8 @@ exports.get_all = async (req, res) => {
 
 exports.daily = async (req, res) => {
   if (req.session.login_status === true) {
-    if (req.session.mutual_guilds[req.params.server_id] !== undefined) {
-      const account_db = new AccountDatabase(req.params.server_id, master_db)
+    if (req.session.mutual_guilds[req.body.server_id] !== undefined) {
+      const account_db = new AccountDatabase(req.body.server_id, master_db)
       console.log(req.session.user_data.id)
       if (account_db.daily(req.session.user_data.id)) {
         res.status(200).json({ success: true })

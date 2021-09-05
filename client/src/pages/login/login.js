@@ -20,7 +20,9 @@ const LoginMain = () => {
 const About = () => {
   return(
     <Row className="d-flex justify-content-center">
-      <p>wtf who said u needed help</p>
+      <p>Hey, Potor here.</p>
+      <p>You might know me as the one who likes your guildhouse in Princess Connect Re:Dive</p>
+      <p>Nozomi Bot was created and designed to be a fully featured gacha bot</p>
       <a className={`${styles.login_button} btn btn-dark`} href="/">Back</a>
     </Row>
   )

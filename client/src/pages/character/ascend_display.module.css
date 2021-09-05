@@ -1,0 +1,40 @@
+.ascend_button_wrapper {
+  display: inline-block;
+  margin: 5px 0 0px 0;
+}
+
+.ascend_text {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.ascend_button {
+  width: 150px;
+}
+
+.ascend_button_active {
+  animation: color_shift 2s alternate infinite;
+}
+
+.ascend_button_active:hover {
+  animation: none;
+  color: white;
+}
+
+@keyframes color_shift {
+  from {background-color:#0dcaf0;}
+  to {background-color: #94e8f9;}
+}
+
+.ascend_button {
+  margin-bottom: 10px;
+}
+
+.star_level {
+
+}
+
+.blurb {
+  display: block;
+  margin: 10px;
+}

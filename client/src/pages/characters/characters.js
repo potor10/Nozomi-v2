@@ -128,7 +128,7 @@ class Characters extends Component {
 
       for(const idx in characters) {
         const max_rarity_res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/masterdb/` +
-          `rarity/max/${characters[idx].unit_id}`, fetch_options)
+          `ascension/max/${characters[idx].unit_id}`, fetch_options)
         if (max_rarity_res.status === 200) {
           characters[idx].max_rarity = (await max_rarity_res.json()).max_rarity
         } else {

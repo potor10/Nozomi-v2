@@ -10,18 +10,15 @@ import styles from './profile.module.css'
 
 const StatsWindow = ({ user_stats }) => {
   const exp = user_stats.exp - user_stats.exp_current_level 
-  const needed_exp = user_stats.exp_next_level
+  const needed_exp = user_stats.exp_next_level - user_stats.exp_current_level 
 
   return (
     <div className={styles.stat_wrapper}>
       <Row className="text-center">
         <span>Level {user_stats.level}</span>
       </Row>
-      <Row>
-        <ProgressBar className={styles.progress_bar} animated variant="warning" 
-          now={exp/needed_exp} label={`${exp}/${needed_exp}`} />
-      </Row>
-      <Row>
+      <ProgressBar animated variant="warning" now={exp/needed_exp * 100} label={`${exp}/${needed_exp}`} />
+      <Row className="text-center">
         <Table striped bordered hover variant="dark" className={styles.stat_table}>
           <tbody>
             <tr>
@@ -77,6 +74,7 @@ class Profile extends Component {
 
         user_stats.exp_current_level = exp_data.exp_current_level
         user_stats.exp_next_level = exp_data.exp_next_level
+        console.log(exp_data.exp_next_level)
 
         this.setState({ user_stats: user_stats, stats_loaded: true })
         console.log(this.state.servers_loaded)

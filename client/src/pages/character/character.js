@@ -11,11 +11,15 @@ class Character extends Component {
       character_loaded: -1,
       equipment_loaded: -1,
       character: {},
-      equipment: {}
+      equipment: {},
+      user_stats: {},
+      popup: undefined,
     }
 
     this.getCharacter = this.getCharacter.bind(this)
     this.getEquipment = this.getEquipment.bind(this)
+    this.getUserStats = this.getUserStats.bind(this)
+    this.setPopup = this.setPopup.bind(this)
   }
 
   async getCharacter() {
@@ -32,7 +36,7 @@ class Character extends Component {
     if (character_res.status === 200) {
       const character = await character_res.json()
       const max_rarity_res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/` + 
-        `masterdb/rarity/max/${character.unit_id}`, fetch_options)
+        `masterdb/ascension/max/${character.unit_id}`, fetch_options)
       if (max_rarity_res.status === 200) {
         const max_rarity = (await max_rarity_res.json()).max_rarity
         character.max_rarity = max_rarity
@@ -84,12 +88,31 @@ class Character extends Component {
     }
   }
 
+  async getUserStats() {
+    const fetch_options = {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include'
+    }
+
+    const user_res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/account/me/${this.props.server_data.id}`, fetch_options)
+    if (user_res.status === 200) {
+      const user_stats = await user_res.json()
+      this.setState({ user_stats: user_stats })
+    }
+  }
+
   async componentDidMount() {
     await this.getCharacter()
     await this.getEquipment()
+    await this.getUserStats()
   }
 
-  characterSwitch() {
+  setPopup(popup) {
+    this.setState({ popup: popup })
+  }
+
+  characterRender() {
     if (this.state.character_loaded === 0) {
       return (<p>you don't own this character</p>)
     } 
@@ -103,7 +126,10 @@ class Character extends Component {
       return (
         <CharacterDisplay character={this.state.character}
           server_data={this.props.server_data} equipment={this.state.equipment}
-          reload_character={this.getCharacter} reload_equipment={this.getEquipment}/>
+          user_stats={this.state.user_stats}
+          reload_character={this.getCharacter} reload_equipment={this.getEquipment}
+          reload_user={this.getUserStats}
+          set_popup={this.setPopup} />
       )
     }
 
@@ -113,7 +139,8 @@ class Character extends Component {
   render() {
     return (
       <>
-        {this.characterSwitch()}
+        {this.characterRender()}
+        {this.state.popup}
       </>
     )
   }

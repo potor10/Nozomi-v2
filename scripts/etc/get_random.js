@@ -44,10 +44,10 @@ account_db.addAmulets(id, 50000)
 account_db.addMana(id, 10000000)
 
 try {
-  collection_db.increaseRarity(id, result[0].id)
-  collection_db.increaseRarity(id, result[0].id)
-  collection_db.increaseRarity(id, result[0].id)
-  collection_db.increaseRarity(id, result[0].id)
+  collection_db.ascendUnit(id, result[0].id)
+  collection_db.ascendUnit(id, result[0].id)
+  collection_db.ascendUnit(id, result[0].id)
+  collection_db.ascendUnit(id, result[0].id)
 } catch (e) {
 
 }

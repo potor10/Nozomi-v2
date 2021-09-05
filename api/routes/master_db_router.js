@@ -11,6 +11,6 @@ router.get('/equipment/needed/:unit_id/:promotion_level', master_db_controller.n
 
 router.get('/equipment/get/:equipment_id', master_db_controller.get_equipment)
 
-router.get('/rarity/max/:unit_id', master_db_controller.max_rarity)
+router.get('/ascension/max/:unit_id', master_db_controller.max_ascension)
 
 module.exports = router

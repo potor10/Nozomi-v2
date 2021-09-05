@@ -11,9 +11,9 @@ class SkillsDisplay extends Component {
 
   renderActions(skill_name) {
     let actions_render = []
-    this.props.skills[skill_name].actions.forEach(action =>{
+    this.props.skills[skill_name].actions.forEach((action, idx) =>{
       actions_render.push((
-        <small className={styles.skill_action}>{action}</small>
+        <small key={idx} className={styles.skill_action}>{action}</small>
       ))
     })
 
@@ -24,14 +24,26 @@ class SkillsDisplay extends Component {
     let skill_render = []
 
     for(const skill_name in this.props.skills) {
+      let upgrade_once = (<>Lv. <b>{this.props.character[skill_name]} (MAX)</b></>)
+      let upgrade_max = (<>Lv. <b>{this.props.character[skill_name]} (MAX)</b></>)
+
+      if (this.props.character[skill_name] < this.props.character.level) {
+        upgrade_once = (<>
+          Lv. <b>{this.props.character[skill_name]}</b> &#8250; Lv. <b>{this.props.character[skill_name] + 1}</b>
+        </>)
+        upgrade_max = (<>
+          Lv. <b>{this.props.character[skill_name]}</b> &#8250; Lv. <b>{this.props.character.level} (MAX)</b>
+        </>)
+      }
+
       if (this.props.character[skill_name] > 0) {
         skill_render.push((
-          <>
-            <Col md={3} key={skill_name} className="d-flex justify-content-center align-items-center">
+          <Row key={skill_name} className="text-left d-flex justify-content-center">
+            <Col md={2} className="d-flex justify-content-center">
               <img className={styles.skill_image} 
                 src={`/images/icon/icon_skill_${this.props.skills[skill_name].skill_data.icon_type}.png`}/>
             </Col>
-            <Col md={8} className={styles.skill_wrapper}>
+            <Col md={7} className={styles.skill_wrapper}>
               <div className={styles.skill_description}>
                 <div>
                   <h1 className={styles.skill_title}>{this.props.skills[skill_name].skill_data.name}</h1>
@@ -41,7 +53,19 @@ class SkillsDisplay extends Component {
                 {this.renderActions(skill_name)}
               </div>
             </Col>
-          </>
+            <Col md={3} className="text-center d-flex justify-content-center">
+              <div className={styles.skill_cost_wrapper}>
+                <span className={styles.skill_cost}>
+                  {upgrade_once}
+                </span>
+                <Button className={styles.skill_cost_button}>Cost</Button>
+                <span className={styles.skill_cost}>
+                  {upgrade_max}
+                </span>
+                <Button className={styles.skill_cost_button}>Cost</Button>
+              </div>
+            </Col>
+          </Row>
         ))
       } 
     }
@@ -52,11 +76,9 @@ class SkillsDisplay extends Component {
   render() {
     return (
       <Container>
-        <Row className="text-left d-flex justify-content-center">
-          <hr />
-          {this.renderSkills()}
-          <hr />
-        </Row>
+        <hr />
+        {this.renderSkills()}
+        <hr />
       </Container>
     )
   }

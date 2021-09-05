@@ -17,12 +17,17 @@ class Daily extends Component {
 
   async getDaily() {
     const fetch_options = {
-      method: 'GET',
+      method: 'POST',
       mode: 'cors',
-      credentials: 'include'
+      cache: 'no-cache',
+      credentials: 'include',
+      headers: {'Content-Type': 'application/json'},
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify({server_id: this.props.server_data.id})
     }
   
-    const res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/account/daily/${this.props.server_data.id}`, fetch_options)
+    const res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/account/daily`, fetch_options)
     if (res.status === 200 && (await res.json()).success) {
       this.setState({ daily: 1 })
     } else {

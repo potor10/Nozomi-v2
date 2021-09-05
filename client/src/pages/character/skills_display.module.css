@@ -1,5 +1,5 @@
 .skill_wrapper {
-  margin: 20px 0;
+  margin-bottom: 10px;
 }
 
 .skill_description {
@@ -9,11 +9,12 @@
 .skill_image {
   width: 100px;
   height: 100px;
+  margin: 10px 0;
 }
 
 .skill_title {
   font-size: 20px;
-  margin-top: 10px;
+  margin-top: 0;
   display: inline-block;
 }
 
@@ -23,4 +24,16 @@
 
 .skill_action {
   display: block;
+}
+
+.skill_cost_wrapper {
+  margin-bottom: 10px;
+}
+
+.skill_cost {
+  display: block;
+}
+
+.skill_cost_button {
+  margin-bottom: 10px;
 }

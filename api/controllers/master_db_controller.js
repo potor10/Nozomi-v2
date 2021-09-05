@@ -6,9 +6,8 @@ exports.exp = (req, res) => {
   if (req.session.login_status === true) {
     const exp_data = {
       exp_current_level: master_db.getExperienceTeamFromLevel(req.params.level).total_exp,
-      exp_next_level: master_db.getExperienceTeamFromLevel(req.params.level + 1).total_exp
+      exp_next_level: master_db.getExperienceTeamFromLevel(parseInt(req.params.level) + 1).total_exp
     }
-
     res.status(200).json(exp_data)
   } else {
     res.status(401).send('You Must Be Logged In')
@@ -42,11 +41,11 @@ exports.get_equipment = (req, res) => {
   }
 }
 
-exports.max_rarity = (req, res) => {
+exports.max_ascension = (req, res) => {
   if (req.session.login_status === true) {
     try {
-      const max_rarity = master_db.getMaxRarity(req.params.unit_id)
-      res.status(200).json(max_rarity)
+      const max_ascension = master_db.getMaxAscension(req.params.unit_id)
+      res.status(200).json(max_ascension)
     } catch (e) {
       res.status(e.getStatus()).send(e.getErrorMessage())
     }

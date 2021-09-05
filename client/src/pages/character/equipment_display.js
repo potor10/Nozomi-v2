@@ -11,9 +11,7 @@ class EquipmentDisplay extends Component {
     super(props)
     this.state = {
       equipment_loaded: false,
-      popup: undefined,
-      current_equipment: this.props.equipment,
-      user_stats: {}
+      current_equipment: this.props.equipment
     }
 
     for (let i = 1; i <= 6; i++) {
@@ -39,20 +37,6 @@ class EquipmentDisplay extends Component {
     )
   } 
 
-  async getUserStats() {
-    const fetch_options = {
-      method: 'GET',
-      mode: 'cors',
-      credentials: 'include'
-    }
-
-    const user_res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/account/me/${this.props.server_data.id}`, fetch_options)
-    if (user_res.status === 200) {
-      const user_stats = await user_res.json()
-      this.setState({ user_stats: user_stats })
-    }
-  }
-
   promptDescription(equipment_idx) { 
     let stats_array = []
     constants.STAT_NAMES.forEach(stat => {
@@ -75,7 +59,7 @@ class EquipmentDisplay extends Component {
           <tbody>
             <tr>
               <td>Your Jewels</td>
-              <td><b>{this.state.user_stats.jewels}</b>
+              <td><b>{this.props.user_stats.jewels}</b>
                 <img className="icon-sm" src={"/images/assets/jewel.png"} />
               </td>
             </tr>
@@ -111,7 +95,7 @@ class EquipmentDisplay extends Component {
       <tbody>
         <tr>
           <td>Your Jewels</td>
-          <td><b>{this.state.user_stats.jewels}</b>
+          <td><b>{this.props.user_stats.jewels}</b>
             <img className="icon-sm" src={"/images/assets/jewel.png"} />
           </td>
         </tr>
@@ -123,7 +107,7 @@ class EquipmentDisplay extends Component {
         </tr>
         <tr>
           <td>You Need</td>
-          <td><b>{Math.abs(this.state.user_stats.jewels - this.state[`equip_info_${equipment_idx}`].equip_data.cost)}</b>
+          <td><b>{Math.abs(this.props.user_stats.jewels - this.state[`equip_info_${equipment_idx}`].equip_data.cost)}</b>
             <img className="icon-sm" src={"/images/assets/jewel.png"} />
           </td>
         </tr>
@@ -147,41 +131,54 @@ class EquipmentDisplay extends Component {
   }
 
   async equipEquipment(equipment_idx) {
-    const fetch_options = {
-      method: 'GET',
-      mode: 'cors',
-      credentials: 'include'
-    }
-
-    const res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/` + 
-      `collection/equipment/equip/${this.props.server_data.id}/${this.props.character.unit_id}/${equipment_idx}`, 
-      fetch_options)
-
-    if (res.status === 200) {
-      const result = await res.json()
-      if (result.success) {
-        this.setState({
-          [`equip_status_${equipment_idx}`]: 1,
-          [`equip_src_${equipment_idx}`]: `/images/icon/icon_equipment_${this.state[`equip_info_${equipment_idx}`].equipment_id}.png`
-        })
-        this.props.reload_character()
-        this.checkRankUpStatus()
-        this.removePopup()
-        this.getUserStats() 
-      } else {
-        this.setState({
-          popup: (<PopUp title={() => this.failTitle(equipment_idx)} 
-            description={() => this.failDescription(equipment_idx)} 
-            hide_confirm={true} cancel={this.removePopup}/>)
+    if (this.props.user_stats.jewels >= this.state[`equip_info_${equipment_idx}`].equip_data.cost) {
+      const fetch_options = {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'include',
+        headers: {'Content-Type': 'application/json'},
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify({
+          server_id: this.props.server_data.id,
+          unit_id: this.props.character.unit_id,
+          equip_idx: equipment_idx 
         })
       }
+
+      const res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/collection/equipment/equip`, fetch_options)
+
+      if (res.status === 200) {
+        const result = await res.json()
+        if (result.success) {
+          this.setState({
+            [`equip_status_${equipment_idx}`]: 1,
+            [`equip_src_${equipment_idx}`]: `/images/icon/icon_equipment_${this.state[`equip_info_${equipment_idx}`].equipment_id}.png`
+          })
+          this.props.reload_character()
+          this.checkRankUpStatus()
+          this.removePopup()
+          this.props.reload_user() 
+        } else {
+          this.props.set_popup(
+            <PopUp title={() => this.failTitle(equipment_idx)} 
+            description={() => this.failDescription(equipment_idx)} 
+            hide_confirm={true} cancel={this.removePopup}/>)
+        }
+      } else {
+        this.removePopup()
+      }
     } else {
-      this.removePopup()
+      this.props.set_popup(
+        <PopUp title={() => this.failTitle(equipment_idx)} 
+        description={() => this.failDescription(equipment_idx)} 
+        hide_confirm={true} cancel={this.removePopup}/>)
     }
   }
 
   removePopup() {
-    this.setState({ popup : undefined })
+    this.props.set_popup(undefined)
   }
 
   getEquipmentData() {
@@ -211,16 +208,13 @@ class EquipmentDisplay extends Component {
   }
 
   requestEquipment (equipment_idx) {
-    this.setState({
-      popup: (<PopUp title={() => this.promptTitle(equipment_idx)} 
-        description={() => this.promptDescription(equipment_idx)} 
-        confirm={() => this.equipEquipment(equipment_idx)} cancel={this.removePopup}/>)
-    })
+    this.props.set_popup(<PopUp title={() => this.promptTitle(equipment_idx)} 
+      description={() => this.promptDescription(equipment_idx)} 
+      confirm={() => this.equipEquipment(equipment_idx)} cancel={this.removePopup}/>)
   }
 
   componentDidMount() {
     this.getEquipmentData()
-    this.getUserStats() 
   }
 
   componentDidUpdate() {
@@ -250,7 +244,6 @@ class EquipmentDisplay extends Component {
     return (
       <>
         {(this.state.equipment_loaded) ? (this.equipmentRender()) : (<Loading />) }
-        {this.state.popup}
       </>
     )
   }

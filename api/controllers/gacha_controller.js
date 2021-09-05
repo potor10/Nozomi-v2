@@ -8,10 +8,10 @@ const Gacha = require('../../lib/gacha')
 
 exports.pull_ten = async (req, res) => {
   if (req.session.login_status === true) {
-    if (req.session.mutual_guilds[req.params.server_id] !== undefined) {
-      const account_db = new AccountDatabase(req.params.server_id, master_db)
-      const collection_db = new CollectionDatabase(req.params.server_id, master_db, account_db)
-      const gacha = new Gacha(req.params.server_id, master_db, account_db, collection_db)
+    if (req.session.mutual_guilds[req.body.server_id] !== undefined) {
+      const account_db = new AccountDatabase(req.body.server_id, master_db)
+      const collection_db = new CollectionDatabase(req.body.server_id, master_db, account_db)
+      const gacha = new Gacha(req.body.server_id, master_db, account_db, collection_db)
       
       try {
         const pull_result = gacha.pullTen(req.session.user_data.id)

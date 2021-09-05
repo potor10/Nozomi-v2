@@ -35,14 +35,20 @@ class CharacterDisplay extends Component {
     this.setRankUp(false)
     
     const fetch_options = {
-      method: 'GET',
+      method: 'POST',
       mode: 'cors',
-      credentials: 'include'
+      cache: 'no-cache',
+      credentials: 'include',
+      headers: {'Content-Type': 'application/json'},
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify({
+        server_id: this.props.server_data.id,
+        unit_id: this.props.character.unit_id
+      })
     }
 
-    const res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/` + 
-      `collection/equipment/rank_up/${this.props.server_data.id}/${this.props.character.unit_id}`, 
-      fetch_options)
+    const res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/collection/equipment/rank_up`, fetch_options)
     if (res.status === 200) { 
       await this.props.reload_character()
       await this.props.reload_equipment()
@@ -105,21 +111,33 @@ class CharacterDisplay extends Component {
             </span>
             <div className={styles.equipment_wrapper}>
               <EquipmentDisplay character={this.props.character} server_data={this.props.server_data} 
-                equipment={this.props.equipment} rank_up={this.setRankUp} 
-                reload_character={this.props.reload_character} />
+                user_stats={this.props.user_stats} equipment={this.props.equipment} rank_up={this.setRankUp} 
+                reload_character={this.props.reload_character} reload_user={this.props.reload_user} 
+                set_popup={this.props.set_popup} />
             </div>
           </Col>
         </Row>
         <Row>
-          <Col>
+          <Col className="text-center">
+            <h1>Stats</h1>
             <Table striped bordered hover variant="dark">
               <tbody>
                 {this.createStatTable()}
               </tbody>
             </Table>
+            <Table striped bordered hover variant="dark">
+              <tbody>
+                <tr>
+                  <td>Total Power</td>
+                  <td>{this.props.character.total_power}</td>
+                </tr>
+              </tbody>
+            </Table>
           </Col>
         </Row>
-        <UpgradeDisplay character={this.props.character} server_data={this.props.server_data} />
+        <UpgradeDisplay character={this.props.character} server_data={this.props.server_data} 
+          user_stats={this.props.user_stats} reload_character={this.props.reload_character} 
+          reload_user={this.props.reload_user} />
       </Container>
     )
   }

@@ -3,13 +3,18 @@ import { Button } from 'react-bootstrap'
 
 const pullTen = async (server_data) => {
   const fetch_options = {
-    method: 'GET',
+    method: 'POST',
     mode: 'cors',
-    credentials: 'include'
+    cache: 'no-cache',
+    credentials: 'include',
+    headers: {'Content-Type': 'application/json'},
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: JSON.stringify({server_id: server_data.id})
   }
 
   console.log('hello!')
-  const res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/gacha/pullten/${server_data.id}`, fetch_options)
+  const res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/gacha/pullten`, fetch_options)
   if (res.status === 200) {
     let pull_result = await res.json()
     document.getElementById('result').innerHTML = JSON.stringify(pull_result)
