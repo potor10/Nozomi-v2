@@ -19,3 +19,10 @@ console.log(my_pull)
 import calculateStats from '../../lib/character/stats/calculate_stats.js'
 
 console.log(calculateStats(player_id, server_id, my_pull.unit_id))
+
+import CollectionDatabase from '../../lib/databases/collection_database.js'
+const collection_db = new CollectionDatabase(server_id)
+
+collection_db.getAllUnits(player_id).forEach(unit => {
+  calculateStats(player_id, server_id, unit.unit_id)
+})
