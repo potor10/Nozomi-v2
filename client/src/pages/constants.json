@@ -28,6 +28,8 @@
     "movementSpeed": "Movement Speed"
   },
 
+  "SKILL_NAMES": ["union_burst", "main_skill_1", "main_skill_2", "ex_skill_1"],
+
   "NUMBER_TO_EQUIP": {
     "1": "equip_slot_1", 
     "2": "equip_slot_2", 

@@ -8,6 +8,7 @@ import Loading from '../../components/loading/loading'
 import CharacterDisplay from './character_display'
 import UserStatTable from '../../components/user_stat_table/user_stat_table'
 
+import contants from '../constants.json'
 import styles from './character.module.css'
 
 class Character extends Component {
@@ -17,14 +18,20 @@ class Character extends Component {
     this.state = { 
       character_loaded: -1,
       equipment_loaded: -1,
+      skills_loaded: -1,
+      skills_cost_loaded: -1,
       character: {},
       equipment: {},
+      skills: {},
+      skills_cost: {},
+
       user_stats: {},
       popup: undefined,
     }
 
     this.getCharacter = this.getCharacter.bind(this)
     this.getEquipment = this.getEquipment.bind(this)
+    this.getSkills = this.getSkills.bind(this)
     this.getUserStats = this.getUserStats.bind(this)
     this.setPopup = this.setPopup.bind(this)
   }
@@ -95,6 +102,67 @@ class Character extends Component {
     }
   }
 
+  async getSkills() {
+    const fetch_options = {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include'
+    }
+  
+    const skills_res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/` + 
+      `collection/skills/all/${this.props.server_data.id}/${this.state.character.unit_id}`, fetch_options)
+
+    if (skills_res.status === 200) {
+      const skills = await skills_res.json()
+      for (const skill_name in skills) {
+        this.getSkillCost(skill_name)
+      }
+      this.setState({ skills_loaded: 1, skills: skills })
+    } else {
+      this.setState({ skills_loaded: 0 })
+    }
+  }
+
+  async getSkill(skill_name) {
+    const fetch_options = {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include'
+    }
+  
+    const skill_res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/` + 
+      `collection/skills/get/${this.props.server_data.id}/${this.state.character.unit_id}/${skill_name}`, 
+      fetch_options)
+
+    if (skill_res.status === 200) {
+      const skill = await skill_res.json()
+      let new_skills = this.state.skills
+      new_skills[skill_name] = skill
+      this.getSkillCost(skill)
+      this.setState({ skills_loaded: 1, skills: new_skills })
+    } else {
+      this.setState({ skills_loaded: 0 })
+    }
+  }
+
+  async getSkillCost(skill_name) {
+    const fetch_options = {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include'
+    }
+  
+    const skill_cost_res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/` + 
+      `collection/skills/level/cost/${this.props.server_data.id}/${this.state.character.unit_id}/${skill_name}`, 
+      fetch_options)
+    if (skill_cost_res.status === 200) {
+      const skill_cost = await skill_cost_res.json()
+      let new_skills_cost = this.state.skills_cost
+      new_skills_cost[skill_name] = skill_cost
+      this.setState({ skills_cost: new_skills_cost })
+    }
+  }
+
   async getUserStats() {
     const fetch_options = {
       method: 'GET',
@@ -112,6 +180,7 @@ class Character extends Component {
   async componentDidMount() {
     await this.getCharacter()
     await this.getEquipment()
+    await this.getSkills()
     await this.getUserStats()
   }
 
@@ -128,8 +197,13 @@ class Character extends Component {
       return (<p>there was an error processing the equipment</p>)
     }
 
+    if (this.state.skills_loaded === 0) {
+      return (<p>there was an error processing the skills</p>)
+    }
+
     if (this.state.character_loaded === 1 && 
-      this.state.equipment_loaded === 1) {
+      this.state.equipment_loaded === 1 && 
+      this.state.skills_loaded === 1) {
       return (
         <>
           <Container className={styles.stat_table} >
@@ -141,9 +215,9 @@ class Character extends Component {
           </Container>
           <CharacterDisplay character={this.state.character}
             server_data={this.props.server_data} equipment={this.state.equipment}
-            user_stats={this.state.user_stats}
+            skills={this.state.skills} skills_cost={this.state.skills_cost} user_stats={this.state.user_stats}
             reload_character={this.getCharacter} reload_equipment={this.getEquipment}
-            reload_user={this.getUserStats}
+            reload_user={this.getUserStats} reload_skills={this.getSkills}
             set_popup={this.setPopup} />
         </>
       )

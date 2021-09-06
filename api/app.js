@@ -1,6 +1,7 @@
 // Dependencies
 const express = require('express')
 const session = require('express-session')
+const rateLimit = require("express-rate-limit")
 const cors = require('cors')
 const path = require('path')
 
@@ -28,8 +29,17 @@ module.exports = class NozomiApi {
 
     this._app.use(cors(this._CORS_OPTIONS))
     this.useSession()
+    this.useLimiter()
     this.useStatic()
     this.useRouter()
+  }
+
+  useLimiter() {
+    const api_limiter = rateLimit({
+      windowMs: 1000, // 15 minutes
+      max: 50
+    });
+    // this._app.use("/api/", api_limiter);
   }
 
   useRouter() {

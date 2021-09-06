@@ -38,7 +38,7 @@ class AscendDisplay extends Component {
           ascend_cost_loaded: 1
         })
       } else {
-        this.setState({ ascend_cost_loaded: 0 })
+
       }
     } else {
       this.setState({ ascend_cost_loaded: 1 })

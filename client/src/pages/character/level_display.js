@@ -8,8 +8,8 @@ class LevelDisplay extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      level_cost: 0,
-      level_max_cost: 0,
+      unit_level_cost: 0,
+      unit_max_cost: 0,
       level_cost_loaded: -1
     }
   }
@@ -23,14 +23,11 @@ class LevelDisplay extends Component {
   
     const level_cost_res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/` + 
       `collection/characters/level/cost/${this.props.server_data.id}/${this.props.character.unit_id}`, fetch_options)
-    const level_max_cost_res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/` + 
-      `collection/characters/level/max_cost/${this.props.server_data.id}/${this.props.character.unit_id}`, fetch_options)
-    if (level_cost_res.status === 200 && level_max_cost_res.status ===200) {
+    if (level_cost_res.status === 200) {
       const level_cost = await level_cost_res.json()
-      const level_max_cost = await level_max_cost_res.json()
       this.setState({ 
-        level_cost: level_cost, 
-        level_max_cost: level_max_cost,
+        unit_level_cost: level_cost.unit_level_cost, 
+        unit_max_cost: level_cost.unit_max_cost,
         level_cost_loaded: 1
       })
     } else {
@@ -39,9 +36,9 @@ class LevelDisplay extends Component {
   }
 
   async levelUp(max) {
-    let mana_cost = this.state.level_cost
+    let mana_cost = this.state.unit_level_cost
     if (max) {
-      mana_cost = this.state.level_max_cost
+      mana_cost = this.state.unit_max_cost
     } 
 
     if (this.props.user_stats.mana >= mana_cost) {
@@ -82,8 +79,8 @@ class LevelDisplay extends Component {
   }
 
   renderButtons() {
-    let can_buy_level = this.props.user_stats.mana >= this.state.level_cost
-    let can_buy_max = this.props.user_stats.mana >= this.state.level_max_cost
+    let can_buy_level = this.props.user_stats.mana >= this.state.unit_level_cost
+    let can_buy_max = this.props.user_stats.mana >= this.state.unit_max_cost
 
     if (this.props.character.level < this.props.user_stats.level) {
       return (
@@ -96,7 +93,7 @@ class LevelDisplay extends Component {
               disabled={!can_buy_level} 
               className={[styles.level_button, (can_buy_level) ? (styles.level_button_active) : (undefined)]}>
               <span className="d-flex align-items-center justify-content-center">
-                {this.state.level_cost}&nbsp;<img className="icon-sm" src="/images/assets/mana.png"/>
+                {this.state.unit_level_cost}&nbsp;<img className="icon-sm" src="/images/assets/mana.png"/>
               </span>
             </Button>
           </div>
@@ -108,7 +105,7 @@ class LevelDisplay extends Component {
               disabled={!can_buy_max} 
               className={[styles.level_button, (can_buy_level) ? (styles.level_button_active) : (undefined)]}>
               <span className="d-flex align-items-center justify-content-center">
-                {this.state.level_max_cost}&nbsp;<img className="icon-sm" src="/images/assets/mana.png"/>
+                {this.state.unit_max_cost}&nbsp;<img className="icon-sm" src="/images/assets/mana.png"/>
               </span>
             </Button>
           </div>

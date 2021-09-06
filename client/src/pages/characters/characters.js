@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Pagination, Container, Row, Col } from 'react-bootstrap'
+import { Pagination, Container, Row, Col, InputGroup, FormControl, Button } from 'react-bootstrap'
 import Loading from '../../components/loading/loading'
 import StarLevel from '../../components/star_level/star_level'
 
@@ -108,21 +108,23 @@ class Characters extends Component {
       characters_loaded: false,
       characters: {},
       sort_id: 0,
+      search_term: '',
       page_max: 12,
       total_pages: 0
     }
   }
 
-  async getCharacters(sort_id) {
+  async getCharacters(sort_id, search_term) {
     this.setState({ characters_loaded: false })
     const fetch_options = {
       method: 'GET',
       mode: 'cors',
       credentials: 'include'
     }
-  
+
     const characters_res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/` + 
-      `collection/characters/all/${this.props.server_data.id}/${sort_id}`, fetch_options)
+      `collection/characters/all/${this.props.server_data.id}/${sort_id}/${search_term}`, 
+      fetch_options)
     if (characters_res.status === 200) {
       const characters = await characters_res.json()
 
@@ -145,12 +147,17 @@ class Characters extends Component {
   }
 
   componentDidMount() {
-    this.getCharacters(0)
+    this.getCharacters(this.state.sort_id, this.state.search_term)
   }
 
   setSort(sort_id) {
     this.setState({ sort_id: sort_id })
-    this.getCharacters(sort_id)
+    this.getCharacters(sort_id, this.state.search_term)
+  }
+
+  setSearch(search_term) {
+    this.setState({ search_term: search_term })
+    this.getCharacters(this.state.sort_id, search_term)
   }
 
   setPageMax(max) {
@@ -165,7 +172,6 @@ class Characters extends Component {
       <>
         <Container className={styles.settings_wrapper}>
           <Row className="text-center">
-            <Col md={2} />
             <Col md={4}>
               <h1 className={styles.settings_title}>Sort By</h1>
               <div className="d-flex justify-content-center align-items-center">
@@ -204,7 +210,19 @@ class Characters extends Component {
                 </Pagination>
               </div>
             </Col>
-            <Col md={2} />
+            <Col md={4  }> 
+              <InputGroup className="mb-3">
+                <FormControl id="search" placeholder="search" aria-label="search" aria-describedby="search" />
+                <Button onClick={() => {
+                    const search_term = document.getElementById('search').value
+                    console.log(search_term)
+                    this.setSearch(search_term)
+                  }} 
+                  variant="outline-secondary">
+                  Search
+                </Button>
+              </InputGroup>
+            </Col>
           </Row>
         </Container>
         {(this.state.characters_loaded) ? (

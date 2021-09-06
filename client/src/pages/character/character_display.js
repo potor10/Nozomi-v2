@@ -49,6 +49,7 @@ class CharacterDisplay extends Component {
     if (res.status === 200) { 
       await this.props.reload_character()
       await this.props.reload_equipment()
+      await this.props.reload_skills()
     }
   }
 
@@ -118,8 +119,9 @@ class CharacterDisplay extends Component {
           </Col>
         </Row>
         <UpgradeDisplay character={this.props.character} server_data={this.props.server_data} 
-          user_stats={this.props.user_stats} reload_character={this.props.reload_character} 
-          reload_user={this.props.reload_user} />
+          skills={this.props.skills} skills_cost={this.props.skills_cost} user_stats={this.props.user_stats} 
+          reload_character={this.props.reload_character} reload_user={this.props.reload_user} 
+          reload_skills={this.props.reload_skills} />
         <Row>
           <Col className="text-center">
             <h1>Stats</h1>

@@ -11,7 +11,8 @@ exports.get_all_units = async (req, res) => {
       const account_db = new AccountDatabase(req.params.server_id, master_db)
       const collection_db = new CollectionDatabase(req.params.server_id, master_db, account_db)
       try {
-        const all_units = collection_db.getAllUnits(req.session.user_data.id, parseInt(req.params.sort_id))
+        const all_units = collection_db.getAllUnits(req.session.user_data.id, 
+          parseInt(req.params.sort_id), req.params.search_term)
         res.status(200).json(all_units)
       } catch (e) {
         console.log(e)
@@ -132,31 +133,14 @@ exports.get_skill_cost = async (req, res) => {
       const account_db = new AccountDatabase(req.params.server_id, master_db)
       const collection_db = new CollectionDatabase(req.params.server_id, master_db, account_db)
       try {
-        const skill_cost = collection_db.levelUpSkillCost(req.session.user_data.id, 
+        const skill_level_cost = collection_db.levelUpSkillCost(req.session.user_data.id, 
           req.params.unit_id, req.params.skill_name, false)
-        res.status(200).json(skill_cost)
-      } catch (e) {
-        console.log(e)
-        res.status(e.getStatus()).send(e.getErrorMessage())
-      }
-      account_db.close()
-      collection_db.close()
-    } else {
-      res.status(400).send('Please Select A Valid Server')
-    }
-  } else {
-    res.status(401).send('You Must Be Logged In')
-  }
-}
-
-exports.get_skill_max_cost = async (req, res) => {
-  if (req.session.login_status === true) {
-    if (req.session.mutual_guilds[req.params.server_id] !== undefined) {
-      const account_db = new AccountDatabase(req.params.server_id, master_db)
-      const collection_db = new CollectionDatabase(req.params.server_id, master_db, account_db)
-      try {
-        const skill_cost = collection_db.levelUpSkillCost(req.session.user_data.id, 
+        const skill_max_cost = collection_db.levelUpSkillCost(req.session.user_data.id, 
           req.params.unit_id, req.params.skill_name, true)
+        const skill_cost = {
+          skill_level_cost: skill_level_cost,
+          skill_max_cost: skill_max_cost
+        }
         res.status(200).json(skill_cost)
       } catch (e) {
         console.log(e)
@@ -178,30 +162,13 @@ exports.get_unit_level_cost = async (req, res) => {
       const account_db = new AccountDatabase(req.params.server_id, master_db)
       const collection_db = new CollectionDatabase(req.params.server_id, master_db, account_db)
       try {
-        const cost = collection_db.levelUpCost(req.session.user_data.id, req.params.unit_id, false)
-        res.status(200).json(cost)
-      } catch (e) {
-        console.log(e)
-        res.status(e.getStatus()).send(e.getErrorMessage())
-      }
-      account_db.close()
-      collection_db.close()
-    } else {
-      res.status(400).send('Please Select A Valid Server')
-    }
-  } else {
-    res.status(401).send('You Must Be Logged In')
-  }
-}
-
-exports.get_unit_level_max_cost = async (req, res) => {
-  if (req.session.login_status === true) {
-    if (req.session.mutual_guilds[req.params.server_id] !== undefined) {
-      const account_db = new AccountDatabase(req.params.server_id, master_db)
-      const collection_db = new CollectionDatabase(req.params.server_id, master_db, account_db)
-      try {
-        const cost = collection_db.levelUpCost(req.session.user_data.id, req.params.unit_id, true)
-        res.status(200).json(cost)
+        const unit_level_cost = collection_db.levelUpCost(req.session.user_data.id, req.params.unit_id, false)
+        const unit_max_cost = collection_db.levelUpCost(req.session.user_data.id, req.params.unit_id, true)
+        const level_cost = {
+          unit_level_cost: unit_level_cost,
+          unit_max_cost: unit_max_cost
+        }
+        res.status(200).json(level_cost)
       } catch (e) {
         console.log(e)
         res.status(e.getStatus()).send(e.getErrorMessage())

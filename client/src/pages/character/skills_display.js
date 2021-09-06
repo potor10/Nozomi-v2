@@ -7,120 +7,12 @@ import styles from './skills_display.module.css'
 class SkillsDisplay extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      skill_cost: {},
-      skills_loaded: -1,
-      skills: {}
-    }
-  }
-
-  async getSkills() {
-    const fetch_options = {
-      method: 'GET',
-      mode: 'cors',
-      credentials: 'include'
-    }
-  
-    const skills_res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/` + 
-      `collection/skills/all/${this.props.server_data.id}/${this.props.character.unit_id}`, fetch_options)
-
-    if (skills_res.status === 200) {
-      const skills = await skills_res.json()
-      console.log(skills)
-      this.setState({ skills: skills })
-      await this.getAllSkillsCost()
-    } else {
-      this.setState({ skills_loaded: 0 })
-    }
-  }
-
-  async getAllSkillsCost() {
-    for (const skill_name in this.state.skills) {
-      if (this.props.character[skill_name] < this.props.character.level) {
-        const fetch_options = {
-          method: 'GET',
-          mode: 'cors',
-          credentials: 'include'
-        }
-      
-        const skill_cost_res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/` + 
-          `collection/skills/level/cost/${this.props.server_data.id}/${this.props.character.unit_id}/${skill_name}`, 
-          fetch_options)
-        const skill_max_res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/` + 
-          `collection/skills/level/max_cost/${this.props.server_data.id}/${this.props.character.unit_id}/${skill_name}`, 
-          fetch_options)
-
-        if (skill_cost_res.status === 200 && skill_max_res.status === 200) {
-          const skill_level_cost = await skill_cost_res.json()
-          const skill_max_cost = await skill_max_res.json()
-          let new_skills = this.state.skills 
-          new_skills[skill_name].skill_level_cost = skill_level_cost
-          new_skills[skill_name].skill_max_cost = skill_max_cost
-          this.setState({ skills_loaded: 1, skills: new_skills })
-        } else {
-          this.setState({ skills_loaded: 0 })
-          break
-        }
-      }
-    }
-  }
-
-  async getSkill(skill_name) {
-    const fetch_options = {
-      method: 'GET',
-      mode: 'cors',
-      credentials: 'include'
-    }
-  
-    const skill_res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/` + 
-      `collection/skills/get/${this.props.server_data.id}/${this.props.character.unit_id}/${skill_name}`, fetch_options)
-
-    if (skill_res.status === 200) {
-      const skill = await skill_res.json()
-      let new_skills = this.state.skills
-      new_skills[skill_name] = skill
-      this.setState({ skills: new_skills })
-      await this.getSkillCost(skill_name)
-    } else {
-      this.setState({ skills_loaded: 0 })
-    }
-  }
-
-  async getSkillCost(skill_name) {
-    if (this.props.character[skill_name] < this.props.character.level) {
-      const fetch_options = {
-        method: 'GET',
-        mode: 'cors',
-        credentials: 'include'
-      }
-    
-      const skill_cost_res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/` + 
-        `collection/skills/level/cost/${this.props.server_data.id}/${this.props.character.unit_id}/${skill_name}`, 
-        fetch_options)
-      const skill_max_res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/` + 
-        `collection/skills/level/max_cost/${this.props.server_data.id}/${this.props.character.unit_id}/${skill_name}`, 
-        fetch_options)
-
-      if (skill_cost_res.status === 200 && skill_max_res.status === 200) {
-        const skill_level_cost = await skill_cost_res.json()
-        const skill_max_cost = await skill_max_res.json()
-        let new_skills = this.state.skills 
-        new_skills[skill_name].skill_level_cost = skill_level_cost
-        new_skills[skill_name].skill_max_cost = skill_max_cost
-        this.setState({ skills_loaded: 1, skills: new_skills })
-      } else {
-        this.setState({ skills_loaded: 0 })
-      }
-    }
-  }
-
-  componentDidMount() {
-    this.getSkills()
+    this.state = {}
   }
 
   renderActions(skill_name) {
     let actions_render = []
-    this.state.skills[skill_name].actions.forEach((action, idx) =>{
+    this.props.skills[skill_name].actions.forEach((action, idx) =>{
       actions_render.push((
         <small key={idx} className={styles.skill_action}>{action}</small>
       ))
@@ -130,13 +22,14 @@ class SkillsDisplay extends Component {
   }
 
   renderButtons(skill_name) {
-    let can_buy_level = this.props.user_stats.mana >= this.state.skills[skill_name].skill_level_cost
-    let can_buy_max = this.props.user_stats.mana >= this.state.skills[skill_name].skill_max_cost
-
+    console.log(this.props.skills_cost)
     let upgrade_once = (<>Lv. <b>{this.props.character[skill_name]} (MAX)</b></>)
     let upgrade_max = (<>Lv. <b>{this.props.character[skill_name]} (MAX)</b></>)
 
     if (this.props.character[skill_name] < this.props.character.level) {
+      let can_buy_level = this.props.user_stats.mana >= this.props.skills_cost[skill_name].skill_level_cost
+      let can_buy_max = this.props.user_stats.mana >= this.props.skills_cost[skill_name].skill_max_cost
+  
       upgrade_once = (<>Lv. <b>{this.props.character[skill_name]}</b> &#8250; Lv. <b>{this.props.character[skill_name] + 1}</b></>)
       upgrade_max = (<>Lv. <b>{this.props.character[skill_name]}</b> &#8250; Lv. <b>{this.props.character.level} (MAX)</b></>)
       
@@ -146,11 +39,11 @@ class SkillsDisplay extends Component {
             <span className={styles.skill_level_text}>
               {upgrade_once}
             </span>
-            <Button onClick={() => { return true}} variant={(can_buy_level) ? "info" : "secondary"}
+            <Button onClick={() => this.props.level_up_skill(skill_name, false)} variant={(can_buy_level) ? "info" : "secondary"}
               disabled={!can_buy_level} 
               className={[styles.skill_level_button, (can_buy_level) ? (styles.skill_level_button_active) : (undefined)]}>
               <span className="d-flex align-items-center justify-content-center">
-                {this.state.skills[skill_name].skill_level_cost}&nbsp;<img className="icon-sm" src="/images/assets/mana.png"/>
+                {this.props.skills_cost[skill_name].skill_level_cost}&nbsp;<img className="icon-sm" src="/images/assets/mana.png"/>
               </span>
             </Button>
           </div>
@@ -158,11 +51,11 @@ class SkillsDisplay extends Component {
             <span className={styles.skill_level_text}>
               {upgrade_max}
             </span>
-            <Button onClick={() => {return true}} variant={(can_buy_max) ? "info" : "secondary"}
+            <Button onClick={() => this.props.level_up_skill(skill_name, true)} variant={(can_buy_max) ? "info" : "secondary"}
               disabled={!can_buy_max} 
               className={[styles.skill_level_button, (can_buy_level) ? (styles.skill_level_button_active) : (undefined)]}>
               <span className="d-flex align-items-center justify-content-center">
-                {this.state.skills[skill_name].skill_max_cost}&nbsp;<img className="icon-sm" src="/images/assets/mana.png"/>
+                {this.props.skills_cost[skill_name].skill_max_cost}&nbsp;<img className="icon-sm" src="/images/assets/mana.png"/>
               </span>
             </Button>
           </div>
@@ -187,7 +80,6 @@ class SkillsDisplay extends Component {
               </span>
             </Button>
           </div>
-          <small className={styles.blurb}>Increase Your Character Level To Continue Upgrading</small>
         </div>
       )
     }
@@ -195,22 +87,22 @@ class SkillsDisplay extends Component {
 
   renderSkillTable() {
     let skill_render = []
-
-    for(const skill_name in this.state.skills) {
+    console.log(this.props.skills)
+    for(const skill_name in this.props.skills) {
       if (this.props.character[skill_name] > 0) {
         skill_render.push((
           <Row key={skill_name} className="text-left d-flex justify-content-center">
-            <Col md={2} className="d-flex justify-content-center">
+            <Col md={2} className="d-flex justify-content-center align-items-center">
               <img className={styles.skill_image} 
-                src={`/images/icon/icon_skill_${this.state.skills[skill_name].skill_data.icon_type}.png`}/>
+                src={`/images/icon/icon_skill_${this.props.skills[skill_name].skill_data.icon_type}.png`}/>
             </Col>
             <Col md={7} className={styles.skill_wrapper}>
               <div className={styles.skill_description}>
                 <div>
-                  <h1 className={styles.skill_title}>{this.state.skills[skill_name].skill_data.name}</h1>
+                  <h1 className={styles.skill_title}>{this.props.skills[skill_name].skill_data.name}</h1>
                   <Badge className={styles.skill_level}>Lv. {this.props.character[skill_name]}</Badge>
                 </div>
-                <span>{this.state.skills[skill_name].skill_data.description}</span>
+                <span>{this.props.skills[skill_name].skill_data.description}</span>
                 {this.renderActions(skill_name)}
               </div>
             </Col>
@@ -225,22 +117,11 @@ class SkillsDisplay extends Component {
     return skill_render
   }
 
-  renderSkills() {
-    switch (this.state.skills_loaded) {
-      case 0:
-        return (<Loading />)
-      case 1:
-        return (this.renderSkillTable())
-      default:
-        return(<p>error loading skills</p>)
-    }
-  }
-
   render() {
     return (
       <Container>
         <hr />
-        {this.renderSkills()}
+        {this.renderSkillTable()}
         <hr />
       </Container>
     )
