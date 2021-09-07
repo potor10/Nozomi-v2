@@ -47,15 +47,10 @@ console.log(formatted_pull)
 
 import equip from '../../lib/character/upgrade/equip.js'
 equip(id, server_id, result[0].unit_id, 1)
-console.log(collection_db.getUnit(id, result[0].unit_id))
 equip(id, server_id, result[0].unit_id, 2)
-console.log(collection_db.getUnit(id, result[0].unit_id))
 equip(id, server_id, result[0].unit_id, 3)
-console.log(collection_db.getUnit(id, result[0].unit_id))
 equip(id, server_id, result[0].unit_id, 4)
-console.log(collection_db.getUnit(id, result[0].unit_id))
 equip(id, server_id, result[0].unit_id, 5)
-console.log(collection_db.getUnit(id, result[0].unit_id))
 equip(id, server_id, result[0].unit_id, 6)
 console.log(collection_db.getUnit(id, result[0].unit_id))
 
@@ -81,14 +76,21 @@ try {
 
 import levelUp from '../../lib/character/upgrade/level_up.js'
 
+console.log(user_db.getUser(id).mana)
 levelUp(id, server_id, result[0].unit_id)
+console.log(user_db.getUser(id).mana)
 levelUp(id, server_id, result[0].unit_id, true)
+console.log(user_db.getUser(id).mana)
 
 import skillUp from '../../lib/character/upgrade/skill_up.js'
 
+console.log(user_db.getUser(id).mana)
 skillUp(id, server_id, result[0].unit_id, 'union_burst')
+console.log(user_db.getUser(id).mana)
 skillUp(id, server_id, result[0].unit_id, 'main_skill_1')
+console.log(user_db.getUser(id).mana)
 skillUp(id, server_id, result[0].unit_id, 'union_burst', true)
+console.log(user_db.getUser(id).mana)
 
 import bondUp from '../../lib/character/upgrade/bond_up.js'
 bondUp(id, server_id, result[0].unit_id)
@@ -97,6 +99,26 @@ bondUp(id, server_id, result[0].unit_id)
 
 user_db.getUser('blegh')
 
-// console.log(collection_db.getAllSkillEffects(id, result[0].id))
-// console.log(collection_db.getSkillEffect(id, result[0].id, constants.SKILL_NAMES[1]))
-// console.log(collection_db.getSkillEffect(id, result[0].id, constants.SKILL_NAMES[2]))
+import skillData from '../../lib/character/skill/skill_data.js'
+console.log(skillData(id, server_id, result[0].unit_id))
+
+// Rank Up 8 times
+console.log('---RANKING UP---')
+for(let i = 0; i < 8; i++) {
+  for (let j = 1; j <= 6; j++) {
+    equip(id, server_id, result[0].unit_id, j)
+  }
+  rankUp(id, server_id, result[0].unit_id)
+}
+
+// Max Rarity
+try {
+  ascend(id, server_id, result[0].unit_id)
+  ascend(id, server_id, result[0].unit_id)
+  ascend(id, server_id, result[0].unit_id)
+} catch (e) {
+  console.log(e)
+  console.log('max rarity?')
+}
+
+console.log(skillData(id, server_id, result[0].unit_id))
