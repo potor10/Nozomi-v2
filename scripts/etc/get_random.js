@@ -1,78 +1,102 @@
 const server_id = 'lmfao'
-
-const constants = require('../../lib/constants.json')
-
-// Dependencies 
-const MasterDatabase = require('../../lib/master_database')
-const master_db = new MasterDatabase()
-
-const AccountDatabase = require('../../lib/account_database')
-const account_db = new AccountDatabase(server_id, master_db)
-account_db.reset()
-
-const CollectionDatabase = require('../../lib/collection_database')
-const collection_db = new CollectionDatabase(server_id, master_db, account_db)
-collection_db.reset()
-
 const id = 'abcacb'
 
-account_db.addAccount(id)
-account_db.addJewels(id, 1500)
-account_db.daily(id)
+// Dependencies 
+import MasterDatabase from '../../lib/databases/master_database.js'
+const master_db = new MasterDatabase()
 
-account_db.addExp(id, 500000000)
+import UserDatabase from '../../lib/databases/user_database.js'
+const user_db = new UserDatabase(server_id)
+user_db.initDatabase()
+user_db.resetDatabase()
 
-const Gacha = require('../../lib/gacha')
-const gacha = new Gacha(server_id, master_db, account_db, collection_db)
+import CollectionDatabase from '../../lib/databases/collection_database.js'
+const collection_db = new CollectionDatabase(server_id)
+collection_db.initDatabase()
+collection_db.resetDatabase()
 
-console.log(gacha.pullTen(id))
 
-let result = gacha.pullTen(id)
-console.log(result)
+user_db.addUser(id)
+user_db.setJewels(id, 150000)
 
-collection_db.equipEquipment(id, result[0].id, 1)
-collection_db.equipEquipment(id, result[0].id, 2)
-collection_db.equipEquipment(id, result[0].id, 3)
-collection_db.equipEquipment(id, result[0].id, 4)
-collection_db.equipEquipment(id, result[0].id, 5)
-collection_db.equipEquipment(id, result[0].id, 6)
-collection_db.rankUp(id, result[0].id)
-// collection_db.equipEquipment(id, result[0].id, 1)
+import daily from '../../lib/account/daily.js'
+daily(id, server_id)
 
-console.log(account_db.getUser(id).amulets)
-account_db.addAmulets(id, 50000)
-account_db.addMana(id, 10000000)
+import addExp from '../../lib/account/add_exp.js'
+addExp(id, server_id)
+addExp(id, server_id)
+addExp(id, server_id)
+addExp(id, server_id)
+addExp(id, server_id)
+addExp(id, server_id)
 
+import pullTen from '../../lib/gacha/pull_ten.js'
+pullTen(id, server_id, 20014)
+let result = pullTen(id, server_id, 20014)
+
+let formatted_pull = []
+result.forEach(pull => {
+  formatted_pull.push({
+    name: pull.unit_name,
+    rarity: pull.rarity,
+    dupe: pull.dupe
+  })
+})
+
+console.log(formatted_pull)
+
+import equip from '../../lib/character/upgrade/equip.js'
+equip(id, server_id, result[0].unit_id, 1)
+console.log(collection_db.getUnit(id, result[0].unit_id))
+equip(id, server_id, result[0].unit_id, 2)
+console.log(collection_db.getUnit(id, result[0].unit_id))
+equip(id, server_id, result[0].unit_id, 3)
+console.log(collection_db.getUnit(id, result[0].unit_id))
+equip(id, server_id, result[0].unit_id, 4)
+console.log(collection_db.getUnit(id, result[0].unit_id))
+equip(id, server_id, result[0].unit_id, 5)
+console.log(collection_db.getUnit(id, result[0].unit_id))
+equip(id, server_id, result[0].unit_id, 6)
+console.log(collection_db.getUnit(id, result[0].unit_id))
+
+import rankUp from '../../lib/character/upgrade/rank_up.js'
+console.log(rankUp(id, server_id, result[0].unit_id))
+console.log('---after rank up---')
+console.log(collection_db.getUnit(id, result[0].unit_id))
+
+console.log(user_db.getUser(id).amulets)
+user_db.setAmulets(id, 50000)
+user_db.setMana(id, 1000000)
+console.log(user_db.getUser(id).mana)
+
+import ascend from '../../lib/character/upgrade/ascend.js'
 try {
-  collection_db.ascendUnit(id, result[0].id)
-  collection_db.ascendUnit(id, result[0].id)
-  collection_db.ascendUnit(id, result[0].id)
-  collection_db.ascendUnit(id, result[0].id)
+  ascend(id, server_id, result[0].unit_id)
+  ascend(id, server_id, result[0].unit_id)
+  ascend(id, server_id, result[0].unit_id)
 } catch (e) {
-
+  console.log(e)
+  console.log('max rarity?')
 }
 
-console.log(collection_db.levelUpCost(id, result[0].id))
-collection_db.levelUpUnit(id, result[0].id)
-console.log(collection_db.levelUpCost(id, result[0].id, true))
-collection_db.levelUpUnit(id, result[0].id, true)
+import levelUp from '../../lib/character/upgrade/level_up.js'
 
-collection_db.levelUpSkill(id, result[0].id, 'union_burst')
-collection_db.levelUpSkill(id, result[0].id, 'main_skill_1')
+levelUp(id, server_id, result[0].unit_id)
+levelUp(id, server_id, result[0].unit_id, true)
 
-collection_db.levelUpSkill(id, result[0].id, 'union_burst', true)
+import skillUp from '../../lib/character/upgrade/skill_up.js'
 
-account_db.addJewels(id, 1500)
-collection_db.levelUpBond(id, result[0].id)
-collection_db.levelUpBond(id, result[0].id)
-collection_db.levelUpBond(id, result[0].id)
+skillUp(id, server_id, result[0].unit_id, 'union_burst')
+skillUp(id, server_id, result[0].unit_id, 'main_skill_1')
+skillUp(id, server_id, result[0].unit_id, 'union_burst', true)
 
-account_db.getUser('blegh')
+import bondUp from '../../lib/character/upgrade/bond_up.js'
+bondUp(id, server_id, result[0].unit_id)
+bondUp(id, server_id, result[0].unit_id)
+bondUp(id, server_id, result[0].unit_id)
 
-console.log(collection_db.getAllSkillEffects(id, result[0].id))
+user_db.getUser('blegh')
 
-
-console.log(collection_db.getSkillEffect(id, result[0].id, constants.SKILL_NAMES[1]))
-console.log(collection_db.getSkillEffect(id, result[0].id, constants.SKILL_NAMES[2]))
-
-collection_db.levelUpSkillCost(id, result[0].id, 'union_burst')
+// console.log(collection_db.getAllSkillEffects(id, result[0].id))
+// console.log(collection_db.getSkillEffect(id, result[0].id, constants.SKILL_NAMES[1]))
+// console.log(collection_db.getSkillEffect(id, result[0].id, constants.SKILL_NAMES[2]))

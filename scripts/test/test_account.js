@@ -4,7 +4,7 @@ const player_id = 'abcacb'
 import UserDatabase from '../../lib/databases/user_database.js'
 const user_db = new UserDatabase(server_id)
 user_db.initDatabase()
-user_db.reset()
+user_db.resetDatabase()
 
 user_db.addUser(player_id)
 user_db.setJewels(player_id, 1500)
