@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "type": "module",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "start": "node -r dotenv/config server.js"
+  },
   "dependencies": {
     "better-sqlite3": "^7.4.3",
     "cors": "^2.8.5",

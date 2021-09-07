@@ -1,74 +1,39 @@
+// Import Modules
 import React, { Component } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import Particles from 'react-particles-js'
 
-import Loading from '../../components/loading/loading'
-import logout from '../../lib/logout'
-import getAvatarUrl from '../../lib/get_avatar_url'
-import getGuildIconUrl from '../../lib/get_server_icon_url'
-
+// Import Styles
 import styles from './select_server.module.css'
 
-const setServer = (server_data) => {
-  localStorage.setItem('server_data', JSON.stringify(server_data))
-  window.location.href = '/'
-}
+// Import Components
+import ServerList from './select_server_components/list/server_list'
+import Loading from '../../components/loading/loading'
 
-const ServerList = ({ discord_guilds }) => {
-  console.log(discord_guilds)
-  return (
-    (discord_guilds.length > 0) ? (
-      <Container className={`${styles.server_select_menu} align-content-start`}>
-        {discord_guilds.map(guild => {
-          return (
-            <button className={styles.server_select_button} key={guild.id} onClick={() => setServer(guild)}>
-              <img className={styles.guild_icon} src={getGuildIconUrl(guild)} />
-              <span className={styles.guild_name}>{guild.name}</span>
-            </button>
-          )
-        })}
-      </Container>) : (
-      <small>No <b>Mutual Servers</b> With Nozomi</small>
-    )
-  )
-}
+// Import Functions
+import discordGuilds from '../../lib/discord/discord_guilds'
+import getAvatarUrl from '../../lib/url/get_avatar_url'
+import logout from '../../lib/user/logout'
 
 class SelectServer extends Component {
   constructor(props) {
     super(props)
-
     this.state = { 
-      servers_loaded: false,
+      servers_loaded: -1,
       discord_guilds: null
     }
-
-    console.log(this.state.servers_loaded)
   }
 
-  async getGuilds() {
-    const fetch_options = {
-      method: 'GET',
-      mode: 'cors',
-      credentials: 'include'
-    }
-  
-    const res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/discord/guilds`, fetch_options)
-    if (res.status === 200) {
-      const discord_guilds = await res.json()
-    
-      console.log(discord_guilds)
-
-      this.setState({ discord_guilds: discord_guilds, servers_loaded: true })
-      console.log(this.state.servers_loaded)
-    } else {
-      logout()
-    }
-  }
-
+  // Runs initializing code when the component is mounted
   componentDidMount() {
-    this.getGuilds()
+    console.log('hello3')
+    discordGuilds(this)
   }
 
+  /**
+   * Render the component in react
+   * @return {JSX} Render
+   */
   render() {
     return (
       <main className={styles.main}>
@@ -76,7 +41,11 @@ class SelectServer extends Component {
           <Row className="d-flex justify-content-center">
             <img className={styles.user_avatar} src={getAvatarUrl(this.props.discord_user)}/>
             <h1>{this.props.discord_user.username}</h1>
-            {(this.state.servers_loaded) ? (<ServerList discord_guilds={this.state.discord_guilds}/>) : (<Loading />)}
+            {(this.state.servers_loaded === 1) ? (
+              <ServerList discord_guilds={this.state.discord_guilds} set_server={this.props.set_server}/>
+              ) : (
+              <Loading />
+            )}
             <button className={`${styles.logout_button} btn btn-danger`} onClick={logout}>Log Out</button>
           </Row>
         </Container>

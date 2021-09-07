@@ -1,0 +1,28 @@
+.server_select_menu {    
+  border-top: 1px gray;
+  border-bottom: 1px gray;
+}
+
+.server_select_button {
+  height: 50px;
+  background: none;
+  border: none;
+  border-radius: 2px;
+  color: white;
+  white-space:nowrap;
+}
+
+.guild_icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.guild_name {
+  padding-left: 5px;
+}
+
+.server_select_button:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  transition: background-color 1s linear;
+}

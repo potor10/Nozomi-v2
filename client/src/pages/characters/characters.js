@@ -2,110 +2,26 @@ import React, { Component } from 'react'
 import { Pagination, Container, Row, Col, InputGroup, FormControl, Button } from 'react-bootstrap'
 import Loading from '../../components/loading/loading'
 import StarLevel from '../../components/star_level/star_level'
+import CharactersDisplay from './characters_components/display/characters_display'
+
+import characters from '../../lib/characters/characters'
+import sort from '../../lib/characters/sort'
+import search from '../../lib/characters/search'
 
 import styles from './characters.module.css'
 
-class CharacterDisplay extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = { 
-      page: 1
-    }
-  }
-
-  changePage(page) {
-    this.setState({ page: page })
-  }
-
-  generatePagination() {
-    let pages = []
-
-    if (this.state.page > 3) {
-      pages.push((<Pagination.Item key={'start'} onClick={() => this.changePage(1)}>1</Pagination.Item>))
-      pages.push((<Pagination.Item key={'seperator-1'} >...</Pagination.Item>))
-    }
-
-    let start = 0
-    let end = 0
-    if (this.state.page < 3) {
-      start = 1
-      end = Math.min(this.props.total_pages, 5)
-    } else if (this.state.page > (this.props.total_pages - 2)) {
-      start = Math.max(this.props.total_pages - 4, 1)
-      end = this.props.total_pages
-    } else {
-      start = this.state.page-2
-      end = this.state.page+2
-    }
-
-    for(let i = start; i <= end; i++) {
-      pages.push((
-        (this.state.page === i) ? 
-          (<Pagination.Item key={i} activeLabel={''} active>{i}</Pagination.Item>) :
-          (<Pagination.Item key={i} onClick={() => this.changePage(i)}>{i}</Pagination.Item>)
-      ))
-    }
-
-    if (this.state.page < this.props.total_pages - 2) {
-      pages.push((<Pagination.Item key={'seperator-2'}>...</Pagination.Item>))
-      pages.push((
-        <Pagination.Item key={'end'} onClick={() => this.changePage(this.props.total_pages)}>
-          {this.props.total_pages}
-        </Pagination.Item>
-      ))
-    }
-
-    return (
-      <Pagination className={styles.page_selector}>
-        {pages}
-      </Pagination>
-    )
-  }
-
-  render() {
-    return(
-      <>
-        <Container className={`${styles.characters_wrapper} d-flex justify-content-center align-items-center`}>
-          <Row className={styles.characters_row}>
-            {this.props.characters
-              .slice(this.props.page_max * (this.state.page - 1), this.props.page_max * this.state.page)
-              .map(character => {
-              return (
-                <Col key={character.unit_id} className={`${styles.character_container} text-center`}>
-                  <a href={`/character/${character.unit_id}`} className={styles.character_button}>
-                    <div>
-                      <img src={`/images/unit/icon_unit_${character.base_id}${(character.rarity < 3) ? 1 : 3}1.png`} />
-                    </div>
-                    <div>
-                      <h1 className={styles.character_name}>{character.name}</h1>
-                      <small className={styles.character_power}>Power: 
-                        <b>{character.total_power}</b>
-                      </small>
-                      <span className={styles.star_display}>
-                        <StarLevel rarity={character.rarity} max_rarity={character.max_rarity} large={false} />
-                      </span>
-                    </div>
-                  </a>
-                </Col>
-              )
-            })}
-          </Row>
-        </Container>
-        <div className=" d-flex justify-content-center align-items-center">
-          {this.generatePagination()}
-        </div>
-      </>
-    )
-  }
-}
 
 class Characters extends Component {
   constructor(props) {
     super(props)
-
     this.state = { 
-      characters_loaded: false,
+      characters_loaded: -1,
+
+      //
+      rarity_data: {},
+      collection_units: {},
+
+      //
       characters: {},
       sort_id: 0,
       search_term: '',
@@ -114,50 +30,20 @@ class Characters extends Component {
     }
   }
 
-  async getCharacters(sort_id, search_term) {
-    this.setState({ characters_loaded: false })
-    const fetch_options = {
-      method: 'GET',
-      mode: 'cors',
-      credentials: 'include'
-    }
-
-    const characters_res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/` + 
-      `collection/characters/all/${this.props.server_data.id}/${sort_id}/${search_term}`, 
-      fetch_options)
-    if (characters_res.status === 200) {
-      const characters = await characters_res.json()
-
-      for(const idx in characters) {
-        const max_rarity_res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/masterdb/` +
-          `ascension/max/${characters[idx].unit_id}`, fetch_options)
-        if (max_rarity_res.status === 200) {
-          characters[idx].max_rarity = (await max_rarity_res.json()).max_rarity
-        } else {
-          return this.setState({ characters_loaded: false })
-        }
-      }
-
-      this.setState({ 
-        characters_loaded: true, 
-        characters: characters, 
-        total_pages: Math.ceil(characters.length / this.state.page_max)
-      })
-    }
-  }
-
-  componentDidMount() {
-    this.getCharacters(this.state.sort_id, this.state.search_term)
-  }
-
   setSort(sort_id) {
     this.setState({ sort_id: sort_id })
-    this.getCharacters(sort_id, this.state.search_term)
+    this.setState({ 
+      characters: sort(this.state.characters, sort_id)
+    })
   }
 
   setSearch(search_term) {
     this.setState({ search_term: search_term })
-    this.getCharacters(this.state.sort_id, search_term)
+    const new_characters = sort(search(this.state.collection_units, search_term), this.state.sort_id)
+    this.setState({ 
+      characters: new_characters,
+      total_pages: Math.ceil(new_characters.length / this.state.page_max)
+    })
   }
 
   setPageMax(max) {
@@ -167,12 +53,42 @@ class Characters extends Component {
     })
   }
 
+  renderCharacters() {
+    switch (this.state.characters_loaded) {
+      case -1:
+        return (<Loading />)
+      case 0:
+        return (<p>an error occured while loading characters</p>)
+      case 1:
+        return (<CharactersDisplay rarity_data={this.state.rarity_data} characters={this.state.characters} 
+          page_max={this.state.page_max} total_pages={this.state.total_pages}/>)
+    }
+  }
+
+  componentDidMount() {
+    console.log("starting")
+    characters(this, this.props.server_data.id, this.state.page_max)
+  }
+
   render() {
     return (
       <>
         <Container className={styles.settings_wrapper}>
           <Row className="text-center">
-            <Col md={4}>
+            <Col md={12} className="d-flex justify-content-center align-items-center"> 
+              <InputGroup>
+                <FormControl id="search" placeholder="search" aria-label="search" aria-describedby="search" />
+                <Button onClick={() => {
+                    const search_term = document.getElementById('search').value
+                    console.log(search_term)
+                    this.setSearch(search_term)
+                  }} 
+                  variant="outline-secondary">
+                  Search
+                </Button>
+              </InputGroup>
+            </Col>
+            <Col md={6}>
               <h1 className={styles.settings_title}>Sort By</h1>
               <div className="d-flex justify-content-center align-items-center">
                 <Pagination>
@@ -191,7 +107,7 @@ class Characters extends Component {
                 </Pagination>
               </div>
             </Col>
-            <Col md={4}>
+            <Col md={6}>
               <h1 className={styles.settings_title}>Units Per Page</h1>
               <div className="d-flex justify-content-center align-items-center">
                 <Pagination>
@@ -210,24 +126,9 @@ class Characters extends Component {
                 </Pagination>
               </div>
             </Col>
-            <Col md={4  }> 
-              <InputGroup className="mb-3">
-                <FormControl id="search" placeholder="search" aria-label="search" aria-describedby="search" />
-                <Button onClick={() => {
-                    const search_term = document.getElementById('search').value
-                    console.log(search_term)
-                    this.setSearch(search_term)
-                  }} 
-                  variant="outline-secondary">
-                  Search
-                </Button>
-              </InputGroup>
-            </Col>
           </Row>
         </Container>
-        {(this.state.characters_loaded) ? (
-          <CharacterDisplay characters={this.state.characters} 
-            page_max={this.state.page_max} total_pages={this.state.total_pages}/>) : (<Loading />)}
+        {this.renderCharacters()}
       </>
     )
   }

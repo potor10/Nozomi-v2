@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import { Container, Row } from 'react-bootstrap'
 import Loading from '../../components/loading/loading'
 
-import styles from './daily.module.css'
+import daily from '../../lib/user/daily'
+
+import ClaimFail from './daily_components/fail/claim_fail'
+import ClaimSuccess from './daily_components/success/claim_success'
 
 class Daily extends Component {
   constructor(props) {
     super(props)
-
     this.state = { 
       daily: -1,
     }
@@ -15,61 +17,25 @@ class Daily extends Component {
     console.log(this.state.daily)
   }
 
-  async getDaily() {
-    const fetch_options = {
-      method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'include',
-      headers: {'Content-Type': 'application/json'},
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      body: JSON.stringify({server_id: this.props.server_data.id})
-    }
-  
-    const res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/account/daily`, fetch_options)
-    if (res.status === 200 && (await res.json()).success) {
-      this.setState({ daily: 1 })
-    } else {
-      this.setState({ daily: 0 })
-    }
-  }
-
-  dailySwitch() {
+  renderDaily() {
     switch (this.state.daily) {
       case -1:
         return (<Loading />)
       case 0:
-        return (
-          <Row className="d-flex justify-content-center align-items-center">
-            <img className={styles.character_image} src="/images/nozomi_determined.png"/>
-            <p>You Have Already Claimed Today!</p>
-            <small>Please Come Again Tomorrow At <b>13:00 UTC</b></small>
-          </Row>
-        )
+        return (<ClaimFail />)
       case 1:
-        return (
-          <Row className="d-flex justify-content-center align-items-center">
-              <img className={styles.character_image} src="/images/nozomi_happy.png"/>
-              <p>Successfully Claimed Daily Bonus!</p>
-              <small>
-                You Have Earned <b>300000
-                  <img className={styles.icon} src="images/assets/mana.png" /></b> and <b>1500
-                  <img className={styles.icon} src="images/assets/jewel.png" /></b> 
-              </small>
-          </Row>
-        )
+        return (<ClaimSuccess />)
     }
   }
 
   componentDidMount() {
-    this.getDaily()
+    daily(this, this.props.server_data.id)
   }
 
   render() {
     return (
       <Container className="text-center d-flex justify-content-center align-items-center">
-        {this.dailySwitch()}
+        {this.renderDaily()}
       </Container>
     )
   }

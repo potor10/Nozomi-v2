@@ -1,0 +1,51 @@
+.characters_wrapper {
+  margin-top: 10px;
+}
+
+.characters_row {
+  width: 100%;
+  max-width: 700px;
+}
+
+.character_container {
+  margin-top: 10px;
+}
+
+.character_button {
+  text-decoration: none;
+  color: pink;
+}
+
+.character_button:hover {
+  color: white;
+  text-shadow: 1px 1px 1px #BED0FD;
+  transition: color 0.5s linear, text-shadow 1s linear;
+}
+
+.character_name {
+  font-size: 20px;
+  margin: 10px 0 0 0;
+  display: block;
+}
+
+.character_image {
+  position: relative;
+}
+
+.character_power {
+  display: block;
+}
+
+.star_display {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 5px auto;
+  white-space: nowrap;
+}
+
+.page_selector {
+  margin-top: 20px;
+}
+

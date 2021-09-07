@@ -25,14 +25,19 @@
 }
 
 .page-item .page-link {
-  color: #B27883 !important;
-  background-color: #DCC8F5;
-  border-color: #DCC8F5;
-  font-size: 12px;
+  color: #6c757d;
+  border-color: #6c757d;
+  background: none;
+}
+
+.page-item .page-link:hover {
+  color: white;
+  border-color: #6c757d;
+  background: #6c757d;
 }
 
 .page-item.active .page-link {
-  color: #00008b !important;
-  background-color: #BED0FD;
-  border-color: #DCC8F5;
+  color: white;
+  background: #6c757d;
+  border-color: #6c757d;
 }

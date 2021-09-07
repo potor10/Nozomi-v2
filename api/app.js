@@ -1,19 +1,25 @@
-// Dependencies
-const express = require('express')
-const session = require('express-session')
-const rateLimit = require("express-rate-limit")
-const cors = require('cors')
-const path = require('path')
+// Import Modules 
+import express from 'express'
+import session from 'express-session'
+import rateLimit from 'express-rate-limit'
+import cors from 'cors'
+import path from 'path'
 
-// Routes
-const api_router = require('./routes/hello')
-const discord_router = require('./routes/discord_router')
-const account_router = require('./routes/account_router')
-const master_db_router = require('./routes/master_db_router')
-const gacha_router = require('./routes/gacha_router')
-const collection_router = require('./routes/collection_router')
+// Import Constants
+import { ROUTE_PREFIX, PRICONNE_CDN_PREFIX, PRICONNE_CDN_SUFFIX, PRICONNE_CDN_DIRS } from './constants.js'
 
-module.exports = class NozomiApi {
+// Import Routes
+import equipment_post from './routes/character/equipment/post.js'
+import skills_post from './routes/character/skills/post.js'
+import character_get from './routes/character/get.js'
+import character_post from './routes/character/post.js'
+import characters_get from './routes/characters/get.js'
+import gacha_get from './routes/gacha/get.js'
+import gacha_post from './routes/gacha/post.js'
+import user_get from './routes/user/get.js'
+import user_post from './routes/user/post.js'
+
+class NozomiApi {
   constructor() {
     this._app = express()
 
@@ -34,40 +40,6 @@ module.exports = class NozomiApi {
     this.useRouter()
   }
 
-  useLimiter() {
-    const api_limiter = rateLimit({
-      windowMs: 1000, // 15 minutes
-      max: 50
-    });
-    // this._app.use("/api/", api_limiter);
-  }
-
-  useRouter() {
-    this._app.use('/testAPI', api_router)
-    this._app.use('/api/discord', discord_router)
-    this._app.use('/api/account', account_router)
-    this._app.use('/api/masterdb', master_db_router)
-    this._app.use('/api/gacha', gacha_router)
-    this._app.use('/api/collection', collection_router)
-
-    // 404, page can't be found
-    this._app.use((req, res) => {
-      res.status(404).send('404 page not found')
-    })
-  }
-
-  useStatic() {
-    const src_prefix = '/priconne-cdn-extract/out/en'
-    const src_suffix = '/extract/latest'
-    const src_dir = [ '/banner', '/icon', '/unit' ]
-
-    src_dir.forEach(src => {
-      const file_dir = path.join(__dirname, '..', src_prefix, src, src_suffix)
-      const web_dir = path.join('/images', src)
-      this._app.use(web_dir, express.static(file_dir))
-    })
-  }
-
   useSession() {
     this._app.set('trust proxy', 1) // trust first proxy
     
@@ -79,24 +51,50 @@ module.exports = class NozomiApi {
     }))
 
     this._app.use(function (req, res, next) {
-      if (!req.session.login_status) {
-        req.session.login_status = false
-      }
-
-      if (!req.session.mutual_servers) {
-        req.session.mutual_servers = {}
-      }
-
-      if (!req.session.user_data) {
-        req.session.user_data = {}
-      }
-
-      if (!req.session.oauth) {
-        req.session.oauth = {}
-      }
-
+      if (!req.session.login_status) req.session.login_status = false
+      if (!req.session.mutual_servers) req.session.mutual_servers = {}
+      if (!req.session.user_data) req.session.user_data = {}
+      if (!req.session.oauth) req.session.oauth = {}
       next()
     })
+  }
+
+  useLimiter() {
+    const api_limiter = rateLimit({
+      windowMs: 1000, // 15 minutes
+      max: 50
+    });
+    // this._app.use("/api/", api_limiter);
+  }
+
+  useStatic() {
+    PRICONNE_CDN_DIRS.forEach(src => {
+      const file_dir = path.join(path.resolve(), PRICONNE_CDN_PREFIX, src, PRICONNE_CDN_SUFFIX)
+      const web_dir = path.join('/images', src)
+      this._app.use(web_dir, express.static(file_dir))
+    })
+  }
+
+  useRouter() {
+    // Character Routes
+    this._app.use(ROUTE_PREFIX+'character/equipment', equipment_post)
+    this._app.use(ROUTE_PREFIX+'character/skills', skills_post)
+    this._app.use(ROUTE_PREFIX+'character', character_get)
+    this._app.use(ROUTE_PREFIX+'character', character_post)
+    
+    // Characters Route
+    this._app.use(ROUTE_PREFIX+'characters', characters_get)
+
+    // Gacha Routes
+    this._app.use(ROUTE_PREFIX+'gacha', gacha_get)
+    this._app.use(ROUTE_PREFIX+'gacha', gacha_post)
+
+    // User Routes
+    this._app.use(ROUTE_PREFIX+'user', user_get)
+    this._app.use(ROUTE_PREFIX+'user', user_post)
+
+    // 404, page can't be found
+    this._app.use((req, res) => { res.status(404).send('404 page not found') })
   }
 
   run() {
@@ -105,3 +103,5 @@ module.exports = class NozomiApi {
     })
   }
 }
+
+export default NozomiApi

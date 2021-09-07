@@ -1,40 +1,3 @@
-.characters_wrapper {
-  margin-top: 10px;
-}
-
-.characters_row {
-  max-width: 700px;
-}
-
-.character_container {
-  margin-top: 10px;
-}
-
-.character_button {
-  text-decoration: none;
-  color: pink;
-}
-
-.character_button:hover {
-  color: white;
-  text-shadow: 1px 1px 1px #BED0FD;
-  transition: color 0.5s linear, text-shadow 1s linear;
-}
-
-.character_name {
-  font-size: 20px;
-  margin: 10px 0 0 0;
-  display: block;
-  white-space: nowrap;
-}
-
-.character_power {
-  display: block;
-}
-
-.star_display {
-  white-space: nowrap;
-}
 
 .settings_wrapper {
   margin-top: 20px;
@@ -42,8 +5,4 @@
 
 .settings_title {
   font-size: 15px;
-}
-
-.page_selector {
-  margin-top: 20px;
 }

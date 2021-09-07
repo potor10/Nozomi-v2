@@ -9,8 +9,8 @@ user_db.resetDatabase()
 user_db.addUser(player_id)
 user_db.setJewels(player_id, 1500)
 
-import daily from '../../lib/account/daily.js'
-import addExp from '../../lib/account/add_exp.js'
+import daily from '../../lib/user/daily.js'
+import addExp from '../../lib/user/add_exp.js'
 
 console.log(daily(player_id, server_id))
 console.log(daily(player_id, server_id))

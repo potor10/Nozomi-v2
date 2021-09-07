@@ -19,10 +19,10 @@ collection_db.resetDatabase()
 user_db.addUser(id)
 user_db.setJewels(id, 150000)
 
-import daily from '../../lib/account/daily.js'
+import daily from '../../lib/user/daily.js'
 daily(id, server_id)
 
-import addExp from '../../lib/account/add_exp.js'
+import addExp from '../../lib/user/add_exp.js'
 addExp(id, server_id)
 addExp(id, server_id)
 addExp(id, server_id)

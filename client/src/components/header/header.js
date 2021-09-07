@@ -3,9 +3,9 @@ import styles from './header.module.css'
 import {Nav, Navbar, Container, NavDropdown, Dropdown} from 'react-bootstrap'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
-import getAvatarUrl from '../../lib/get_avatar_url'
-import getGuildIconUrl from '../../lib/get_server_icon_url'
-import logout from '../../lib/logout'
+import getAvatarUrl from '../../lib/url/get_avatar_url'
+import getGuildIconUrl from '../../lib/url/get_server_icon_url'
+import logout from '../../lib/user/logout'
 
 
 const DiscordProfile = ({ discord_user }) => {
@@ -38,6 +38,7 @@ const Header = ({ discord_user, server_data }) => {
               <Nav.Link href="/gacha">Gacha</Nav.Link>
               <Nav.Link href="/daily">Daily</Nav.Link>
               <Nav.Link href="/leaderboard">Leaderboard</Nav.Link>
+              <Nav.Link href="/badges">Badges</Nav.Link>
               <Nav.Link href="/support">Support</Nav.Link>
             </Nav>
             <Nav>

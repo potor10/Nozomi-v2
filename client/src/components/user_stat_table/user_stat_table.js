@@ -20,19 +20,19 @@ class UserStatTable extends Component {
         <tbody>
           <tr>
             <td><img className="icon-sm" src="/images/assets/mana.png"/></td>
-            <td>{this.props.user_stats.mana}</td>
+            <td>{this.props.user.mana}</td>
           </tr>
           <tr>
             <td><img className="icon-sm" src="/images/assets/jewel.png"/></td>
-            <td>{this.props.user_stats.jewels}</td>
+            <td>{this.props.user.jewels}</td>
           </tr>
           <tr>
             <td><img className="icon-sm" src="/images/assets/amulet.png"/></td>
-            <td>{this.props.user_stats.amulets}</td>
+            <td>{this.props.user.amulets}</td>
           </tr>
           <tr>
             <td><img className="icon-sm" src="/images/assets/power.png"/></td>
-            <td>{this.props.user_stats.total_power}</td>
+            <td>{this.props.user.total_power}</td>
           </tr>
         </tbody>
       </Table>

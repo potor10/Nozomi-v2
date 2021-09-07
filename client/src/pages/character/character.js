@@ -5,7 +5,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 
 import Loading from '../../components/loading/loading'
 
-import CharacterDisplay from './character_display'
+import CharacterDisplay from './character_components/display/character_display'
 import UserStatTable from '../../components/user_stat_table/user_stat_table'
 
 import contants from '../constants.json'

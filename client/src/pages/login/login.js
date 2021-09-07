@@ -5,37 +5,22 @@ import Particles from 'react-particles-js'
 
 import styles from './login.module.css'
 
-const LoginMain = () => {
-  return(
-    <Row className="d-flex justify-content-center">
-      <img className={styles.app_avatar} src="/images/nozomi_summer.png" />
-      <h1>Nozomi Bot</h1>
-      <small>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</small>
-      <a className={`${styles.login_button} btn btn-dark`} href={process.env.REACT_APP_DISCORD_OAUTH}>Sign In With Discord</a>
-      <a className={`${styles.login_button} btn btn-dark`} href="/about">About</a>
-    </Row>
-  )
-}
+import LoginScreen from './login_components/screen/login_screen'
+import News from './login_components/news/news'
 
-const About = () => {
-  return(
-    <Row className="d-flex justify-content-center">
-      <p>Hey, Potor here.</p>
-      <p>You might know me as the one who likes your guildhouse in Princess Connect Re:Dive</p>
-      <p>Nozomi Bot was created and designed to be a fully featured gacha bot</p>
-      <a className={`${styles.login_button} btn btn-dark`} href="/">Back</a>
-    </Row>
-  )
-}
-
+// Generates The User Login Page
 const Login = () => {
+  /**
+   * Render the component in react
+   * @return {JSX} Render
+   */
   return (
     <main>
       <Router>
         <Container className={`${styles.login_wrapper} text-center d-flex justify-content-center align-items-center`}>
           <Switch>
-            <Route path="/about" component={About} />
-            <Route path="/" component={LoginMain} />
+            <Route path="/news" component={News} />
+            <Route path="/" component={LoginScreen} />
           </Switch>
         </Container>
       </Router>

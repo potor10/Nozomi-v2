@@ -1,16 +1,15 @@
-// Dependencies
+// Import Modules
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-// Global Styles
+// Import Styles
 import './styles/global.css'
-
-// Importing the Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+// Import Components
 import App from './app'
 
-// Library
+// Import Function
 import reportWebVitals from './lib/report_web_vitals'
 
 ReactDOM.render(<App />, document.getElementById('root'))
