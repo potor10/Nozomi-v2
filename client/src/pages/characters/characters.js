@@ -19,6 +19,7 @@ class Characters extends Component {
 
       //
       rarity_data: {},
+      promotion_data: {},
       collection_units: {},
 
       //
@@ -60,8 +61,8 @@ class Characters extends Component {
       case 0:
         return (<p>an error occured while loading characters</p>)
       case 1:
-        return (<CharactersDisplay rarity_data={this.state.rarity_data} characters={this.state.characters} 
-          page_max={this.state.page_max} total_pages={this.state.total_pages}/>)
+        return (<CharactersDisplay rarity_data={this.state.rarity_data} promotion_data={this.state.promotion_data} 
+          characters={this.state.characters} page_max={this.state.page_max} total_pages={this.state.total_pages}/>)
     }
   }
 

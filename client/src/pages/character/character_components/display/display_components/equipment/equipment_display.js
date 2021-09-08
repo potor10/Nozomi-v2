@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Container, Row, Col, Button, Table, Badge } from 'react-bootstrap'
-import Loading from '../../../../../components/loading/loading'
-import PopUp from '../../../../../components/popup/popup'
+import Loading from '../../../../../../components/loading/loading'
+import PopUp from '../../../../../../components/popup/popup'
 
 import styles from './equipment_display.module.css'
-import constants from '../../../../constants.json'
+import constants from '../../../../../constants.json'
 
 class EquipmentDisplay extends Component {
   constructor(props) {

@@ -2,10 +2,10 @@
 import express from 'express'
 
 // Import Controllers
-import characters from '../../controllers/characters/get/characters.js'
+import pullTen from '../../controllers/gacha/gacha_post/pull_ten.js'
 
 const router = express.Router()
 
-router.get('/:server_id', characters)
+router.post('/pull_ten', pullTen)
 
 export default router

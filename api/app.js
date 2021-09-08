@@ -9,15 +9,15 @@ import path from 'path'
 import { ROUTE_PREFIX, PRICONNE_CDN_PREFIX, PRICONNE_CDN_SUFFIX, PRICONNE_CDN_DIRS } from './constants.js'
 
 // Import Routes
-import equipment_post from './routes/character/equipment/post.js'
-import skills_post from './routes/character/skills/post.js'
-import character_get from './routes/character/get.js'
-import character_post from './routes/character/post.js'
-import characters_get from './routes/characters/get.js'
-import gacha_get from './routes/gacha/get.js'
-import gacha_post from './routes/gacha/post.js'
-import user_get from './routes/user/get.js'
-import user_post from './routes/user/post.js'
+import equipment_post from './routes/character/equipment/equipment_post.js'
+import skills_post from './routes/character/skills/skills_post.js'
+import character_get from './routes/character/character_get.js'
+import character_post from './routes/character/character_post.js'
+import characters_get from './routes/characters/characters_get.js'
+import gacha_get from './routes/gacha/gacha_get.js'
+import gacha_post from './routes/gacha/gacha_post.js'
+import user_get from './routes/user/user_get.js'
+import user_post from './routes/user/user_post.js'
 
 class NozomiApi {
   constructor() {

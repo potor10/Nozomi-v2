@@ -17,12 +17,21 @@ const characters = async (component, server_id, page_max) => {
       rarity_data[char_rarity.unit_id].push(char_rarity)
     })
 
+    let promotion_data = {}
+    // Format The Promotion For Indexing 
+    collection.promotion_data.forEach(char_promotion => {
+      if (promotion_data[char_promotion.unit_id] === undefined) promotion_data[char_promotion.unit_id] = []
+      promotion_data[char_promotion.unit_id].push(char_promotion)
+    })
+
+    console.log(promotion_data)
     console.log(collection.units)
 
     component.setState({ 
       characters_loaded: 1, 
       collection_units: collection.units,
       rarity_data: rarity_data,
+      promotion_data: promotion_data,
       characters: collection.units,
       total_pages: Math.ceil(collection.units.length / page_max)
     })

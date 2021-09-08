@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { Container, Row, Col, Button, Table, Badge } from 'react-bootstrap'
-import StarLevel from '../../../../../components/star_level/star_level'
-import Loading from '../../../../../components/loading/loading'
+import StarLevel from '../../../../../../components/star_level/star_level'
+import Loading from '../../../../../../components/loading/loading'
 
-import SkillsDisplay from './skills/skills_display'
-import LevelDisplay from './level/level_display'
-import AscendDisplay from './ascend/ascend_display'
+import SkillsDisplay from './upgrade_components/skills/skills_display'
+import LevelDisplay from './upgrade_components/level/level_display'
+import AscendDisplay from './upgrade_components/ascend/ascend_display'
 
-import constants from '../../../../constants.json'
+import constants from '../../../../../constants.json'
 
 import styles from './upgrade_display.module.css'
 

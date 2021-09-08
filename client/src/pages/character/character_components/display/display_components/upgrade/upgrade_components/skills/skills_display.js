@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Container, Row, Col, Button, Table, Badge } from 'react-bootstrap'
-import Loading from '../../../../../../components/loading/loading'
 
 import styles from './skills_display.module.css'
 

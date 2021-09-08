@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Container, Row, Col, Button, Table, Badge } from 'react-bootstrap'
 import StarLevel from '../../../../components/star_level/star_level'
-import EquipmentDisplay from './equipment/equipment_display'
-import UpgradeDisplay from './upgrade/upgrade_display'
+import EquipmentDisplay from './display_components/equipment/equipment_display'
+import UpgradeDisplay from './display_components/upgrade/upgrade_display'
 
 import lighten from '../../../../lib/lighten'
 

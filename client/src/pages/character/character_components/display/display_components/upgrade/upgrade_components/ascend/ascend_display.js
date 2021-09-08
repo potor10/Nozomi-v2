@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Container, Row, Col, Button, Table, Badge } from 'react-bootstrap'
-import StarLevel from '../../../../../../components/star_level/star_level'
-import Loading from '../../../../../../components/loading/loading'
+import StarLevel from '../../../../../../../../components/star_level/star_level'
+import Loading from '../../../../../../../../components/loading/loading'
 
 import styles from './ascend_display.module.css'
 

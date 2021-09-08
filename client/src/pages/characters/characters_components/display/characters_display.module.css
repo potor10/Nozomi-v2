@@ -28,8 +28,13 @@
   display: block;
 }
 
-.character_image {
+.character_image_wrapper {
   position: relative;
+}
+
+.character_image {
+  padding: 8px;
+  background-size: contain;
 }
 
 .character_power {
@@ -41,7 +46,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  margin: 5px auto;
+  margin: 10px auto;
   white-space: nowrap;
 }
 

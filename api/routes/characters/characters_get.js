@@ -2,10 +2,10 @@
 import express from 'express'
 
 // Import Controllers
+import characters from '../../controllers/characters/characters_get/characters.js'
 
 const router = express.Router()
 
-router.get('/get/:server_id/:unit_id', () => {return false})
-router.post('/logout', () => {return false})
+router.get('/:server_id', characters)
 
 export default router

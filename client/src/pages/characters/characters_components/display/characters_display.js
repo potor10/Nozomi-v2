@@ -37,8 +37,9 @@ class CharactersDisplay extends Component {
               return (
                 <Col xs={6} md={3} key={character.unit_id} className={`${styles.character_container} text-center`}>
                   <a href={`/character/${character.unit_id}`} className={styles.character_button}>
-                    <div className={styles.character_image}>
-                      <img  
+                    <div className={styles.character_image_wrapper}>
+                      <img className={styles.character_image} 
+                        style={{ backgroundImage: `url(/images/icon/icon_equipment_${this.props.promotion_data[character.unit_id][character.promotion_level-1].equip_slot_2}.png)`}}
                         src={`/images/unit/icon_unit_${character.base_id}${(character.rarity < 3) ? 1 : 3}1.png`} />
                       <span className={styles.star_display}>
                         <StarLevel rarity={character.rarity} 

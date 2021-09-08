@@ -9,6 +9,7 @@ const characters = async (req, res) => {
       try {
         const collection = {
           rarity_data: master_db.getUnitRarity(),
+          promotion_data: master_db.getUnitPromotion(),
           units: collection_db.getAllUnits(req.session.user_data.id)
         }
         res.status(200).json(collection)
