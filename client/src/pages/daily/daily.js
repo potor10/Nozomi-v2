@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { Container, Row } from 'react-bootstrap'
 import Loading from '../../components/loading/loading'
 
-import daily from '../../lib/user/daily'
+import collectDaily from './collect_daily'
 
-import ClaimFail from './daily_components/fail/claim_fail'
-import ClaimSuccess from './daily_components/success/claim_success'
+import ClaimFail from './claim_fail/claim_fail'
+import ClaimSuccess from './claim_success/claim_success'
 
 class Daily extends Component {
   constructor(props) {
@@ -20,21 +20,28 @@ class Daily extends Component {
   renderDaily() {
     switch (this.state.daily) {
       case -1:
-        return (<Loading />)
+        return (
+          <Loading />
+        )
       case 0:
-        return (<ClaimFail />)
+        return (
+          <ClaimFail />
+        )
       case 1:
-        return (<ClaimSuccess />)
+        return (
+          <ClaimSuccess />
+        )
     }
   }
 
   componentDidMount() {
-    daily(this, this.props.server_data.id)
+    collectDaily(this, this.props.server_data.id)
   }
 
   render() {
     return (
-      <Container className="text-center d-flex justify-content-center align-items-center">
+      <Container 
+        className="text-center d-flex justify-content-center align-items-center">
         {this.renderDaily()}
       </Container>
     )

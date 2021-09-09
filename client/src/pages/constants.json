@@ -4,9 +4,10 @@
     "magic_str", "def", 
     "magic_def", "physical_critical", 
     "magic_critical", "wave_hp_recovery", 
-    "wave_energy_recovery", "dodge", 
-    "life_steal", "hp_recovery_rate", 
-    "energy_reduce_rate", "accuracy"
+    "wave_energy_recovery", "hp_recovery_rate",
+    "energy_recovery_rate", "life_steal",  
+    "energy_reduce_rate", "dodge",
+    "accuracy"
   ],
 
   "STAT_DISPLAY_NAMES": {

@@ -2,14 +2,14 @@
 import express from 'express'
 
 // Import Controllers
-import profile from '../../controllers/user/user_get/profile.js'
-import guilds from '../../controllers/user/user_get/guilds.js'
-import stats from '../../controllers/user/user_get/stats.js'
+import profileController from '../../controllers/user/user_get/profile_controller.js'
+import guildsController from '../../controllers/user/user_get/guilds_controller.js'
+import statsController from '../../controllers/user/user_get/stats_controller.js'
 
 const router = express.Router()
 
-router.get('/profile', profile)
-router.get('/guilds', guilds)
-router.get('/stats/:server_id', stats)
+router.get('/profile', profileController)
+router.get('/guilds', guildsController)
+router.get('/stats/:server_id', statsController)
 
 export default router

@@ -21,8 +21,8 @@ class PopUp extends Component {
     return (
       <div id="popup" className={`${styles.popup} text-center d-flex justify-content-center align-items-center`}>
         <div className={styles.popup_background}>
-          <div className={styles.popup_title}>{this.props.title()}</div>
-          <div className={styles.popup_description}>{this.props.description()}</div>
+          <div className={styles.popup_title}>{this.props.title}</div>
+          <div className={styles.popup_description}>{this.props.description}</div>
           {this.hideConfirm()}
           <Button onClick={this.props.cancel} className={styles.popup_button} variant="danger">Cancel</Button>
         </div>

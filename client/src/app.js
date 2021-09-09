@@ -46,14 +46,18 @@ class App extends Component {
     switch (this.state.login_status) {
       case 1: 
         if (this.state.server_data === null) {
-          return (
-            <SelectServer discord_user={this.state.discord_user} set_server={this.setServer} />
-          )
+          return (<SelectServer {...this.state} set_server={this.setServer} />)
         } else {
-          return (<Home discord_user={this.state.discord_user} server_data={this.state.server_data}/>)
+          return (<Home {...this.state} />)
         }
-      case 0: return (<Login />)
-      case -1: return (<main><Loading /></main>)
+      case 0: 
+        return (<Login />)
+      case -1: 
+        return (
+          <main>
+            <Loading />
+          </main>
+        )
     }
   }
 
@@ -72,7 +76,7 @@ class App extends Component {
     return (
       <>
         {this.loginRender()}
-        <Particles className="particles"/>
+        <Particles className="particles" />
       </>
     )
   }

@@ -5,8 +5,8 @@ import Particles from 'react-particles-js'
 
 import styles from './login.module.css'
 
-import LoginScreen from './login_components/screen/login_screen'
-import News from './login_components/news/news'
+import LoginScreen from './login_screen/login_screen'
+import News from './login_news/news'
 
 // Generates The User Login Page
 const Login = () => {
@@ -17,14 +17,20 @@ const Login = () => {
   return (
     <main>
       <Router>
-        <Container className={`${styles.login_wrapper} text-center d-flex justify-content-center align-items-center`}>
+        <Container 
+          className={`${styles.login_wrapper} text-center d-flex justify-content-center align-items-center`}>
           <Switch>
-            <Route path="/news" component={News} />
-            <Route path="/" component={LoginScreen} />
+            <Route 
+              path="/news" 
+              component={News} />
+            <Route 
+              path="/" 
+              component={LoginScreen} />
           </Switch>
         </Container>
       </Router>
-      <Particles className="particles"/>
+      <Particles 
+        className="particles" />
     </main>
   )
 }

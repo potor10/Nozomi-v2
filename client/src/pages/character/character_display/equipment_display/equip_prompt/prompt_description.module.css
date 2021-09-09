@@ -1,0 +1,12 @@
+.equipment_price {
+  margin: 0;
+}
+
+.equipment_stat {
+  margin: 0;
+}
+
+.equipment_stat_element {
+  font-size: 10px;
+  padding: 0 !important;
+}

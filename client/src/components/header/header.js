@@ -37,8 +37,9 @@ const Header = ({ discord_user, server_data }) => {
               <Nav.Link href="/characters">Characters</Nav.Link>
               <Nav.Link href="/gacha">Gacha</Nav.Link>
               <Nav.Link href="/daily">Daily</Nav.Link>
-              <Nav.Link href="/leaderboard">Leaderboard</Nav.Link>
               <Nav.Link href="/badges">Badges</Nav.Link>
+              <Nav.Link href="/exchange">Exchange</Nav.Link>
+              <Nav.Link href="/leaderboard">Leaderboard</Nav.Link>
               <Nav.Link href="/support">Support</Nav.Link>
             </Nav>
             <Nav>

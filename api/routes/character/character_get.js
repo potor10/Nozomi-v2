@@ -2,10 +2,10 @@
 import express from 'express'
 
 // Import Controllers
-import character from '../../controllers/character/character_get/character.js'
+import characterController from '../../controllers/character/character_get/character_controller.js'
 
 const router = express.Router()
 
-router.get('/get/:server_id/:unit_id', character)
+router.get('/get/:server_id/:unit_id', characterController)
 
 export default router
