@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 import getAvatarUrl from '../../lib/url/get_avatar_url'
 import getGuildIconUrl from '../../lib/url/get_server_icon_url'
-import logout from '../../lib/user/logout'
+import logout from '../../lib/logout'
 
 
 const DiscordProfile = ({ discord_user }) => {

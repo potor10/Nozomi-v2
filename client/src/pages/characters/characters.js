@@ -15,47 +15,35 @@ class Characters extends Component {
   constructor(props) {
     super(props)
     this.state = { 
-      characters_loaded: -1,
-
-      //
-      rarity_data: {},
-      promotion_data: {},
-      collection_units: {},
-
-      //
-      characters: {},
-      sort_id: 0,
-      search_term: '',
-      page_max: 12,
-      total_pages: 0
+      units_loaded: -1,
     }
   }
 
   setSort(sort_id) {
     this.setState({ sort_id: sort_id })
     this.setState({ 
-      characters: sortCharacters(this.state.characters, sort_id)
+      displayed_units: sortCharacters(this.state.displayed_units, sort_id)
     })
   }
 
   setSearch(search_term) {
     this.setState({ search_term: search_term })
-    const new_characters = sortCharacters(searchCharacters(this.state.collection_units, search_term), this.state.sort_id)
+    const new_units = sortCharacters(searchCharacters(this.state.units, search_term), this.state.sort_id)
     this.setState({ 
-      characters: new_characters,
-      total_pages: Math.ceil(new_characters.length / this.state.page_max)
+      displayed_units: new_units,
+      total_pages: Math.ceil(new_units.length / this.state.page_max)
     })
   }
 
   setPageMax(max) {
     this.setState({ 
       page_max: max,
-      total_pages: Math.ceil(this.state.characters.length / max)
+      total_pages: Math.ceil(this.state.displayed_units.length / max)
     })
   }
 
   renderCharacters() {
-    switch (this.state.characters_loaded) {
+    switch (this.state.units_loaded) {
       case -1:
         return (
           <Loading />
@@ -68,19 +56,14 @@ class Characters extends Component {
         )
       case 1:
         return (
-          <CharactersDisplay 
-            rarity_data={this.state.rarity_data} 
-            promotion_data={this.state.promotion_data} 
-            characters={this.state.characters} 
-            page_max={this.state.page_max} 
-            total_pages={this.state.total_pages} />
+          <CharactersDisplay {...this.state} />
         )
     }
   }
 
   componentDidMount() {
     console.log("starting")
-    fetchCharacters(this, this.props.server_data.id, this.state.page_max)
+    fetchCharacters(this, this.props.server_data.id)
   }
 
   render() {

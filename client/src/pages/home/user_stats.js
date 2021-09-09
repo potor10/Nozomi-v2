@@ -12,9 +12,12 @@ const userStats = async (component) => {
 
   const stats_res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/user/stats/${component.props.server_data.id}`, fetch_options)
   if (stats_res.status === 200) {
-    const user_stats = await stats_res.json()  
-    console.log(user_stats)
-    component.setState({ user_stats: user_stats, stats_loaded: 1 })
+    const stats_info = await stats_res.json()  
+    console.log(stats_info)
+    component.setState({ 
+      ...stats_info,
+      stats_loaded: 1 
+    })
     return true
   } else {
     component.setState({ stats_loaded: 0 })

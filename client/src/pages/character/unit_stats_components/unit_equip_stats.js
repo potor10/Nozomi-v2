@@ -19,21 +19,21 @@ const getMaxRefine = (promotion_level) => {
  * @param {MasterDatabase} master_db instance that we are using
  * @return {Object} unit equip stats
  */
-const equipStats = (unit, master_db) => {
+const unitEquipStats = (component, unit) => {
   let stats = {}
   STAT_NAMES.forEach(stat => {stats[stat] = 0})
 
   for (let i = 1; i <= 6; i++) {
     let equipped = unit[EQUIP_SLOT_PREFIX+i]
 
-    const unit_promotion_data = master_db.getUnitPromotion(unit.unit_id)
-    let equipment_id = unit_promotion_data[unit.promotion_level-1]["equip_slot_" + i]
+    const unit_promotion_data = component.state.promotion_data
+    let equipment_id = unit_promotion_data[unit.promotion_level-1][EQUIP_SLOT_PREFIX+i]
 
     if (equipped === 1 && equipment_id !== 999999) {
-      const equipment_data = master_db.getEquipmentData(equipment_id)
+      const equipment_data = component.state.equipment_data[equipment_id]
       
       // Equipping an item is an automatic max refine in this bot
-      const equipment_enhance_data = master_db.getEquipmentEnhance(equipment_id)
+      const equipment_enhance_data = component.state.equipment_enhance_data[equipment_id]
 
       STAT_NAMES.forEach(stat => {
         stats[stat] += Math.ceil(equipment_data[stat]) +
@@ -44,4 +44,4 @@ const equipStats = (unit, master_db) => {
   return stats
 }
 
-export default equipStats
+export default unitEquipStats

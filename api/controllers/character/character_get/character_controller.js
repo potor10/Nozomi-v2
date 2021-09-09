@@ -28,6 +28,7 @@ const characterController = async (req, res) => {
           skill_data: master_db.getSkillData(unit.base_id),
 
           unit_skill_data: master_db.getUnitSkillData(req.params.unit_id),
+          unit_status_coefficient_data: master_db.getUnitStatusCoefficient(),
 
           unit: unit
         }

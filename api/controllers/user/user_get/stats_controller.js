@@ -15,8 +15,8 @@ const statsController = async (req, res) => {
       const user_db = new UserDatabase(req.params.server_id)
       try {
         const user_info = { 
-          experience_team: master_db.getExperienceTeam(),
-          user: user_db.getUser(req.session.user_data.id)
+          experience_team_data: master_db.getExperienceTeam(),
+          user_stats: user_db.getUser(req.session.user_data.id)
         }
         res.status(200).json(user_info)
       } catch (e) {

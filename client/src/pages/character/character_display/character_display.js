@@ -5,20 +5,20 @@ import EquipmentDisplay from './equipment_display/equipment_display'
 import UpgradeDisplay from './upgrade_display/upgrade_display'
 
 import styles from './character_display.module.css'
-import constants from '../../constants.json'
+import { NUMBER_TO_EQUIP, STAT_NAMES, STAT_DISPLAY_NAMES } from '../../../constants'
 
 class CharacterDisplay extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      rank_up_available: this.checkRankUp(this.props.character)
+      rank_up_available: this.checkRankUp(this.props.unit)
     }
   }
 
-  checkRankUp(character) {
+  checkRankUp(unit) {
     let rank_up_available = true
     for (let i = 1; i <= 6; i++) {
-      if (character[constants.NUMBER_TO_EQUIP[i]] === 0) {
+      if (unit[NUMBER_TO_EQUIP[i]] === 0) {
         rank_up_available = false
         break
       }
@@ -28,7 +28,7 @@ class CharacterDisplay extends Component {
   }
 
   generateRankUpButton() {
-    if (this.state.can_rank_up) {
+    if (this.state.rank_up_available) {
       return (
         <Button 
           onClick={this.rankUp} 
@@ -50,7 +50,7 @@ class CharacterDisplay extends Component {
   }
 
   componentDidUpdate() {
-    const rank_up_available = this.checkRankUp(this.props.character)
+    const rank_up_available = this.checkRankUp(this.props.unit)
     if (rank_up_available !== this.state.rank_up_available) {
       this.setState({ rank_up_available: rank_up_available })
     }
@@ -59,20 +59,20 @@ class CharacterDisplay extends Component {
   createStatTable() {
     let stat_table = []
 
-    for(let i = 0; i < constants.STAT_NAMES.length; i += 2) {
+    for(let i = 0; i < STAT_NAMES.length; i += 2) {
       stat_table.push((
         <tr 
           key={i}>
           <td>
-            {constants.STAT_DISPLAY_NAMES[constants.STAT_NAMES[i]]}
+            {STAT_DISPLAY_NAMES[STAT_NAMES[i]]}
           </td>
           <td>
-            {this.props.character[constants.STAT_NAMES[i]]}
+            {this.props.unit[STAT_NAMES[i]]}
           </td>
-          {(i < constants.STAT_NAMES.length) ? (
+          {(i < STAT_NAMES.length) ? (
             <>
-              <td>{constants.STAT_DISPLAY_NAMES[constants.STAT_NAMES[i+1]]}</td>
-              <td>{this.props.character[constants.STAT_NAMES[i+1]]}</td>
+              <td>{STAT_DISPLAY_NAMES[STAT_NAMES[i+1]]}</td>
+              <td>{this.props.unit[STAT_NAMES[i+1]]}</td>
             </>
           ) : ('')}
         </tr>
@@ -84,7 +84,7 @@ class CharacterDisplay extends Component {
 
   render() {
     let unit_profile = `/images/unit/thumb_unit_profile_` + 
-      `${this.props.character.base_id}${(this.props.character.rarity < 3) ? 1 : 3}1.png`
+      `${this.props.unit.base_id}${(this.props.unit.rarity < 3) ? 1 : 3}1.png`
     
     return (
       <Container 
@@ -101,23 +101,23 @@ class CharacterDisplay extends Component {
             className={styles.character_data}>
             <h1 
               className={styles.character_name}>
-                {this.props.character.name}
+                {this.props.unit.name}
               </h1>
             <span 
               className={styles.badge_wrapper}>
               <Badge 
                 className={styles.character_rank}>
-                Rank {this.props.character.promotion_level}
+                Rank {this.props.unit.promotion_level}
               </Badge>
               <Badge 
                 className={styles.character_level}>
-                Lv. {this.props.character.level}
+                Lv. {this.props.unit.level}
               </Badge>
             </span>
             <span 
               className={styles.character_stars}>
               <StarLevel 
-                rarity={this.props.character.rarity} 
+                rarity={this.props.unit.rarity} 
                 max_rarity={this.props.rarity_data.length} />
             </span>
             <span 
@@ -126,15 +126,7 @@ class CharacterDisplay extends Component {
             </span>
             <div 
               className={styles.equipment_wrapper}>
-              <EquipmentDisplay 
-                server_data={this.props.server_data} 
-                character={this.props.character}
-                equipment_data={this.props.equipment_data}
-                equipment_enhance_data={this.props.equipment_enhance_data}
-                promotion_data={this.props.promotion_data}
-                user={this.props.user}
-                set_character={this.props.set_character}
-                set_user={this.props.set_user} />
+              <EquipmentDisplay {...this.props} />
             </div>
           </Col>
         </Row>
@@ -166,7 +158,7 @@ class CharacterDisplay extends Component {
                     Total Power
                   </td>
                   <td>
-                    {this.props.character.total_power}
+                    {this.props.unit.total_power}
                   </td>
                 </tr>
               </tbody>

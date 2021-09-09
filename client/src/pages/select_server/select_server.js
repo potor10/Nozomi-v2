@@ -13,7 +13,7 @@ import Loading from '../../components/loading/loading'
 // Import Functions
 import discordGuilds from './/discord_guilds'
 import getAvatarUrl from '../../lib/url/get_avatar_url'
-import logout from '../../lib/user/logout'
+import logout from '../../lib/logout'
 
 class SelectServer extends Component {
   constructor(props) {

@@ -15,7 +15,7 @@ import SelectServer from './pages/select_server/select_server'
 import Home from './pages/home/home'
 
 // Import Functions
-import loginUser from './lib/user/login_user'
+import loginUser from './lib/login_user'
 
 // Standard app wrapper for the webapp
 class App extends Component {
@@ -42,7 +42,7 @@ class App extends Component {
   }
 
   // Determines what to show the user based on the state of currently loaded info
-  loginRender() {
+  renderLogin() {
     switch (this.state.login_status) {
       case 1: 
         if (this.state.server_data === null) {
@@ -75,7 +75,7 @@ class App extends Component {
   render() {
     return (
       <>
-        {this.loginRender()}
+        {this.renderLogin()}
         <Particles className="particles" />
       </>
     )

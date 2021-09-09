@@ -17,7 +17,7 @@ class CharactersDisplay extends Component {
   }
 
   generateCharacterButtons() {
-    const character_buttons = this.props.characters
+    const character_buttons = this.props.displayed_units
       .slice(this.props.page_max * (this.state.page - 1), this.props.page_max * this.state.page)
       .map(character => {
         return (
@@ -69,8 +69,12 @@ class CharactersDisplay extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.total_pages < this.state.page) {
-      this.setState({ page: this.props.total_pages })
+    if (this.props.total_pages !== 0) {
+      if (this.props.total_pages < this.state.page) {
+        this.setState({ page: this.props.total_pages })
+      }
+    } else if (this.state.page !== 1) {
+      this.setState({ page: 1 })
     }
   }
 

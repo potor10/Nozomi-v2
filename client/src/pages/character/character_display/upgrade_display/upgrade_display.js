@@ -7,8 +7,6 @@ import SkillsDisplay from './skills/skills_display'
 import LevelDisplay from './level/level_display'
 import AscendDisplay from './ascend/ascend_display'
 
-import constants from '../../../constants.json'
-
 import styles from './upgrade_display.module.css'
 
 class UpgradeDisplay extends Component {

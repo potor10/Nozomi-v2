@@ -23,7 +23,8 @@ class Home extends Component {
     super(props)
     this.state = { 
       stats_loaded: -1,
-      user_stats: null
+      experience_team_data: undefined,
+      user_stats: undefined
     }
   }
 

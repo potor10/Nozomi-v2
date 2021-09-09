@@ -11,7 +11,7 @@ import getGuildIconUrl from '../../../lib/url/get_server_icon_url'
 // Renders the list of servers
 class ServerList extends Component {
 
-  createGuildButtons() {
+  generateGuildButtons() {
     let guild_buttons = this.props.discord_guilds.map(guild => {
       return (
         <button className={styles.server_select_button} key={guild.id} 
@@ -31,7 +31,7 @@ class ServerList extends Component {
     if (this.props.discord_guilds.length > 0) {
       return (
         <Container className={`${styles.server_select_menu} align-content-start`}>
-          {this.createGuildButtons()}
+          {this.generateGuildButtons()}
         </Container>
       )
     } else {

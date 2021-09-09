@@ -1,20 +1,25 @@
 import { Table } from 'react-bootstrap'
 import React, { Component } from 'react'
 
-import constants from '../../../../constants.json'
+import { STAT_NAMES, STAT_DISPLAY_NAMES } from '../../../../../constants'
+import singleEquipStat from './single_equipment_stat'
 
 import styles from './prompt_description.module.css'
 
 class PromptDescription extends Component { 
   render() {
+    const equip_id = this.props.promotion_data[this.props.unit.promotion_level-1][`equip_slot_${this.props.equip_idx}`]
+    const price = this.props.equipment_enhance_data[equip_id].total_point
+
     let stats_array = []
-    /*
-    constants.STAT_NAMES.forEach(stat => {
-      const current_stat = this.prompt[`equip_info_${equipment_idx}`][stat]
+    let equip_stats = singleEquipStat(equip_id, this.props.equipment_data, this.props.equipment_enhance_data)
+    
+    STAT_NAMES.forEach(stat => {
+      const current_stat = equip_stats[stat]
       if (current_stat !== 0) {
         stats_array.push((
           <tr key={stat}>
-            <td className={styles.equipment_stat_element}>{constants.STAT_DISPLAY_NAMES[stat]}</td>
+            <td className={styles.equipment_stat_element}>{STAT_DISPLAY_NAMES[stat]}</td>
             <td className={styles.equipment_stat_element}>
               {(current_stat > 0) ? (`+${current_stat}`) : (current_stat)}
             </td>
@@ -22,7 +27,6 @@ class PromptDescription extends Component {
         ))
       }
     })
-    */
 
     return (
       <>
@@ -38,7 +42,7 @@ class PromptDescription extends Component {
                 Your Jewels
               </td>
               <td>
-                {"<b>{this.props.user_stats.jewels}</b>"}
+                <b>{this.props.user.jewels}</b>
                 <img className="icon-sm" src={"/images/assets/jewel.png"} />
               </td>
             </tr>
@@ -47,7 +51,7 @@ class PromptDescription extends Component {
                 Price
               </td>
               <td>
-                {"<b>{this.state[`equip_info_${equipment_idx}`].equip_data.cost}</b>"}
+                <b>{price}</b>
                 <img className="icon-sm" src={"/images/assets/jewel.png"} />
               </td>
             </tr>
@@ -60,7 +64,7 @@ class PromptDescription extends Component {
           variant="light" 
           className={styles.equipment_stat}>
           <tbody>
-            {"stats_array"}
+            {stats_array}
           </tbody>
         </Table>
       </>

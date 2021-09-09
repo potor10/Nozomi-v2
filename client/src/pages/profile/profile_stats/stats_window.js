@@ -12,10 +12,10 @@ class StatsWindow extends Component {
    * @return {JSX} Render
    */
   render() {
-    const current_level_exp = this.props.user_stats.user.exp - 
-      this.props.user_stats.experience_team[this.props.user_stats.user.level-1].total_exp
-    const needed_exp = this.props.user_stats.experience_team[this.props.user_stats.user.level].total_exp - 
-      this.props.user_stats.experience_team[this.props.user_stats.user.level-1].total_exp
+    const current_level_exp = this.props.user_stats.exp - 
+      this.props.experience_team_data[this.props.user_stats.level-1].total_exp
+    const needed_exp = this.props.experience_team_data[this.props.user_stats.level].total_exp - 
+      this.props.experience_team_data[this.props.user_stats.level-1].total_exp
 
     return (
       <div className={styles.stat_wrapper}>
@@ -33,8 +33,7 @@ class StatsWindow extends Component {
           </small>
         </Row>
         <Row className="text-center">
-          <UserStatTable 
-            user={this.props.user_stats.user} />
+          <UserStatTable {...this.props} />
         </Row>
       </div>
     )
