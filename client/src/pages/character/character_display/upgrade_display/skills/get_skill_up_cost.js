@@ -38,7 +38,8 @@ const getSkillUpCost = (component, skill_name) => {
     skill_up_available: true,
     can_skill_up: can_skill_up,
     mana_cost: mana_cost,
-    new_level: new_level
+    new_level: new_level,
+    max: false
   }
 
   return skill_info
