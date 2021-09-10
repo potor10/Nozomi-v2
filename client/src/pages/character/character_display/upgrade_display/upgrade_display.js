@@ -6,6 +6,7 @@ import Loading from '../../../../components/loading/loading'
 import SkillsDisplay from './skills/skills_display'
 import LevelDisplay from './level/level_display'
 import AscendDisplay from './ascend/ascend_display'
+import BondDisplay from './bond/bond_display'
 
 import styles from './upgrade_display.module.css'
 
@@ -23,7 +24,10 @@ class UpgradeDisplay extends Component {
           <LevelDisplay {...this.props} />
           <AscendDisplay {...this.props} />
         </Row>
-          <SkillsDisplay {...this.props} />
+        <SkillsDisplay {...this.props} />
+        <Row>
+          <BondDisplay {...this.props} />
+        </Row>
       </>
     )
   }

@@ -7,10 +7,25 @@ const characterController = async (req, res) => {
       const master_db = new MasterDatabase()
       const collection_db = new CollectionDatabase(req.params.server_id)
       const unit = collection_db.getUnit(req.session.user_data.id, req.params.unit_id)
+
+      let bond_story_data = master_db.getBondStory(unit.base_id)
+      let bond_characters = {}
+
+      bond_story_data.forEach(story => {
+        if (story.story_group_id !== unit.base_id) {
+          // check applicable other units
+          if (bond_characters[story.story_group_id] === undefined) {
+            const other_unit = collection_db.getUnitFromBase(req.session.user_data.id, story.story_group_id)
+            bond_characters[story.story_group_id] = other_unit
+          }
+        }
+      })
+      
       try {
         const character_data = {
-          bond_cost_data: master_db.getLoveChara(),
-          bond_data: master_db.getBondStory(unit.base_id),
+          love_chara_data: master_db.getLoveChara(),
+          bond_story_data: bond_story_data,
+          bond_characters: bond_characters,
 
           equipment_data: master_db.getEquipmentData(),
           equipment_enhance_data: master_db.getEquipmentEnhance(),
@@ -30,6 +45,8 @@ const characterController = async (req, res) => {
 
           unit: unit,
           unit_data: master_db.getUnitData(req.params.unit_id),
+          unit_profile_data: master_db.getUnitProfile(req.params.unit_id),
+          unit_comments_data: master_db.getUnitComments(req.params.unit_id),
 
           unit_skill_data: master_db.getUnitSkillData(req.params.unit_id),
           unit_status_coefficient_data: master_db.getUnitStatusCoefficient()

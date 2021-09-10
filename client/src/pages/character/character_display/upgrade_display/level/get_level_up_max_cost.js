@@ -12,10 +12,10 @@ const getLevelUpMaxCost = (component) => {
   let new_level = component.props.unit.level
 
   while (new_level < component.props.user.level) {
-    new_level += 1
     let next_mana_cost = Math.round((component.props.experience_unit_data[new_level-1].total_exp - 
       component.props.experience_unit_data[component.props.unit.level-1].total_exp) / MANA_TO_XP)
     if (next_mana_cost > component.props.user.mana) break
+    new_level += 1
     mana_cost = next_mana_cost
   }
 

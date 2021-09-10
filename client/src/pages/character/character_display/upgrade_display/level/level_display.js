@@ -44,7 +44,7 @@ class LevelDisplay extends Component {
             </span>
             <Button onClick={() => updateLevelUnit(this, level_max_info)} variant={(level_max_info.can_buy_max) ? "info" : "secondary"}
               disabled={!level_max_info.can_buy_max} 
-              className={[styles.level_button, (level_max_info.can_buy_level) ? (styles.level_button_active) : (undefined)]}>
+              className={[styles.level_button, (level_max_info.can_buy_max) ? (styles.level_button_active) : (undefined)]}>
               <span className="d-flex align-items-center justify-content-center">
                 {level_max_info.mana_cost}&nbsp;<img className="icon-sm" src="/images/assets/mana.png"/>
               </span>

@@ -24,7 +24,7 @@ class AscendDisplay extends Component {
   componentDidMount() {
   }
 
-  renderButtons() {
+  renderButton() {
     let ascend_info = getAscendCost(this)
 
     if (ascend_info.ascend_available) {
@@ -74,7 +74,7 @@ class AscendDisplay extends Component {
         <div className={styles.star_level}>
           <StarLevel rarity={this.state.displayed_rarity} max_rarity={this.props.rarity_data.length}/>
         </div>
-        {this.renderButtons()}
+        {this.renderButton()}
       </Col>
     )
   }

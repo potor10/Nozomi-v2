@@ -3,6 +3,7 @@ import { Container, Row, Col, Button, Table, Badge } from 'react-bootstrap'
 import StarLevel from '../../../components/star_level/star_level'
 import EquipmentDisplay from './equipment_display/equipment_display'
 import UpgradeDisplay from './upgrade_display/upgrade_display'
+import InfoDisplay from './info_display/info_display'
 
 import updateUnitRank from './update_unit_rank'
 
@@ -88,71 +89,55 @@ class CharacterDisplay extends Component {
     let unit_profile = `/images/unit/thumb_unit_profile_` + 
       `${this.props.unit.base_id}${(this.props.unit.rarity < 3) ? 1 : 3}1.png`
     
+    const random_comment_idx = Math.floor(Math.random() * this.props.unit_comments_data.length)
+    
     return (
-      <Container 
-        className={styles.character_wrapper}>
-        <Row 
-          style={{backgroundImage: `url(${unit_profile})`}} 
+      <Container className={styles.character_wrapper}>
+        <Row style={{backgroundImage: `url(${unit_profile})`}} 
           className={`${styles.character_background} text-center d-flex`}>
-          <Col 
-            md={6} 
-            style={{backgroundImage: `url(${unit_profile})`}} 
+          <Col md={6} style={{backgroundImage: `url(${unit_profile})`}} 
             className={styles.pad_left}/>
-          <Col 
-            md={6} 
+          <Col md={6} 
             className={styles.character_data}>
-            <h1 
-              className={styles.character_name}>
-                {this.props.unit.name}
-              </h1>
-            <span 
-              className={styles.badge_wrapper}>
-              <Badge 
-                className={styles.character_rank}>
+            <h1 className={styles.character_name}>
+              {this.props.unit.name}
+            </h1>
+            <span className={styles.badge_wrapper}>
+              <Badge className={styles.character_rank}>
                 Rank {this.props.unit.promotion_level}
               </Badge>
-              <Badge 
-                className={styles.character_level}>
+              <Badge className={styles.character_level}>
                 Lv. {this.props.unit.level}
               </Badge>
             </span>
-            <span 
-              className={styles.character_stars}>
+            <span className={styles.character_stars}>
               <StarLevel 
                 rarity={this.props.unit.rarity} 
                 max_rarity={this.props.rarity_data.length} />
             </span>
-            <span 
-              className={styles.character_rank_wrapper}>
+            <span className={styles.character_rank_wrapper}>
               {this.generateRankUpButton()}
             </span>
-            <div 
-              className={styles.equipment_wrapper}>
+            <div className={styles.equipment_wrapper}>
               <EquipmentDisplay {...this.props} />
             </div>
           </Col>
         </Row>
+        <Row className="text-center">
+          <small >{this.props.unit_comments_data[random_comment_idx].description}</small>
+        </Row>
         <UpgradeDisplay {...this.props} /> 
         <Row>
-          <Col 
-            className="text-center">
+          <Col className="text-center">
             <h1>
               Stats
             </h1>
-            <Table 
-              striped 
-              bordered 
-              hover 
-              variant="dark">
+            <Table striped bordered hover variant="dark">
               <tbody>
                 {this.createStatTable()}
               </tbody>
             </Table>
-            <Table 
-              striped 
-              bordered 
-              hover 
-              variant="dark">
+            <Table striped bordered hover variant="dark">
               <tbody>
                 <tr>
                   <td>
@@ -166,6 +151,7 @@ class CharacterDisplay extends Component {
             </Table>
           </Col>
         </Row>
+        <InfoDisplay {...this.props}/>
       </Container>
     )
   }
