@@ -11,7 +11,7 @@ const createEquipmentPrompt = (component, equip_idx) => {
   const price = component.props.equipment_enhance_data[equip_id].total_point
 
   let confirm = () => {
-    equipEquipment(component.props.server_data.id, component.props.unit.unit_id, equip_idx)
+    equipEquipment(component, equip_idx)
 
     let user = component.props.user 
     user.jewels -= price

@@ -32,7 +32,7 @@ export const STAT_DISPLAY_NAMES = {
   "movementSpeed": "Movement Speed"
 }
 
-export const SKILL_NAMES = ["union_burst", "main_skill_1", "main_skill_2", "ex_skill_1"]
+export const SKILL_NAMES = ["union_burst", "main_skill_1", "main_skill_2", "ex_skill"]
 
 export const NUMBER_TO_EQUIP = {
   "1": "equip_slot_1", 
@@ -48,7 +48,6 @@ export const ACTION_PREFIX = "action_"
 
 export const EX_SKILL_NAMES = ["ex_skill", "ex_skill_1", "ex_skill_evolution_1"]
 
-
 export const NUMBER_TO_STAT = {
   "1": "hp",
   "2": "atk",
@@ -63,4 +62,13 @@ export const NUMBER_TO_STAT = {
   "11": "wave_energy_recovery",
   "14": "don't know",
   "15": "hp_recovery_rate"
+}
+
+export const MANA_TO_XP = 0.375
+
+export const NUMBER_TO_SKILL = { 
+  101: "union_burst", 
+  201: "main_skill_1", 
+  202: "main_skill_2", 
+  301: "ex_skill"
 }

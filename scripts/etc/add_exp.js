@@ -1,8 +1,6 @@
-// Dependencies 
-const MasterDatabase = require('../../lib/master_database')
-const master_db = new MasterDatabase()
 
-const AccountDatabase = require('../../lib/account_database')
-const account_db = new AccountDatabase('883062752736858153', master_db)
+import addExp from '../../lib/user/add_exp.js'
 
-account_db.addExp('154775062178824192', 100000)
+for(let i = 0; i < 1000; i++) {
+  addExp('154775062178824192', '883062752736858153')
+}

@@ -16,7 +16,7 @@ class EquipmentDisplay extends Component {
     for (let i = 1; i <= 6; i++) {
       let equipment_id = this.props.promotion_data[this.props.unit.promotion_level-1][`equip_slot_${i}`]
 
-      equipment_array.push((this.props.unit[`equip_slot_${i}`]) ? (
+      equipment_array.push((this.props.unit[`equip_slot_${i}`] || equipment_id===999999) ? (
         <span 
           className={styles.equipment} 
           key={i}>

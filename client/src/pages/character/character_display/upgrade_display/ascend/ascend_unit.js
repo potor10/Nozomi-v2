@@ -1,4 +1,5 @@
-const equipEquipment = async (component, equip_idx) => {
+
+const ascendUnit = async (component) => {
   const fetch_options = {
     method: 'POST',
     mode: 'cors',
@@ -9,17 +10,17 @@ const equipEquipment = async (component, equip_idx) => {
     referrerPolicy: 'no-referrer',
     body: JSON.stringify({
       server_id: component.props.server_data.id,
-      unit_id: component.props.unit.unit_id,
-      equip_idx: equip_idx
+      unit_id: component.props.unit.unit_id
     })
   }
 
-  const res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/character/equipment/equip`, fetch_options)
-  if (res.status === 200 && (await res.json()).success) {
+  const res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/character/ascend`, fetch_options)
+
+  if (res.status === 200) {
     return true
   } else {
     return false
   }
 }
 
-export default equipEquipment
+export default ascendUnit

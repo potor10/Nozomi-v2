@@ -2,36 +2,21 @@
 import { NUMBER_TO_STAT, STAT_NAMES, ACTION_PREFIX, EX_SKILL_NAMES } from '../../../constants.js'
 
 /**
- * Obtains the stats from a unit's ex skill
- * @param {Object} unit the object of the unit
- * @return {Object} unit ex skill stats
  */
-const exStats = (unit, master_db) => {
+const unitExStats = (component, unit) => {
   let stats = {}
   STAT_NAMES.forEach(stat => {stats[stat] = 0})
 
   if (unit.promotion_level >= 7) {
-    const unit_skill_data = master_db.getUnitSkillData(unit.unit_id)
-    let ex_skill = unit_skill_data[EX_SKILL_NAMES[1]]
+    let ex_skill = component.state.unit_skill_data[EX_SKILL_NAMES[1]]
 
     if (unit.rarity >= 5) {
-      ex_skill = unit_skill_data[EX_SKILL_NAMES[2]]
+      ex_skill = component.state.unit_skill_data[EX_SKILL_NAMES[2]]
     }
 
-    // Get skill data of the unit and index it
-    const skill_data = master_db.getSkillData(unit.base_id)
-    let skills_data = {}
-    skill_data.forEach(skill => {
-      skills_data[skill.skill_id] = skill
-    })
+    const skills_data = component.state.skill_data
+    const actions_data = component.state.skill_action_data
 
-    // Get skill action data of the unit and index it
-    const skill_action_data = master_db.getSkillAction(unit.base_id)
-    let actions_data = {}
-    skill_action_data.forEach(action => {
-      actions_data[action.action_id] = action
-    })
-  
     let actions = []
     let action_idx = 1
     // Add all applicable actions to the actions array
@@ -54,4 +39,4 @@ const exStats = (unit, master_db) => {
   return stats
 }
 
-export default exStats
+export default unitExStats

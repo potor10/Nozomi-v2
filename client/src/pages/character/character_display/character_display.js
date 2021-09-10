@@ -4,6 +4,8 @@ import StarLevel from '../../../components/star_level/star_level'
 import EquipmentDisplay from './equipment_display/equipment_display'
 import UpgradeDisplay from './upgrade_display/upgrade_display'
 
+import updateUnitRank from './update_unit_rank'
+
 import styles from './character_display.module.css'
 import { NUMBER_TO_EQUIP, STAT_NAMES, STAT_DISPLAY_NAMES } from '../../../constants'
 
@@ -31,7 +33,7 @@ class CharacterDisplay extends Component {
     if (this.state.rank_up_available) {
       return (
         <Button 
-          onClick={this.rankUp} 
+          onClick={() => updateUnitRank(this)} 
           className={styles.character_rank_button, styles.character_rank_up} 
           variant="info">
           Rank Up
@@ -130,8 +132,7 @@ class CharacterDisplay extends Component {
             </div>
           </Col>
         </Row>
-        {`<UpgradeDisplay character={this.props.character} server_data={this.props.server_data} 
-          user={this.props.user} /> `}
+        <UpgradeDisplay {...this.props} /> 
         <Row>
           <Col 
             className="text-center">
