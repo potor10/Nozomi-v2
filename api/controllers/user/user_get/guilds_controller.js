@@ -4,6 +4,7 @@ import fetch from 'node-fetch'
 // Import Classes
 import UserDatabase from '../../../../lib/databases/user_database.js'
 import CollectionDatabase from '../../../../lib/databases/collection_database.js'
+import GachaDatabase from '../../../../lib/databases/gacha_database.js'
 
 /**
  * Obtains the current guilds of the discord user
@@ -42,9 +43,11 @@ const guildsController = async (req, res) => {
         // Initialize Tables Upon Finding Existence
         const user_db = new UserDatabase(current_guild.id)
         const collection_db = new CollectionDatabase(current_guild.id)
+        const gacha_db = new GachaDatabase(current_guild.id)
 
         user_db.initDatabase()
         collection_db.initDatabase()
+        gacha_db.initDatabase()
 
         user_db.close()
         collection_db.close()

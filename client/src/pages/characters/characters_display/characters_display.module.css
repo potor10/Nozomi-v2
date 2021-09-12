@@ -13,13 +13,13 @@
 
 .character_button {
   text-decoration: none;
-  color: pink;
+  color: white;
 }
 
 .character_button:hover {
-  color: white;
-  text-shadow: 1px 1px 1px #BED0FD;
-  transition: color 0.5s linear, text-shadow 1s linear;
+  color: black;
+  text-shadow: 1px 1px 1px white;
+  transition: color 0.5s linear;
 }
 
 .character_name {

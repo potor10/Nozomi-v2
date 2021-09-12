@@ -1,16 +1,16 @@
 // Function Imports
-import pullTen from '../../../../lib/gacha/pull_ten.js'
+import pull from '../../../../lib/gacha/pull.js'
 
 /**
  * Requests the nozomi bot user stats profile information
  * @param req the request route parameter
  * @param res the response rout parameter
  */
-const pullTenController = async (req, res) => {
+const pullController = async (req, res) => {
   if (req.session.login_status === true) {
     if (req.session.mutual_guilds[req.body.server_id] !== undefined) {
       try {
-        const pull_result = pullTen(req.session.user_data.id, req.body.server_id, req.body.gacha_id)
+        const pull_result = pull(req.session.user_data.id, req.body.server_id, req.body.gacha_id, req.body.discount)
         res.status(200).json(pull_result)
       } catch (e) {
         console.log(e)
@@ -24,4 +24,4 @@ const pullTenController = async (req, res) => {
   }
 }
 
-export default pullTenController
+export default pullController
