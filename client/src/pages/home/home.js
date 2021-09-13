@@ -76,9 +76,7 @@ class Home extends Component {
   render() {
     return (
       <Router>
-        <Header 
-          discord_user={this.props.discord_user} 
-          server_data={this.props.server_data} />
+        <Header {...this.props} />
         <main>
           {this.homeRender()}
         </main>

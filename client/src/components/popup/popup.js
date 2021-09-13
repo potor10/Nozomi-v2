@@ -17,6 +17,13 @@ class PopUp extends Component {
     return (<Button onClick={this.props.confirm} className={styles.popup_button} variant="success">Confirm</Button>)
   }
 
+  hideCancel() {
+    if(this.props.hide_cancel) {
+      return 
+    }
+    return (<Button onClick={this.props.cancel} className={styles.popup_button} variant="danger">Cancel</Button>)
+  }
+
   render() {
     return (
       <div id="popup" className={`${styles.popup} text-center d-flex justify-content-center align-items-center`}>
@@ -24,7 +31,7 @@ class PopUp extends Component {
           <div className={styles.popup_title}>{this.props.title}</div>
           <div className={styles.popup_description}>{this.props.description}</div>
           {this.hideConfirm()}
-          <Button onClick={this.props.cancel} className={styles.popup_button} variant="danger">Cancel</Button>
+          {this.hideCancel()}
         </div>
       </div>
     )

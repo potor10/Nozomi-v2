@@ -14,7 +14,7 @@ const logout = () => {
       console.log(res)
       localStorage.removeItem('discord_user')
       localStorage.removeItem('server_data')
-      if (res.status === 200) window.location.href = '/'
+      if (res.status === 200) window.history.pushState({}, null, '/')
     })
 }
 

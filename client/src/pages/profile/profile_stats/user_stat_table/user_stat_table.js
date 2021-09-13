@@ -31,6 +31,10 @@ class UserStatTable extends Component {
             <td>{this.props.user_stats.amulets}</td>
           </tr>
           <tr>
+            <td><img className="icon-sm" src="/images/assets/princess_heart.png"/></td>
+            <td>{this.props.user_stats.princess_hearts}</td>
+          </tr>
+          <tr>
             <td><img className="icon-sm" src="/images/assets/power.png"/></td>
             <td>{this.props.user_stats.total_power}</td>
           </tr>

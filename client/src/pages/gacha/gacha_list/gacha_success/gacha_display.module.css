@@ -1,0 +1,12 @@
+.character_icon {
+  width: 60px;
+  height: 60px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.gacha_background {
+  padding: 100px 50px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}

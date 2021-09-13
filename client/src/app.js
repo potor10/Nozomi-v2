@@ -16,6 +16,7 @@ import Home from './pages/home/home'
 
 // Import Functions
 import loginUser from './lib/login_user'
+import logout from './lib/logout'
 
 // Standard app wrapper for the webapp
 class App extends Component {
@@ -30,6 +31,7 @@ class App extends Component {
     }
 
     this.setServer = this.setServer.bind(this)
+    this.logoutUser = this.logoutUser.bind(this)
   }
 
   /**
@@ -41,14 +43,23 @@ class App extends Component {
     this.setState({ server_data: server_data })
   }
 
+  logoutUser() {
+    logout()
+    this.setState({
+      login_status: 0,
+      discord_user: null,
+      server_data: null
+    })
+  }
+
   // Determines what to show the user based on the state of currently loaded info
   renderLogin() {
     switch (this.state.login_status) {
       case 1: 
         if (this.state.server_data === null) {
-          return (<SelectServer {...this.state} set_server={this.setServer} />)
+          return (<SelectServer {...this.state} set_server={this.setServer} logout_user={this.logoutUser}/>)
         } else {
-          return (<Home {...this.state} />)
+          return (<Home {...this.state} set_server={this.setServer} logout_user={this.logoutUser}/>)
         }
       case 0: 
         return (<Login />)
@@ -64,7 +75,7 @@ class App extends Component {
   // Runs initializing code when the component is mounted
   componentDidMount() {
     const query = QueryString.parse(window.location.search)
-    if (query.code !== undefined) window.location.href = '/'
+    if (query.code !== undefined) window.history.pushState({}, null, '/')
     loginUser(this, query.code)
   }
 

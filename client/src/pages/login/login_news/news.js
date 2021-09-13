@@ -2,6 +2,7 @@
 import { Component } from 'react'
 import styles from './news.module.css'
 import { Container, Row } from 'react-bootstrap'
+import { Link  } from 'react-router-dom'
 
 // Generates The News Page
 class News extends Component {
@@ -22,11 +23,11 @@ class News extends Component {
         <p>
           Nozomi Bot was created and designed to be a fully featured gacha bot
         </p>
-        <a 
+        <Link
           className={`${styles.login_button} btn btn-dark`} 
-          href="/">
+          to="/">
           Back
-        </a>
+        </Link>
       </Row>
     )
   }

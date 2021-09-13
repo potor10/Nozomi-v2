@@ -5,6 +5,7 @@ import StarLevel from '../../../components/star_level/star_level'
 import generatePagination from './generate_pagination'
 
 import styles from './characters_display.module.css'
+import { Link } from 'react-router-dom'
 
 class CharactersDisplay extends Component {
   constructor(props) {
@@ -26,8 +27,8 @@ class CharactersDisplay extends Component {
             md={3} 
             key={character.unit_id} 
             className={`${styles.character_container} text-center`}>
-            <a 
-              href={`/character/${character.unit_id}`} 
+            <Link
+              to={`/character/${character.unit_id}`} 
               className={styles.character_button}>
               <div 
                 className={styles.character_image_wrapper}>
@@ -55,7 +56,7 @@ class CharactersDisplay extends Component {
                   Power: <b>{character.total_power}</b>
                 </small>
               </div>
-            </a>
+            </Link>
           </Col>
         )
       }

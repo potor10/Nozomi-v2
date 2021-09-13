@@ -13,7 +13,6 @@ import Loading from '../../components/loading/loading'
 // Import Functions
 import discordGuilds from './/discord_guilds'
 import getAvatarUrl from '../../lib/url/get_avatar_url'
-import logout from '../../lib/logout'
 
 class SelectServer extends Component {
   constructor(props) {
@@ -54,7 +53,7 @@ class SelectServer extends Component {
             <img className={styles.user_avatar} src={getAvatarUrl(this.props.discord_user)} />
             <h1>{this.props.discord_user.username}</h1>
             {this.renderServers()}
-            <button className={`${styles.logout_button} btn btn-danger`} onClick={logout}>
+            <button className={`${styles.logout_button} btn btn-danger`} onClick={this.props.logout_user}>
               Log Out
             </button>
           </Row>

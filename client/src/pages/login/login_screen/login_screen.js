@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import { Container, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 import styles from './login_screen.module.css'
 
@@ -22,16 +23,16 @@ class LoginScreen extends Component {
         <small>
           You are running this application in <b>{process.env.NODE_ENV}</b> mode.
         </small>
-        <a 
+        <a
           className={`${styles.login_button} btn btn-dark`} 
           href={process.env.REACT_APP_DISCORD_OAUTH}>
           Sign In With Discord
         </a>
-        <a 
+        <Link
           className={`${styles.login_button} btn btn-dark`} 
-          href="/news">
+          to="/news">
           News
-        </a>
+        </Link>
       </Row>
     )
   }
