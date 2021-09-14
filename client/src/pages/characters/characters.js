@@ -69,93 +69,85 @@ class Characters extends Component {
   render() {
     return (
       <>
-        <Container 
-          className={styles.settings_wrapper}>
-          <Row 
-            className="text-center">
-            <Col 
-              md={12} 
-              className="d-flex justify-content-center align-items-center"> 
-              <InputGroup>
-                <FormControl 
-                  id="search" 
-                  placeholder="search" 
-                  aria-label="search" 
-                  aria-describedby="search" />
-                <Button 
-                  onClick={() => {
-                    const search_term = document.getElementById('search').value
-                    console.log(search_term)
-                    this.setSearch(search_term)
-                  }} 
-                  variant="outline-secondary">
-                  Search
-                </Button>
-              </InputGroup>
+        <Container className={styles.settings_wrapper}>
+          <Row className="text-center">
+            <Col md={3} className="d-flex justify-content-center align-items-start"> 
+              <Row>
+                <Col md={12}>
+                  <InputGroup>
+                    <FormControl 
+                      id="search" 
+                      placeholder="search" 
+                      aria-label="search" 
+                      aria-describedby="search" />
+                    <Button 
+                      onClick={() => {
+                        const search_term = document.getElementById('search').value
+                        console.log(search_term)
+                        this.setSearch(search_term)
+                      }} 
+                      variant="outline-secondary">
+                      Search
+                    </Button>
+                  </InputGroup>
+                </Col>
+                <Col md={12}>
+                 <h1 className={styles.settings_title}>Sort By</h1>
+                  <div className="d-flex justify-content-center align-items-center">
+                    <Pagination>
+                      <Pagination.Item 
+                        onClick={(this.state.sort_id !== 0) ? (() => this.setSort(0)) : (undefined)} 
+                        activeLabel={''} 
+                        active={(this.state.sort_id === 0)}>
+                        Power
+                      </Pagination.Item>
+                      <Pagination.Item 
+                        onClick={(this.state.sort_id !== 1) ? (() => this.setSort(1)) : (undefined)} 
+                        activeLabel={''} 
+                        active={(this.state.sort_id === 1)}>
+                        Name
+                      </Pagination.Item>
+                      <Pagination.Item 
+                        onClick={(this.state.sort_id !== 2) ? (() => this.setSort(2)) : (undefined)} 
+                        activeLabel={''} 
+                        active={(this.state.sort_id === 2)}>
+                        Rarity
+                      </Pagination.Item>
+                    </Pagination>
+                  </div>
+                </Col>
+                <Col md={12}>
+                  <h1 className={styles.settings_title}>Units Per Page</h1>
+                  <div className="d-flex justify-content-center align-items-center">
+                    <Pagination>
+                      <Pagination.Item 
+                        onClick={(this.state.page_max !== 12) ? (() => this.setPageMax(12)) : (undefined)} 
+                        activeLabel={''} 
+                        active={(this.state.page_max === 12)}>
+                        12
+                      </Pagination.Item>
+                      <Pagination.Item 
+                        onClick={(this.state.page_max !== 24) ? (() => this.setPageMax(24)) : (undefined)} 
+                        activeLabel={''} 
+                        active={(this.state.page_max === 24)}>
+                        24
+                      </Pagination.Item>
+                      <Pagination.Item 
+                        onClick={(this.state.page_max !== 36) ? (() => this.setPageMax(36)) : (undefined)} 
+                        activeLabel={''} 
+                        active={(this.state.page_max === 36)}>
+                        36
+                      </Pagination.Item>
+                    </Pagination>
+                  </div>
+                </Col>
+              </Row>
             </Col>
-            <Col 
-              md={6}>
-              <h1 
-                className={styles.settings_title}>
-                Sort By
-              </h1>
-              <div 
-                className="d-flex justify-content-center align-items-center">
-                <Pagination>
-                  <Pagination.Item 
-                    onClick={(this.state.sort_id !== 0) ? (() => this.setSort(0)) : (undefined)} 
-                    activeLabel={''} 
-                    active={(this.state.sort_id === 0)}>
-                    Power
-                  </Pagination.Item>
-                  <Pagination.Item 
-                    onClick={(this.state.sort_id !== 1) ? (() => this.setSort(1)) : (undefined)} 
-                    activeLabel={''} 
-                    active={(this.state.sort_id === 1)}>
-                    Name
-                  </Pagination.Item>
-                  <Pagination.Item 
-                    onClick={(this.state.sort_id !== 2) ? (() => this.setSort(2)) : (undefined)} 
-                    activeLabel={''} 
-                    active={(this.state.sort_id === 2)}>
-                    Rarity
-                  </Pagination.Item>
-                </Pagination>
-              </div>
-            </Col>
-            <Col 
-              md={6}>
-              <h1 
-                className={styles.settings_title}>
-                Units Per Page
-              </h1>
-              <div 
-                className="d-flex justify-content-center align-items-center">
-                <Pagination>
-                  <Pagination.Item 
-                    onClick={(this.state.page_max !== 12) ? (() => this.setPageMax(12)) : (undefined)} 
-                    activeLabel={''} 
-                    active={(this.state.page_max === 12)}>
-                    12
-                  </Pagination.Item>
-                  <Pagination.Item 
-                    onClick={(this.state.page_max !== 24) ? (() => this.setPageMax(24)) : (undefined)} 
-                    activeLabel={''} 
-                    active={(this.state.page_max === 24)}>
-                    24
-                  </Pagination.Item>
-                  <Pagination.Item 
-                    onClick={(this.state.page_max !== 36) ? (() => this.setPageMax(36)) : (undefined)} 
-                    activeLabel={''} 
-                    active={(this.state.page_max === 36)}>
-                    36
-                  </Pagination.Item>
-                </Pagination>
-              </div>
+            <Col md={9}>
+              {this.renderCharacters()}
             </Col>
           </Row>
         </Container>
-        {this.renderCharacters()}
       </>
     )
   }

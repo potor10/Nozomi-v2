@@ -1,5 +1,5 @@
 // Import Constants
-import { STAT_NAMES, EQUIP_SLOT_PREFIX } from '../../../../../constants'
+import { STAT_NAMES, EQUIP_SLOT_PREFIX } from '../../../../../../constants'
 
 /**
  * Obtains the max refine level of the equipment

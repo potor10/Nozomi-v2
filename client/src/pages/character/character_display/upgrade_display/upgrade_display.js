@@ -3,10 +3,10 @@ import { Container, Row, Col, Button, Table, Badge } from 'react-bootstrap'
 import StarLevel from '../../../../components/star_level/star_level'
 import Loading from '../../../../components/loading/loading'
 
-import SkillsDisplay from './skills/skills_display'
 import LevelDisplay from './level/level_display'
 import AscendDisplay from './ascend/ascend_display'
 import BondDisplay from './bond/bond_display'
+import EquipmentDisplay from './equipment/equipment_display'
 
 import styles from './upgrade_display.module.css'
 
@@ -20,13 +20,21 @@ class UpgradeDisplay extends Component {
   render() {
     return (
       <>
-        <Row className={styles.upgrade_wrapper} >
-          <LevelDisplay {...this.props} />
-          <AscendDisplay {...this.props} />
+        <Row className={`${styles.upgrade_wrapper} text-center`} >
+          <Col md={6} >
+            <EquipmentDisplay {...this.props} />
+          </Col>
+          <Col md={6}>
+            <LevelDisplay {...this.props} />
+          </Col>
         </Row>
-        <SkillsDisplay {...this.props} />
-        <Row>
-          <BondDisplay {...this.props} />
+        <Row className={`${styles.upgrade_wrapper} text-center`} >
+          <Col md={6} className="text-center">
+            <AscendDisplay {...this.props} />
+          </Col>
+          <Col md={6} className="text-center">
+            <BondDisplay {...this.props} />
+          </Col>
         </Row>
       </>
     )

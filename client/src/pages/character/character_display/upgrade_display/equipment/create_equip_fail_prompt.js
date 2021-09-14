@@ -1,4 +1,4 @@
-import PopUp from '../../../../components/popup/popup'
+import PopUp from '../../../../../components/popup/popup'
 import EquipFailTitle from './equip_fail/equip_fail_title'
 import EquipFailDescription from './equip_fail/equip_fail_description'
 import removeEquipmentPrompt from './remove_equipment_prompt'

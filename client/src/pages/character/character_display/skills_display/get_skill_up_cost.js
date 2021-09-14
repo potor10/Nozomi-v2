@@ -1,5 +1,5 @@
 // Import Constants
-import { NUMBER_TO_SKILL } from '../../../../../constants.js'
+import { NUMBER_TO_SKILL } from '../../../../constants.js'
 
 /**
  * Calculates the cost of leveling up the skill

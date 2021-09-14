@@ -10,13 +10,21 @@ class JumpStartGacha extends Component {
 
   render() {
     return (
-      <Col md={6} className="text-center d-flex justify-content-center align-items-center">
+      <Col md={12} className="text-center d-flex justify-content-center align-items-center">
         <div>
-          <img src="/images/assets/gacha/jump_start_title.png" />
-          <button 
-            onClick={() => {return false}}>
-            <img src="/images/assets/gacha/draw_10_premium.png" />
-          </button>
+          <h1>{this.props.current_gachas[this.props.gacha_id].gacha_name}</h1>
+          <div>
+            <small>{this.props.current_gachas[this.props.gacha_id].description}</small>
+            <small>{this.props.current_gachas[this.props.gacha_id].start_time}</small>
+            <small>{this.props.current_gachas[this.props.gacha_id].end_time}</small>
+          </div>
+          <Button variant="warning"
+            onClick={() => this.props.create_prompt(10)}>
+            <div className="d-flex justify-content-center align-items-center">
+              Draw 10! {this.props.current_gachas[this.props.gacha_id].price}
+              <img className="icon-sm" src="/images/assets/jewel.png" />
+            </div>
+          </Button>
         </div>
       </Col>
     )

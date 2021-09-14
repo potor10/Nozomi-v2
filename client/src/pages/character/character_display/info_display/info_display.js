@@ -1,15 +1,59 @@
 import { Component } from "react";
 import { Table } from "react-bootstrap";
 
+import { STAT_NAMES, STAT_DISPLAY_NAMES } from '../../../../constants'
 
 class InfoDisplay extends Component {
   constructor(props) {
     super(props)
   }
 
+  createStatTable() {
+    let stat_table = []
+
+    for(let i = 0; i < STAT_NAMES.length; i += 2) {
+      stat_table.push((
+        <tr 
+          key={i}>
+          <td>
+            {STAT_DISPLAY_NAMES[STAT_NAMES[i]]}
+          </td>
+          <td>
+            {this.props.unit[STAT_NAMES[i]]}
+          </td>
+          {(i < STAT_NAMES.length) ? (
+            <>
+              <td>{STAT_DISPLAY_NAMES[STAT_NAMES[i+1]]}</td>
+              <td>{this.props.unit[STAT_NAMES[i+1]]}</td>
+            </>
+          ) : ('')}
+        </tr>
+      ))
+    }
+    
+    return stat_table
+  }
+
   render() {
     return (
       <>
+        <Table striped bordered hover variant="dark" className="text-center">
+          <tbody>
+            {this.createStatTable()}
+          </tbody>
+        </Table>
+        <Table striped bordered hover variant="dark" className="text-center">
+          <tbody>
+            <tr>
+              <td>
+                Total Power
+              </td>
+              <td>
+                {this.props.unit.total_power}
+              </td>
+            </tr>
+          </tbody>
+        </Table>
         <Table striped bordered hover variant="dark" className="text-center">
           <tbody>
             <tr>

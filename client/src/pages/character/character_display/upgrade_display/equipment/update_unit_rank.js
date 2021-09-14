@@ -1,6 +1,6 @@
 
 import rankUpUnit from './rank_up_unit'
-import { EQUIP_SLOT_PREFIX, NUMBER_TO_SKILL } from '../../../constants'
+import { EQUIP_SLOT_PREFIX, NUMBER_TO_SKILL } from '../../../../../constants'
 
 const updateUnitRank = (component) => {
   rankUpUnit(component)

@@ -69,13 +69,13 @@ class AscendDisplay extends Component {
 
   render() {
     return (
-      <Col md={6} className="text-center">
+      <>
         <h1>Ascension</h1>
         <div className={styles.star_level}>
           <StarLevel rarity={this.state.displayed_rarity} max_rarity={this.props.rarity_data.length}/>
         </div>
         {this.renderButton()}
-      </Col>
+      </>
     )
   }
 }

@@ -12,7 +12,7 @@ user_db.initDatabase()
 user_db.resetDatabase()
 
 user_db.addUser(player_id)
-user_db.setJewels(player_id, 1500)
+user_db.setJewels(player_id, 15000)
 
 import GachaDatabase from '../../lib/databases/gacha_database.js'
 const gacha_db = new GachaDatabase(server_id)
@@ -34,6 +34,10 @@ my_pull.forEach(pull => {
 })
 
 console.log(formatted_pull)
+
+// Demo Discount
+const my_disc_pull = pull(player_id, server_id, 20015, true)
+console.log(my_disc_pull)
 
 // Demo Normal
 const my_normal = pullTen(player_id, server_id, 10015)

@@ -1,6 +1,6 @@
 
 // Import Constants
-import { SKILL_NAMES, EX_SKILL_NAMES, ACTION_PREFIX } from '../../../../../constants.js'
+import { SKILL_NAMES, EX_SKILL_NAMES, ACTION_PREFIX } from '../../../../constants.js'
 
 /**
  * Calculates the displayed description of the skill in question

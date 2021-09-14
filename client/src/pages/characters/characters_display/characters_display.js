@@ -22,9 +22,7 @@ class CharactersDisplay extends Component {
       .slice(this.props.page_max * (this.state.page - 1), this.props.page_max * this.state.page)
       .map(character => {
         return (
-          <Col 
-            xs={6} 
-            md={3} 
+          <Col xs={4} md={3} lg={2}
             key={character.unit_id} 
             className={`${styles.character_container} text-center`}>
             <Link
@@ -43,7 +41,7 @@ class CharactersDisplay extends Component {
                   <StarLevel 
                     rarity={character.rarity} 
                     max_rarity={this.props.rarity_data[character.unit_id].length} 
-                    large={false} />
+                    size={0} />
                 </span>
               </div>
               <div>

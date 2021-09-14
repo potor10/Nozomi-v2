@@ -11,6 +11,7 @@ const createGachaSuccessPrompt = (component, gacha_id, pull_amt, discount=false)
       title={<GachaSuccessTitle {...component.props} gacha_id={gacha_id} />} 
       description={
         <GachaSuccessDescription {...component.props} gacha_id={gacha_id} 
+          pull_amt={pull_amt} discount={discount}
           remove_prompt={() => removeGachaPrompt(component)} />
       }
       hide_cancel hide_confirm />

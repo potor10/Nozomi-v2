@@ -79,13 +79,13 @@ class LevelDisplay extends Component {
 
   render() {
     return (
-      <Col md={6} className="text-center">
+      <>
         <h1>Level {this.props.unit.level}</h1>
         <small>Account Level {this.props.user.level}</small>
         <div>
           {this.renderButtons()}
         </div>
-      </Col>
+      </>
     )
   }
 }

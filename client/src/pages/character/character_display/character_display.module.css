@@ -1,5 +1,5 @@
 .character_wrapper {
-  max-width: 800px;
+
 }
 
 .pad_left {
@@ -52,36 +52,12 @@
   color: #B27883;
 }
 
-.character_rank_button {
-  color: white !important;
-  margin: 0px 5px;
-}
-
-.character_rank_up {
-  animation: color_shift 2s alternate infinite;
-}
-
-.character_rank_up:hover {
-  animation: none;
-  color: white;
-}
-
-@keyframes color_shift {
-  from {background-color:#0dcaf0;}
-  to {background-color: #94e8f9;}
-}
-
-
 
 .character_stars {
   display: block;
 }
 
-.character_rank_wrapper {
-  display: block;
-  margin-top: 15px;
-}
 
-.equipment_wrapper {
-  margin-top: 10px;
+.nav_link {
+  display: inline-block;
 }

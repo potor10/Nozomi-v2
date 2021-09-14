@@ -1,89 +1,43 @@
 import React, { Component } from 'react'
-import { Container, Row, Col, Button, Table, Badge } from 'react-bootstrap'
+import { Container, Row, Col, Button, Table, Badge, Nav, Navbar } from 'react-bootstrap'
 import StarLevel from '../../../components/star_level/star_level'
-import EquipmentDisplay from './equipment_display/equipment_display'
+
+import MoneyDisplay from './money_display/money_display'
 import UpgradeDisplay from './upgrade_display/upgrade_display'
+import SkillsDisplay from './skills_display/skills_display'
 import InfoDisplay from './info_display/info_display'
 
-import updateUnitRank from './update_unit_rank'
-
 import styles from './character_display.module.css'
-import { NUMBER_TO_EQUIP, STAT_NAMES, STAT_DISPLAY_NAMES } from '../../../constants'
 
 class CharacterDisplay extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      rank_up_available: this.checkRankUp(this.props.unit)
+      displayed_state: 0
     }
   }
 
-  checkRankUp(unit) {
-    let rank_up_available = true
-    for (let i = 1; i <= 6; i++) {
-      if (unit[NUMBER_TO_EQUIP[i]] === 0) {
-        rank_up_available = false
-        break
-      }
-    }
-
-    return rank_up_available
-  }
-
-  generateRankUpButton() {
-    if (this.state.rank_up_available) {
-      return (
-        <Button 
-          onClick={() => updateUnitRank(this)} 
-          className={styles.character_rank_button, styles.character_rank_up} 
-          variant="info">
-          Rank Up
-        </Button>
-      ) 
-    } else { 
-      return (
-        <Button 
-          className={styles.character_rank_button} 
-          variant="secondary" 
-          disabled>
-          Rank Up
-        </Button>
-      )
+  renderCharacterTab() {
+    switch (this.state.displayed_state) {
+      case 0:
+        return (
+          <>
+            <MoneyDisplay {...this.props} />
+            <UpgradeDisplay {...this.props} /> 
+          </>
+        )
+      case 1:
+        return (
+          <>
+            <MoneyDisplay {...this.props} />
+            <SkillsDisplay {...this.props} />
+          </>
+        )
+      case 2:
+        return (<InfoDisplay {...this.props}/>)
     }
   }
 
-  componentDidUpdate() {
-    const rank_up_available = this.checkRankUp(this.props.unit)
-    if (rank_up_available !== this.state.rank_up_available) {
-      this.setState({ rank_up_available: rank_up_available })
-    }
-  }
-
-  createStatTable() {
-    let stat_table = []
-
-    for(let i = 0; i < STAT_NAMES.length; i += 2) {
-      stat_table.push((
-        <tr 
-          key={i}>
-          <td>
-            {STAT_DISPLAY_NAMES[STAT_NAMES[i]]}
-          </td>
-          <td>
-            {this.props.unit[STAT_NAMES[i]]}
-          </td>
-          {(i < STAT_NAMES.length) ? (
-            <>
-              <td>{STAT_DISPLAY_NAMES[STAT_NAMES[i+1]]}</td>
-              <td>{this.props.unit[STAT_NAMES[i+1]]}</td>
-            </>
-          ) : ('')}
-        </tr>
-      ))
-    }
-    
-    return stat_table
-  }
 
   render() {
     let unit_profile = `/images/unit/thumb_unit_profile_` + 
@@ -93,65 +47,52 @@ class CharacterDisplay extends Component {
     
     return (
       <Container className={styles.character_wrapper}>
-        <Row style={{backgroundImage: `url(${unit_profile})`}} 
-          className={`${styles.character_background} text-center d-flex`}>
-          <Col md={6} style={{backgroundImage: `url(${unit_profile})`}} 
-            className={styles.pad_left}/>
-          <Col md={6} 
-            className={styles.character_data}>
-            <h1 className={styles.character_name}>
-              {this.props.unit.name}
-            </h1>
-            <span className={styles.badge_wrapper}>
-              <Badge className={styles.character_rank}>
-                Rank {this.props.unit.promotion_level}
-              </Badge>
-              <Badge className={styles.character_level}>
-                Lv. {this.props.unit.level}
-              </Badge>
-            </span>
-            <span className={styles.character_stars}>
-              <StarLevel 
-                rarity={this.props.unit.rarity} 
-                max_rarity={this.props.rarity_data.length} />
-            </span>
-            <span className={styles.character_rank_wrapper}>
-              {this.generateRankUpButton()}
-            </span>
-            <div className={styles.equipment_wrapper}>
-              <EquipmentDisplay {...this.props} />
-            </div>
-          </Col>
-        </Row>
-        <Row className="text-center">
-          <small >{this.props.unit_comments_data[random_comment_idx].description}</small>
-        </Row>
-        <UpgradeDisplay {...this.props} /> 
         <Row>
-          <Col className="text-center">
-            <h1>
-              Stats
-            </h1>
-            <Table striped bordered hover variant="dark">
-              <tbody>
-                {this.createStatTable()}
-              </tbody>
-            </Table>
-            <Table striped bordered hover variant="dark">
-              <tbody>
-                <tr>
-                  <td>
-                    Total Power
-                  </td>
-                  <td>
-                    {this.props.unit.total_power}
-                  </td>
-                </tr>
-              </tbody>
-            </Table>
+          <Col lg={4}>
+            <Row className="text-center">
+              <h1 className={styles.character_name}>
+                {this.props.unit.name}
+              </h1>
+              <span className={styles.badge_wrapper}>
+                <Badge className={styles.character_rank}>
+                  Rank {this.props.unit.promotion_level}
+                </Badge>
+                <Badge className={styles.character_level}>
+                  Lv. {this.props.unit.level}
+                </Badge>
+              </span>
+              <span className={styles.character_stars}>
+                <StarLevel 
+                  rarity={this.props.unit.rarity} 
+                  max_rarity={this.props.rarity_data.length} />
+              </span>
+            </Row>
+            <Row style={{backgroundImage: `url(${unit_profile})`}} 
+              className={`${styles.character_background} text-center d-flex`}>
+              <Col md={12} style={{backgroundImage: `url(${unit_profile})`}} 
+                className={styles.pad_left}/>
+            </Row>
+            <Row>
+              <small >{this.props.unit_comments_data[random_comment_idx].description}</small>
+            </Row>
+          </Col>
+          <Col lg={8}>
+            <Nav variant="tabs" defaultActiveKey="upgrade" className="me-auto">
+              <Nav.Item>
+                <Nav.Link className={styles.nav_link} 
+                  onClick={() => { this.setState({ displayed_state: 0 }) }}
+                  eventKey={"upgrade"}>Upgrade</Nav.Link>
+                <Nav.Link className={styles.nav_link}  
+                  onClick={() => { this.setState({ displayed_state: 1 }) }}
+                  eventKey={"skills"}>Skills</Nav.Link>
+                <Nav.Link className={styles.nav_link} 
+                  onClick={() => { this.setState({ displayed_state: 2 }) }}
+                  eventKey={"stats"}>Stats</Nav.Link>
+              </Nav.Item>
+            </Nav>
+            {this.renderCharacterTab()}
           </Col>
         </Row>
-        <InfoDisplay {...this.props}/>
       </Container>
     )
   }

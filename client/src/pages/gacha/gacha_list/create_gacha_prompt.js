@@ -19,16 +19,25 @@ const createGachaPrompt = (component, gacha_id, pull_amt, discount=false) => {
   }
 
   // add cases for discount pull
-  if (component.props.current_gachas[gacha_id].price * pull_amt > component.props.user_stats.jewels) {
+  let price = (discount) ? component.props.current_gachas[gacha_id].discount_price : 
+    component.props.current_gachas[gacha_id].price
+
+  if (price * pull_amt > component.props.user_stats.jewels) {
     confirmGacha = () => {
       createGachaFailPrompt(component, gacha_id)
     }
   }
 
+  console.log(pull_amt)
+
   const gachaPrompt = (
     <PopUp 
-      title={<GachaPromptTitle {...component.props} gacha_id={gacha_id} />} 
-      description={<GachaPromptDescription {...component.props} gacha_id={gacha_id}/>}
+      title={
+        <GachaPromptTitle {...component.props} gacha_id={gacha_id} />
+      }
+      description={
+        <GachaPromptDescription {...component.props} gacha_id={gacha_id} />
+      }
       confirm={confirmGacha}
       cancel={() => removeGachaPrompt(component)} />
   )

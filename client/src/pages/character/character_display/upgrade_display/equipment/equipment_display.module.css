@@ -1,0 +1,48 @@
+.equipment_button_wrapper {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.equipment_button {
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+.equipment_icon {
+  height: 70px;
+  width: 70px;
+}
+
+.equipment_unequipped {
+  opacity: 0.6;
+}
+
+.equipment_equipped {
+  cursor: pointer;
+}
+
+.equipment_unequipped:hover {
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+
+.rank_button {
+  margin: 0px 5px;
+  color: black !important;
+}
+
+.rank_up {
+  animation: color_shift 2s alternate infinite;
+}
+
+.rank_up:hover {
+  animation: none;
+  color: white;
+}
+
+@keyframes color_shift {
+  from {background-color:#0dcaf0;}
+  to {background-color: #94e8f9;}
+}

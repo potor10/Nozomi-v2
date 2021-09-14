@@ -9,12 +9,14 @@ import pull from './pull'
 
 import GachaDisplay from './gacha_display'
 
+import styles from './gacha_success_description.module.css'
+
 class GachaSuccessDescription extends Component {
   constructor(props) {
     super(props)
     this.state = {
       gif_lucky: '/images/assets/gacha/pull_lucky.gif',
-      gif_unlocky: '/images/assets/gacha/pull_unlucky.gif',
+      gif_unlucky: '/images/assets/gacha/pull_unlucky.gif',
       loaded_gif: '',
 
       show_animation: true,
@@ -30,10 +32,11 @@ class GachaSuccessDescription extends Component {
       case 1:
         if (this.state.show_animation) {
           return (
-            <>
-              <img src={this.state.loaded_gif.replace(/\?.*$/,"")+"?x="+Math.random()} />
+            <div>
+              <img className={styles.pull_gif} 
+                src={this.state.loaded_gif.replace(/\?.*$/,"")+"?x="+Math.random()} />
               <Button onClick={this.skipAnimation}> Skip </Button>
-            </>
+            </div>
           )
         } else {
           return (
@@ -60,12 +63,17 @@ class GachaSuccessDescription extends Component {
   }
 
   componentDidMount() {
-    pullTen(this, this.props.gacha_id)
-    this.setState({loaded_gif: this.state.gif_lucky})
+    console.log('pull amt' + this.props.pull_amt)
+    if (this.props.pull_amt === 1) {
+      pull(this, this.props.gacha_id, this.props.discount)
+    } else {
+      pullTen(this, this.props.gacha_id)
+    }
 
     if (this.props.current_gachas[this.props.gacha_id].type_id === 1) {
       this.setState({ show_animation: false })
     }
+
     console.log("MOUNTED SUCCESS!")
 
     

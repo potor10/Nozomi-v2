@@ -1,7 +1,7 @@
 import { Table } from 'react-bootstrap'
 import React, { Component } from 'react'
 
-import { STAT_NAMES, STAT_DISPLAY_NAMES } from '../../../../../constants'
+import { STAT_NAMES, STAT_DISPLAY_NAMES } from '../../../../../../constants'
 import singleEquipStat from './single_equipment_stat'
 
 import styles from './equip_prompt_description.module.css'

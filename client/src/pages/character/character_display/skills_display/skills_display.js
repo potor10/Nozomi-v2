@@ -10,7 +10,7 @@ import updateSkill from './update_skill'
 
 import styles from './skills_display.module.css'
 
-import { SKILL_NAMES, EX_SKILL_NAMES } from '../../../../../constants'
+import { SKILL_NAMES, EX_SKILL_NAMES } from '../../../../constants'
 
 class SkillsDisplay extends Component {
   constructor(props) {
@@ -134,9 +134,7 @@ class SkillsDisplay extends Component {
   render() {
     return (
       <Container>
-        <hr />
         {this.renderSkillTable()}
-        <hr />
       </Container>
     )
   }

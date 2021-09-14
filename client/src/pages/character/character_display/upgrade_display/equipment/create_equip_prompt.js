@@ -1,4 +1,4 @@
-import PopUp from '../../../../components/popup/popup'
+import PopUp from '../../../../../components/popup/popup'
 import EquipPromptTitle from './equip_prompt/equip_prompt_title'
 import EquipPromptDescription from './equip_prompt/equip_prompt_description'
 

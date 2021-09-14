@@ -1,4 +1,4 @@
-.character_icon {
+.icon {
   width: 60px;
   height: 60px;
   padding: 0px;
@@ -6,7 +6,52 @@
 }
 
 .gacha_background {
-  padding: 100px 50px;
-  background-size: 100% 100%;
+  padding: 55px 70px 15px 70px;
+  background-size: 100% auto;
   background-repeat: no-repeat;
+  margin-bottom: 10px;
+}
+
+.pull_row {
+  width: 400px;
+  height: 80px;
+}
+
+.pull_image_wrapper {
+  position: relative;
+  display: inline;
+  width: 60px;
+  padding: 0;
+  margin: 10px;
+}
+
+.star_display {
+  position: absolute;
+  height: 20px;
+  left: 2px;
+  bottom: 2px;
+  white-space: nowrap;
+}
+
+.overlay_display {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: 0px auto;
+  white-space: nowrap;
+  animation: fade 2s infinite alternate ease-in-out;
+}
+
+.overlay_amount {
+  position: absolute;
+  right: 5px;
+  bottom: 2px;
+  color: darkblue;
+  font-size: 10px;
+}
+
+@keyframes fade {
+  0% { opacity: 0;}
+  100% { opacity: 1;}
 }

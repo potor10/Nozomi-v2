@@ -72,3 +72,5 @@ export const NUMBER_TO_SKILL = {
   202: "main_skill_2", 
   301: "ex_skill"
 }
+
+export const AMULET_CONVERT = [1, 10, 50]

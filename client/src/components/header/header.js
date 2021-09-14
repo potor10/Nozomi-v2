@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styles from './header.module.css'
-import {Nav, Navbar, Container, NavDropdown, Dropdown} from 'react-bootstrap'
+import { Nav, Navbar, Container, NavDropdown, Dropdown} from 'react-bootstrap'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 import getAvatarUrl from '../../lib/url/get_avatar_url'
@@ -62,7 +62,6 @@ class Header extends Component {
                 <Nav.Link eventKey="7" as={Link} to="/support">
                   Support
                 </Nav.Link>
-                
               </Nav>
               <Nav>
                 <NavDropdown title={this.renderDiscordProfile()} id="collasible-nav-dropdown">

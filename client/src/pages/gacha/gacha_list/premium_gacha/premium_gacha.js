@@ -9,20 +9,39 @@ class PremiumGacha extends Component {
 
   render() {
     return (
-      <Col md={6} className="text-center d-flex justify-content-center align-items-center">
+      <Col md={12} className="text-center d-flex justify-content-center align-items-center">
         <div>
-          <img src="/images/assets/gacha/premium_title.png" />
-          <Button 
-            onClick={() => this.props.create_prompt(10)}>
-            <img src="/images/assets/gacha/draw_10_premium.png" />
-          </Button>
-          <Button 
-            onClick={() => this.props.create_prompt(1)}>
-            <img src="/images/assets/gacha/draw_premium.png" />
-          </Button>
-          <Button 
+          <h1>{this.props.current_gachas[this.props.gacha_id].gacha_name}</h1>
+          <div>
+            <small>{this.props.current_gachas[this.props.gacha_id].description}</small>
+            <small>{this.props.current_gachas[this.props.gacha_id].start_time}</small>
+            <small>{this.props.current_gachas[this.props.gacha_id].end_time}</small>
+          </div>
+          <Button variant="warning"
             onClick={() => this.props.create_prompt(1, true)}>
-            <img src="/images/assets/gacha/draw_premium_daily.png" />
+            <div>
+              Daily Deal!
+            </div>
+            <div className="d-flex justify-content-center align-items-center">
+              {this.props.current_gachas[this.props.gacha_id].discount_price}
+              <img className="icon-sm" src="/images/assets/jewel.png" />
+            </div>
+          </Button>
+          <Button variant="info"
+            onClick={() => this.props.create_prompt(1)}>
+            Draw 1
+            <div className="d-flex justify-content-center align-items-center">
+              {this.props.current_gachas[this.props.gacha_id].price}
+              <img className="icon-sm" src="/images/assets/jewel.png" />
+            </div>
+          </Button>
+          <Button variant="info"
+            onClick={() => this.props.create_prompt(10)}>
+            Draw 10
+            <div className="d-flex justify-content-center align-items-center">
+              {this.props.current_gachas[this.props.gacha_id].price * 10}
+              <img className="icon-sm" src="/images/assets/jewel.png" />
+            </div>
           </Button>
         </div>
       </Col>

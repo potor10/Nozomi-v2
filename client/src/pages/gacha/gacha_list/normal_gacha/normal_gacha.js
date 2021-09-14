@@ -9,13 +9,17 @@ class NormalGacha extends Component {
 
   render() {
     return (
-      <Col md={6} className="text-center d-flex justify-content-center align-items-center">
+      <Col md={12} className="text-center d-flex justify-content-center align-items-center">
         <div>
-          <img src="/images/assets/gacha/normal_title.png" />
-          <button 
-            onClick={() => this.props.create_prompt(10)}>
-          <img src="/images/assets/gacha/draw_normal.png" />
-          </button>
+          <h1>{this.props.current_gachas[this.props.gacha_id].gacha_name}</h1>
+          <div>
+            <small>{this.props.current_gachas[this.props.gacha_id].description}</small>
+            <small>{this.props.current_gachas[this.props.gacha_id].start_time}</small>
+            <small>{this.props.current_gachas[this.props.gacha_id].end_time}</small>
+          </div>
+          <Button onClick={() => this.props.create_prompt(10)}>
+            Draw x10 (FREE)
+          </Button>
         </div>
       </Col>
     )
