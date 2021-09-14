@@ -12,9 +12,8 @@ class GachaSuccessTitle extends Component {
 
     return (
       <>
-        <h1>hello</h1>
-        <small>roll gacha?</small>
-        <p>pullTen(this.props.server_data.id, this.props.gacha_id)</p>
+        <h1>{this.props.discord_user.username}'s Roll On {this.props.current_gachas[this.props.gacha_id].gacha_name}</h1>
+        <small>{this.props.current_gachas[this.props.gacha_id].description}</small>
       </>
     )
   }

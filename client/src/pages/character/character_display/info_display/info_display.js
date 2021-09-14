@@ -35,6 +35,12 @@ class InfoDisplay extends Component {
   }
 
   render() {
+    const months = [
+      "January", "February", "March", 
+      "April", "May", "June", "July", 
+      "August", "September", "October", 
+      "November", "December"]
+    
     return (
       <>
         <Table striped bordered hover variant="dark" className="text-center">
@@ -76,7 +82,7 @@ class InfoDisplay extends Component {
             </tr>
             <tr>
               <td>Birthday</td>
-              <td>{this.props.unit_profile_data.birth_month}/{this.props.unit_profile_data.birth_day}</td>
+              <td>{months[this.props.unit_profile_data.birth_month-1]} {this.props.unit_profile_data.birth_day}</td>
               <td>Blood Type</td>
               <td>{this.props.unit_profile_data.blood_type}</td>
             </tr>

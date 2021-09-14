@@ -20,6 +20,7 @@ class UpgradeDisplay extends Component {
   render() {
     return (
       <>
+        <hr/>
         <Row className={`${styles.upgrade_wrapper} text-center`} >
           <Col md={6} >
             <EquipmentDisplay {...this.props} />
@@ -28,6 +29,7 @@ class UpgradeDisplay extends Component {
             <LevelDisplay {...this.props} />
           </Col>
         </Row>
+        <hr className={styles.divider} />
         <Row className={`${styles.upgrade_wrapper} text-center`} >
           <Col md={6} className="text-center">
             <AscendDisplay {...this.props} />
@@ -36,6 +38,7 @@ class UpgradeDisplay extends Component {
             <BondDisplay {...this.props} />
           </Col>
         </Row>
+        <hr/>
       </>
     )
   }

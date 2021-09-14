@@ -7,8 +7,8 @@ class GachaFailTitle extends Component {
 
     return (
       <>
-        <h1>hello</h1>
-        <small>you FAILED roll gacha?</small>
+        <h1>{this.props.current_gachas[this.props.gacha_id].gacha_name}</h1>
+        <small>{this.props.current_gachas[this.props.gacha_id].description}</small>
       </>
     )
   }

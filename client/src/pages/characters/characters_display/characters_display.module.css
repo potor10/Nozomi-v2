@@ -40,6 +40,13 @@
   background-size: contain;
 }
 
+@media (max-width:768px){
+  .character_image {
+    width: 90px;
+    height: 90px;
+  }
+}
+
 .character_power {
   display: block;
 }

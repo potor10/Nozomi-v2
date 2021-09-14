@@ -1,6 +1,7 @@
 
 .settings_wrapper {
   margin-top: 20px;
+  max-width: 1000px;
 }
 
 .settings_title {

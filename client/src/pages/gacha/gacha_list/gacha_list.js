@@ -13,7 +13,7 @@ class GachaList extends Component {
     super(props)
     this.state = {
       popup: undefined,
-      displayed_gacha_id: undefined
+      displayed_gacha_id: this.props.current_gachas[Object.keys(this.props.current_gachas)[0]].gacha_id
     }
   }
 

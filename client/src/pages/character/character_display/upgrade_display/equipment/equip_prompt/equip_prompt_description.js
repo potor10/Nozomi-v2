@@ -30,26 +30,17 @@ class EquipPromptDescription extends Component {
 
     return (
       <>
-        <Table 
-          striped 
-          bordered 
-          hover 
-          variant="dark" 
-          className={styles.equipment_price}>
+        <Table striped bordered hover variant="dark" className={styles.equipment_price}>
           <tbody>
             <tr>
-              <td>
-                Your Jewels
-              </td>
+              <td>Your Jewels</td>
               <td>
                 <b>{this.props.user.jewels}</b>
                 <img className="icon-sm" src={"/images/assets/jewel.png"} />
               </td>
             </tr>
             <tr>
-              <td>
-                Price
-              </td>
+              <td>Price</td>
               <td>
                 <b>{price}</b>
                 <img className="icon-sm" src={"/images/assets/jewel.png"} />
@@ -57,12 +48,7 @@ class EquipPromptDescription extends Component {
             </tr>
           </tbody>
         </Table>
-        <Table 
-          striped 
-          bordered 
-          hover 
-          variant="light" 
-          className={styles.equipment_stat}>
+        <Table striped bordered hover variant="light" className={styles.equipment_stat}>
           <tbody>
             {stats_array}
           </tbody>

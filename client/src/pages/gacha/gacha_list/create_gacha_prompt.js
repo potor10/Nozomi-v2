@@ -22,9 +22,14 @@ const createGachaPrompt = (component, gacha_id, pull_amt, discount=false) => {
   let price = (discount) ? component.props.current_gachas[gacha_id].discount_price : 
     component.props.current_gachas[gacha_id].price
 
-  if (price * pull_amt > component.props.user_stats.jewels) {
+  // x10 guarantee always 10 pull
+  if (component.props.current_gachas[gacha_id].type_id !== 6) {
+    price *= pull_amt
+  }
+
+  if (price > component.props.user_stats.jewels) {
     confirmGacha = () => {
-      createGachaFailPrompt(component, gacha_id)
+      createGachaFailPrompt(component, gacha_id, price)
     }
   }
 
@@ -36,7 +41,7 @@ const createGachaPrompt = (component, gacha_id, pull_amt, discount=false) => {
         <GachaPromptTitle {...component.props} gacha_id={gacha_id} />
       }
       description={
-        <GachaPromptDescription {...component.props} gacha_id={gacha_id} />
+        <GachaPromptDescription {...component.props} gacha_id={gacha_id} price={price} />
       }
       confirm={confirmGacha}
       cancel={() => removeGachaPrompt(component)} />
