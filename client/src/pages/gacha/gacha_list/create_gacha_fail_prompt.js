@@ -4,7 +4,7 @@ import GachaFailDescription from './gacha_fail/gacha_fail_description'
 import removeGachaPrompt from './remove_gacha_prompt'
 
 const createGachaFailPrompt = (component, gacha_id, price) => {
-  const failPrompt = (
+  const fail_prompt = (
     <PopUp 
       title={<GachaFailTitle {...component.props} gacha_id={gacha_id} />} 
       description={<GachaFailDescription {...component.props} gacha_id={gacha_id} price={price} />}
@@ -13,7 +13,7 @@ const createGachaFailPrompt = (component, gacha_id, price) => {
   )
 
   component.setState({
-    popup : failPrompt
+    popup : fail_prompt
   })
 }
 

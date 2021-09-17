@@ -44,7 +44,7 @@ class CharacterDisplay extends Component {
       `${this.props.unit.base_id}${(this.props.unit.rarity < 3) ? 1 : 3}1.png`
     
     const random_comment_idx = Math.floor(Math.random() * this.props.unit_comments_data.length)
-    
+
     return (
       <Container className={styles.character_wrapper}>
         <Row>
@@ -72,8 +72,9 @@ class CharacterDisplay extends Component {
               <Col md={12} style={{backgroundImage: `url(${unit_profile})`}} 
                 className={styles.pad_left}/>
             </Row>
-            <Row>
-              <small >{this.props.unit_comments_data[random_comment_idx].description}</small>
+            <Row className="text-center">
+              {this.props.unit_comments_data[random_comment_idx].description
+                .split('\\n').map((line, idx) => <small key={'desc'+idx}>{line}</small>)}
             </Row>
           </Col>
           <Col lg={8}>

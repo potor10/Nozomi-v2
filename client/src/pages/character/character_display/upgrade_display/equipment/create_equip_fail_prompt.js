@@ -4,7 +4,7 @@ import EquipFailDescription from './equip_fail/equip_fail_description'
 import removeEquipmentPrompt from './remove_equipment_prompt'
 
 const createEquipFailPrompt = (component, equip_idx) => {
-  const failPrompt = (
+  const fail_prompt = (
     <PopUp 
       title={<EquipFailTitle {...component.props} equip_idx={equip_idx} />} 
       description={<EquipFailDescription {...component.props} equip_idx={equip_idx} />}
@@ -13,7 +13,7 @@ const createEquipFailPrompt = (component, equip_idx) => {
   )
 
   component.setState({
-    popup : failPrompt
+    popup : fail_prompt
   })
 }
 

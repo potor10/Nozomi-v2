@@ -91,7 +91,7 @@ class EquipmentDisplay extends Component {
 
   componentDidMount() {
     console.log(this.props.promotion_data)
-    console.log(this.props.user)
+    console.log(this.props.user_stats)
     console.log('aaaa')
   }
 

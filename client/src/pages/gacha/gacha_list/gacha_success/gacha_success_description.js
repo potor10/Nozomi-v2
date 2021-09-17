@@ -4,10 +4,9 @@ import React, { Component } from 'react'
 
 import Loading from '../../../../components/loading/loading'
 
-import pullTen from './pull_ten'
-import pull from './pull'
-
 import GachaDisplay from './gacha_display'
+
+import updateGacha from './update_gacha'
 
 import styles from './gacha_success_description.module.css'
 
@@ -63,20 +62,12 @@ class GachaSuccessDescription extends Component {
   }
 
   componentDidMount() {
-    console.log('pull amt' + this.props.pull_amt)
-    if (this.props.pull_amt === 1) {
-      pull(this, this.props.gacha_id, this.props.discount)
-    } else {
-      pullTen(this, this.props.gacha_id)
-    }
-
-    if (this.props.current_gachas[this.props.gacha_id].type_id === 1) {
-      this.setState({ show_animation: false })
-    }
-
+    updateGacha(this)
     console.log("MOUNTED SUCCESS!")
+  }
 
-    
+  componentWillUnmount() {
+    clearTimeout(this.state.timeout)
   }
 
   render() {

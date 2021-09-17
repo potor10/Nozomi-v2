@@ -3,7 +3,7 @@ import skillUpUnit from "./skill_up_unit"
 const updateSkill = (component, skill_info, skill_name) => {
   skillUpUnit(component, skill_name, skill_info.max)
 
-  let user = component.props.user 
+  let user = component.props.user_stats
   user.mana -= skill_info.mana_cost
   component.props.set_user(user)
 

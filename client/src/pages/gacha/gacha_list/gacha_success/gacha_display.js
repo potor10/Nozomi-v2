@@ -5,19 +5,17 @@ import styles from './gacha_display.module.css'
 
 import StarLevel from '../../../../components/star_level/star_level'
 
+import getUnitIconUrl from '../../../../lib/url/get_unit_icon_url'
+
 import { AMULET_CONVERT } from '../../../../constants'
 
 const generateNormalDisplay = (component) => {
   let items_row_1 = []
   let items_row_2 = []
 
-  let jewels_obtained = 0
-  let amulets_obtained = 0
-
   component.props.pull_result.equipment.forEach((pull, idx) => {
-    jewels_obtained += pull.sale_price
     let equipment = (
-      <span className={styles.pull_image_wrapper}>
+      <span key={"normal"+idx} className={styles.pull_image_wrapper}>
         <img className={styles.icon}
           src={`/images/icon/icon_equipment_${pull.equipment_id}.png`}/>
         <span className={styles.overlay_display}>
@@ -38,9 +36,8 @@ const generateNormalDisplay = (component) => {
 
   const equipment_length = component.props.pull_result.equipment.length
   component.props.pull_result.memory_shards.forEach((pull, idx) => {
-    amulets_obtained += 5
     let shard = (
-      <span className={styles.pull_image_wrapper}>
+      <span key={"normal"+(idx+equipment_length)} className={styles.pull_image_wrapper}>
         <img className={styles.icon}
           src={`/images/icon/icon_item_${pull.item_id}.png`}/>
         <span className={styles.overlay_display}>
@@ -73,7 +70,7 @@ const generateNormalDisplay = (component) => {
           </Row>
         </Container>
       </div>
-      <p>you have obtained {jewels_obtained} jewels and {amulets_obtained} divine amulets</p>
+      <p>you have obtained {component.props.jewels_obtained} jewels and {component.props.amulets_obtained} divine amulets</p>
     </>
   )
 
@@ -84,14 +81,10 @@ const generatePremiumDisplay = (component) => {
   let characters_row_1 = []
   let characters_row_2 = []
 
-  let amulets_obtained = 0
-  let new_units_obtained = 0 
-
   component.props.pull_result.forEach((pull, idx) => {
     let dupe = undefined
 
     if (pull.dupe) {
-      amulets_obtained += AMULET_CONVERT[pull.rarity-1]
       dupe = (
         <span className={styles.overlay_display}>
           <img className={styles.icon}
@@ -101,20 +94,14 @@ const generatePremiumDisplay = (component) => {
           </small>
         </span>
       )
-    } else {
-      new_units_obtained += 1
     }
 
-    const base_id = (''+pull.unit_id).substring(0, 4)
     const character = (
-      <span className={styles.pull_image_wrapper}>
+      <span key={"premium"+idx} className={styles.pull_image_wrapper}>
         <img className={styles.icon}
-          src={`/images/unit/icon_unit_${base_id}${(pull.rarity < 3) ? 1 : 3}1.png`}/>
+          src={getUnitIconUrl(pull)}/>
         <span className={styles.star_display}>
-          <StarLevel 
-            rarity={pull.rarity} 
-            max_rarity={pull.rarity} 
-            size={0} />
+          <StarLevel rarity={pull.rarity} max_rarity={pull.rarity} size={0} />
         </span>
         {dupe}
       </span>
@@ -140,7 +127,8 @@ const generatePremiumDisplay = (component) => {
           </Row>
         </Container>
       </div>
-      <p>you have obtained {amulets_obtained} divine amulets and {new_units_obtained} new characters</p>
+      <p>you have obtained {component.props.amulets_obtained} divine amulets and {component.props.new_units} new characters</p>
+      <p>character pt: 1 :(2) +1</p>
     </>
   )
 

@@ -13,7 +13,7 @@ class EquipFailDescription extends Component {
         <tbody>
           <tr>
             <td>Your Jewels</td>
-            <td><b>{this.props.user.jewels}</b>
+            <td><b>{this.props.user_stats.jewels}</b>
               <img className="icon-sm" src={"/images/assets/jewel.png"} />
             </td>
           </tr>
@@ -25,7 +25,7 @@ class EquipFailDescription extends Component {
           </tr>
           <tr>
             <td>You Need</td>
-            <td><b>{Math.abs(this.props.user.jewels - price)}</b>
+            <td><b>{Math.abs(this.props.user_stats.jewels - price)}</b>
               <img className="icon-sm" src={"/images/assets/jewel.png"} />
             </td>
           </tr>

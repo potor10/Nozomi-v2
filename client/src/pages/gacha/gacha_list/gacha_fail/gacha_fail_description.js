@@ -12,7 +12,7 @@ class GachaFailDescription extends Component {
           <tbody>
             <tr>
               <td>Your Jewels</td>
-              <td><b>{this.props.user.jewels}</b>
+              <td><b>{this.props.user_stats.jewels}</b>
                 <img className="icon-sm" src={"/images/assets/jewel.png"} />
               </td>
             </tr>
@@ -24,7 +24,7 @@ class GachaFailDescription extends Component {
             </tr>
             <tr>
               <td>You Need</td>
-              <td><b>{Math.abs(this.props.user.jewels - this.props.price)}</b>
+              <td><b>{Math.abs(this.props.user_stats.jewels - this.props.price)}</b>
                 <img className="icon-sm" src={"/images/assets/jewel.png"} />
               </td>
             </tr>

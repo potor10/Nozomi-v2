@@ -9,9 +9,8 @@ class NormalGacha extends Component {
 
   render() {
     let disabled = !this.props.current_gachas[this.props.gacha_id].pull_available
-
-    let formatted_start = new Date(this.props.current_gachas[this.props.gacha_id].start_time + ' UTC')
-    let formatted_end = new Date(this.props.current_gachas[this.props.gacha_id].end_time + ' UTC')
+    let reset_1 = (new Date("2011-04-20 13:00 UTC")).toLocaleTimeString('en-US')
+    let reset_2 = (new Date("2011-04-20 20:00 UTC")).toLocaleTimeString('en-US')
 
     return (
       <Col md={12} className="text-center d-flex justify-content-center align-items-center">
@@ -19,8 +18,7 @@ class NormalGacha extends Component {
           <h1>{this.props.current_gachas[this.props.gacha_id].gacha_name}</h1>
           <div>
             <small>{this.props.current_gachas[this.props.gacha_id].description}</small>
-            <p>{formatted_start.toLocaleString('en-US')}</p>
-            <p>{formatted_end.toLocaleString('en-US')}</p>
+            <small> Available twice per day at {reset_1} and {reset_2}</small>
           </div>
           <Button variant={(disabled) ? "secondary" : "info"}
             disabled={disabled}

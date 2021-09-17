@@ -18,6 +18,7 @@ import gacha_get from './routes/gacha/gacha_get.js'
 import gacha_post from './routes/gacha/gacha_post.js'
 import user_get from './routes/user/user_get.js'
 import user_post from './routes/user/user_post.js'
+import exchange_post from './routes/exchange/exchange_post.js'
 
 class NozomiApi {
   constructor() {
@@ -61,10 +62,11 @@ class NozomiApi {
 
   useLimiter() {
     const api_limiter = rateLimit({
-      windowMs: 1000, // 15 minutes
-      max: 50
+      windowMs: 1000 * 60 * 15, // 15 minutes
+      max: 10 * 60 * 15 // 10 qps max per client
     });
-    // this._app.use("/api/", api_limiter);
+    
+    this._app.use("/api/", api_limiter);
   }
 
   useStatic() {
@@ -92,6 +94,9 @@ class NozomiApi {
     // User Routes
     this._app.use(ROUTE_PREFIX+'user', user_get)
     this._app.use(ROUTE_PREFIX+'user', user_post)
+
+    // Exchange Routes
+    this._app.use(ROUTE_PREFIX+'exchange', exchange_post)
 
     // 404, page can't be found
     this._app.use((req, res) => { res.status(404).send('404 page not found') })

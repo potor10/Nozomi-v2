@@ -4,11 +4,12 @@ import gachaBanner from '../../../../lib/banner/gacha_banner.js'
 const bannerController = async (req, res) => {
   if (req.session.login_status === true) {
     try {
-      const current_gachas = gachaData(req.session.user_data.id, req.params.server_id)
+      const current_gacha_data = gachaData(req.session.user_data.id, req.params.server_id)
       const current_banner = gachaBanner()
 
       const gacha_data = {
-        current_gachas: current_gachas,
+        current_gachas: current_gacha_data.gachas,
+        current_exchanges: current_gacha_data.exchanges,
         current_banner: current_banner
       }
 

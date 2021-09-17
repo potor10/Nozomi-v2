@@ -8,13 +8,13 @@ class MoneyDisplay extends Component {
         <tbody>
           <tr>
             <td>
-              {this.props.user.jewels}<img className="icon-sm" src="/images/assets/jewel.png" />
+              {this.props.user_stats.jewels}<img className="icon-sm" src="/images/assets/jewel.png" />
             </td>
             <td>
-              {this.props.user.mana} <img className="icon-sm" src="/images/assets/mana.png" />
+              {this.props.user_stats.mana} <img className="icon-sm" src="/images/assets/mana.png" />
             </td>
             <td>
-              {this.props.user.amulets} <img className="icon-sm" src="/images/assets/amulet.png" />
+              {this.props.user_stats.amulets} <img className="icon-sm" src="/images/assets/amulet.png" />
             </td>
           </tr>
         </tbody>

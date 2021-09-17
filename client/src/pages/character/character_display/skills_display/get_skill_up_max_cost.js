@@ -32,12 +32,12 @@ const getSkillUpMaxCost = (component, skill_name) => {
   let new_level = component.props.unit[skill_name]
 
   while (new_level < component.props.unit.level) {
-    if (mana_cost + component.props.skill_cost_data[new_level-1].cost > component.props.user.mana) break
+    if (mana_cost + component.props.skill_cost_data[new_level-1].cost > component.props.user_stats.mana) break
     new_level += 1
     mana_cost += component.props.skill_cost_data[new_level-1].cost
   }
 
-  let can_skill_up = component.props.user.mana >= mana_cost
+  let can_skill_up = component.props.user_stats.mana >= mana_cost
 
   let skill_max_info = {
     skill_unlocked: true,

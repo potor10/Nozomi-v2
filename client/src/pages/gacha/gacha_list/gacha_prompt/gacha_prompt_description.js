@@ -13,7 +13,7 @@ class GachaPromptDescription extends Component {
             <tr>
               <td>Your Jewels</td>
               <td>
-                <b>{this.props.user.jewels}</b>
+                <b>{this.props.user_stats.jewels}</b>
                 <img className="icon-sm" src={"/images/assets/jewel.png"} />
               </td>
             </tr>

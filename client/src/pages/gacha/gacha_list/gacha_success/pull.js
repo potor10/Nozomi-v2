@@ -19,17 +19,23 @@ const pull = async (component, gacha_id, discount) => {
   console.log('hello!')
   const res = await fetch(`${process.env.REACT_APP_WEB_URL}/api/gacha/pull`, fetch_options)
   if (res.status === 200) {
-    let pull_result = await res.json()
+    let pull_data = await res.json()
+
+    const timeout = setTimeout(() => {component.setState({
+        show_animation: false
+      })}, 6640)
+
     component.setState({
-      loaded_gif: (pull_result.rarity === 3) ? component.state.gif_lucky : component.state.gif_unlucky,
-      pull_result: [pull_result], 
-      pull_loaded: 1
+      loaded_gif: (pull_data.pull_result[0].rarity === 3) ? component.state.gif_lucky : component.state.gif_unlucky,
+      ...pull_data,
+      pull_loaded: 1,
+      timeout: timeout
     })
-    setTimeout(() => {component.setState({
-      show_animation: false
-    })}, 3000)
+
+    return pull_data
   } else {
     component.setState({ pull_loaded: 0 })
+    return {}
   }
 }
 

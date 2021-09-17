@@ -27,7 +27,8 @@ const getAscendCost = (component) => {
   }
 
   let can_buy_ascend = false
-  if (component.props.user.amulets >= amulet_cost && component.props.user.mana >= mana_cost) {
+  if (component.props.user_stats.amulets >= amulet_cost && 
+    component.props.user_stats.mana >= mana_cost) {
     can_buy_ascend = true
   }
 

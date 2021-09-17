@@ -14,7 +14,7 @@ const createEquipmentPrompt = (component, equip_idx) => {
   let confirm = () => {
     equipEquipment(component, equip_idx)
 
-    let user = component.props.user 
+    let user = component.props.user_stats 
     user.jewels -= price
     component.props.set_user(user)
 
@@ -25,13 +25,13 @@ const createEquipmentPrompt = (component, equip_idx) => {
     removeEquipmentPrompt(component)
   }
 
-  if (component.props.user.jewels < price) {
+  if (component.props.user_stats.jewels < price) {
     confirm = () => {
       createEquipFailPrompt(component, equip_idx)
     }
   }
 
-  const equipmentPrompt = (
+  const equipment_prompt = (
     <PopUp 
       title={<EquipPromptTitle {...component.props} equip_idx={equip_idx}/>} 
       description={<EquipPromptDescription {...component.props} equip_idx={equip_idx}/>}
@@ -40,7 +40,7 @@ const createEquipmentPrompt = (component, equip_idx) => {
   )
 
   component.setState({
-    popup : equipmentPrompt
+    popup : equipment_prompt
   })
 }
 

@@ -3,6 +3,7 @@ import { Pagination, Container, Row, Col, InputGroup, FormControl, Button } from
 import StarLevel from '../../../components/star_level/star_level'
 
 import generatePagination from './generate_pagination'
+import getUnitIconUrl from '../../../lib/url/get_unit_icon_url'
 
 import styles from './characters_display.module.css'
 import { Link } from 'react-router-dom'
@@ -35,7 +36,7 @@ class CharactersDisplay extends Component {
                   style={{ 
                     backgroundImage: `url(/images/icon/icon_equipment_${this.props.promotion_data[character.unit_id][character.promotion_level-1].equip_slot_2}.png)`
                   }}
-                  src={`/images/unit/icon_unit_${character.base_id}${(character.rarity < 3) ? 1 : 3}1.png`} />
+                  src={getUnitIconUrl(character)} />
                 <span 
                   className={styles.star_display}>
                   <StarLevel 

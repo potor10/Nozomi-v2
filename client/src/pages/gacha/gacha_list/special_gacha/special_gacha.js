@@ -23,9 +23,9 @@ class SpecialGacha extends Component {
             src={`/images/banner/banner_${this.props.current_banner.banner_id}.png`} />
           <h1>{this.props.current_gachas[this.props.gacha_id].gacha_name}</h1>
           <div>
-            <small>{this.props.current_gachas[this.props.gacha_id].description}</small>
-            <p>{formatted_start.toLocaleString('en-US')}</p>
-            <p>{formatted_end.toLocaleString('en-US')}</p>
+            <small>{this.props.current_gachas[this.props.gacha_id].description}<br /></small>
+            <small>{formatted_start.toLocaleString('en-US')} </small>
+            <small>to {formatted_end.toLocaleString('en-US')}</small>
           </div>
           <Button variant={(disabled || discount_disabled) ? "secondary" : "warning"}
             disabled={disabled || discount_disabled}

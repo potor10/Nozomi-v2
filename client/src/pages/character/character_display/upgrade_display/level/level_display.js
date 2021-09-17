@@ -81,7 +81,7 @@ class LevelDisplay extends Component {
     return (
       <>
         <h1>Level {this.props.unit.level}</h1>
-        <small>Account Level {this.props.user.level}</small>
+        <small>Account Level {this.props.user_stats.level}</small>
         <div>
           {this.renderButtons()}
         </div>

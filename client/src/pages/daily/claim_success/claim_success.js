@@ -14,11 +14,11 @@ class ClaimSuccess extends Component {
             Successfully Claimed Daily Bonus!
           </p>
           <small>
-            You Have Earned <b>300000</b>&nbsp;
+            You Have Earned <b>{this.props.mana_obtained}</b>&nbsp;
             <img 
               className={styles.icon} 
               src="images/assets/mana.png" />
-            &nbsp;and <b>1500</b>&nbsp;
+            &nbsp;and <b>{this.props.jewels_obtained}</b>&nbsp;
             <img 
               className={styles.icon} 
               src="images/assets/jewel.png" />

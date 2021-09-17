@@ -10,8 +10,8 @@ const pullTenController = async (req, res) => {
   if (req.session.login_status === true) {
     if (req.session.mutual_guilds[req.body.server_id] !== undefined) {
       try {
-        const pull_result = pullTen(req.session.user_data.id, req.body.server_id, req.body.gacha_id)
-        res.status(200).json(pull_result)
+        const pull_ten_data = pullTen(req.session.user_data.id, req.body.server_id, req.body.gacha_id)
+        res.status(200).json(pull_ten_data)
       } catch (e) {
         console.log(e)
         res.status(e.getStatus()).send(e.getErrorMessage())

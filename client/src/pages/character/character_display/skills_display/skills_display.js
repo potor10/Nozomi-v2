@@ -38,10 +38,10 @@ class SkillsDisplay extends Component {
 
     if (skill_info.skill_unlocked && skill_info.skill_up_available) {
       if (skill_info.skill_up_available) {
-        upgrade_once = (<>Lv. <b>{this.props.unit[skill_name]}</b> &#8250; Lv. <b>{this.props.unit[skill_name] + 1}</b></>)
+        upgrade_once = (<>Lv. <b>{this.props.unit[skill_name]}</b> &#8250; Lv. <b>{skill_info.new_level}</b></>)
       }
       if (skill_max_info.skill_up_available) {
-        upgrade_max = (<>Lv. <b>{this.props.unit[skill_name]}</b> &#8250; Lv. <b>{this.props.unit.level} (MAX)</b></>)
+        upgrade_max = (<>Lv. <b>{this.props.unit[skill_name]}</b> &#8250; Lv. <b>{skill_max_info.new_level} (MAX)</b></>)
       }
       
       return (

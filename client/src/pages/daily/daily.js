@@ -11,26 +11,21 @@ class Daily extends Component {
   constructor(props) {
     super(props)
     this.state = { 
-      daily: -1,
+      daily_loaded: -1,
     }
 
     console.log(this.state.daily)
   }
 
   renderDaily() {
-    switch (this.state.daily) {
+    switch (this.state.daily_loaded) {
       case -1:
-        return (
-          <Loading />
-        )
+        return (<Loading />)
       case 0:
-        return (
-          <ClaimFail />
-        )
+        return (<p>error occ</p>)
       case 1:
-        return (
-          <ClaimSuccess />
-        )
+        if (this.state.success) return (<ClaimSuccess {...this.state}/>)
+        else return (<ClaimFail />)
     }
   }
 

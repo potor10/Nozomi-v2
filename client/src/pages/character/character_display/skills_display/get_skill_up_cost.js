@@ -31,7 +31,7 @@ const getSkillUpCost = (component, skill_name) => {
 
   let mana_cost = component.props.skill_cost_data[component.props.unit[skill_name]].cost
   let new_level = component.props.unit[skill_name] + 1 
-  let can_skill_up = component.props.user.mana >= mana_cost
+  let can_skill_up = component.props.user_stats.mana >= mana_cost
 
   let skill_info = {
     skill_unlocked: true,

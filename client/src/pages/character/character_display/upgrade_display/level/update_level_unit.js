@@ -3,7 +3,7 @@ import levelUpUnit from "./level_up_unit"
 const updateLevelUnit = (component, level_info) => {
   levelUpUnit(component, level_info.max)
 
-  let user = component.props.user 
+  let user = component.props.user_stats 
   user.mana -= level_info.mana_cost
   component.props.set_user(user)
 

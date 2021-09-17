@@ -4,7 +4,7 @@ import ascendUnit from "./ascend_unit"
 const updateAscend = (component, ascend_info) => {
   ascendUnit(component)
 
-  let user = component.props.user 
+  let user = component.props.user_stats
   user.mana -= ascend_info.mana_cost
   user.amulets -= ascend_info.amulet_cost
   component.props.set_user(user)

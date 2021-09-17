@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { Row, Nav } from 'react-bootstrap'
+import { Row, Nav, Table } from 'react-bootstrap'
 import generateGachaList from './generate_gacha_list'
 
 import createGachaPrompt from './create_gacha_prompt'
@@ -53,6 +53,21 @@ class GachaList extends Component {
     return (
       <Row>
         {generateGachaList(this)}
+        <Table striped bordered hover variant="dark" className="text-center">
+        <tbody>
+          <tr>
+            <td>
+              {this.props.user_stats.jewels}<img className="icon-sm" src="/images/assets/jewel.png" />
+            </td>
+            <td>
+              {this.props.user_stats.amulets} <img className="icon-sm" src="/images/assets/amulet.png" />
+            </td>
+            <td>
+              Char Exchange Pt: {this.props.user_stats.exchange_points}
+            </td>
+          </tr>
+        </tbody>
+      </Table>
         {this.renderDisplayedGacha()}
         {this.state.popup}
       </Row>

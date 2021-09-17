@@ -26,7 +26,16 @@ class Home extends Component {
       experience_team_data: undefined,
       user_stats: undefined
     }
+
+    this.setUserStats = this.setUserStats.bind(this)
   }
+
+  setUserStats(user_stats) {
+    this.setState({ 
+      user_stats: user_stats
+    })
+  }
+
 
   // Determines what to show on profile page based on state
   homeRender() {
@@ -38,13 +47,13 @@ class Home extends Component {
               <Characters {...this.state} {...this.props} />
             </Route>
             <Route path="/character/:character_id">
-              <Character {...this.state} {...this.props} />
+              <Character {...this.state} {...this.props} set_user={this.setUserStats} />
             </Route>
             <Route path="/gacha">
-              <Gacha {...this.state} {...this.props} />
+              <Gacha {...this.state} {...this.props} set_user={this.setUserStats} />
             </Route>
             <Route path="/daily">
-              <Daily {...this.state} {...this.props} />
+              <Daily {...this.state} {...this.props} set_user={this.setUserStats} />
             </Route>
             <Route path="/leaderboard" 
               component={Leaderboard} />
@@ -66,6 +75,7 @@ class Home extends Component {
   
   // Runs initializing code when the component is mounted
   componentDidMount() {
+    console.log("STATS LOADED????!!!")
     userStats(this)
   }
 

@@ -14,10 +14,6 @@ const createGachaPrompt = (component, gacha_id, pull_amt, discount=false) => {
   console.log(component.props.current_gachas[gacha_id].price)
   console.log(component.props.user_stats.jewels)
 
-  const confirmGacha = () => {
-    createGachaSuccessPrompt(component, gacha_id, pull_amt, discount)
-  }
-
   // add cases for discount pull
   let price = (discount) ? component.props.current_gachas[gacha_id].discount_price : 
     component.props.current_gachas[gacha_id].price
@@ -25,6 +21,10 @@ const createGachaPrompt = (component, gacha_id, pull_amt, discount=false) => {
   // x10 guarantee always 10 pull
   if (component.props.current_gachas[gacha_id].type_id !== 6) {
     price *= pull_amt
+  }
+
+  let confirmGacha = () => {
+    createGachaSuccessPrompt(component, gacha_id, price, pull_amt, discount)
   }
 
   if (price > component.props.user_stats.jewels) {
@@ -35,7 +35,7 @@ const createGachaPrompt = (component, gacha_id, pull_amt, discount=false) => {
 
   console.log(pull_amt)
 
-  const gachaPrompt = (
+  const gacha_prompt = (
     <PopUp 
       title={
         <GachaPromptTitle {...component.props} gacha_id={gacha_id} />
@@ -50,7 +50,7 @@ const createGachaPrompt = (component, gacha_id, pull_amt, discount=false) => {
   console.log('working!')
   console.log(component.state)
   component.setState({
-    popup : gachaPrompt
+    popup : gacha_prompt
   })
 }
 

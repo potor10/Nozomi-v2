@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 import getAvatarUrl from '../../lib/url/get_avatar_url'
 import getGuildIconUrl from '../../lib/url/get_server_icon_url'
+
 import logout from '../../lib/logout'
 
 
@@ -65,7 +66,7 @@ class Header extends Component {
               </Nav>
               <Nav>
                 <NavDropdown title={this.renderDiscordProfile()} id="collasible-nav-dropdown">
-                  <NavDropdown.Item href="/settings">
+                  <NavDropdown.Item as={Link} to="/settings">
                     <img className={styles.profile_pic} src={getGuildIconUrl(this.props.server_data)} />
                     Server Settings
                   </NavDropdown.Item>

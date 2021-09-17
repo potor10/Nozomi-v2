@@ -16,7 +16,7 @@ const getBondCost = (component) => {
 
   const bond_info = {
     bond_up_available: true,
-    can_buy_bond: component.props.user.jewels >= love_needed,
+    can_buy_bond: component.props.user_stats.jewels >= love_needed,
     jewel_cost: love_needed,
     new_level: new_bond.love_level
   } 

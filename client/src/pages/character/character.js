@@ -18,24 +18,15 @@ class Character extends Component {
     super(props)
     this.state = { 
       unit_loaded: -1,
-      user: this.props.user_stats,
     }
 
     console.log(this.props.user_stats)
     this.setUnit = this.setUnit.bind(this)
-    this.setUser = this.setUser.bind(this)
   }
 
   setUnit(unit) {
     unitStats(this, unit)
   }
-
-  setUser(user) {
-    this.setState({ 
-      user: user
-    })
-  }
-
 
   renderCharacter() {
     switch (this.state.unit_loaded) {
@@ -45,8 +36,7 @@ class Character extends Component {
         return (<p>you don't own this character</p>)
       case 1:
         return (
-          <CharacterDisplay {...this.state} {...this.props} 
-            set_unit={this.setUnit} set_user={this.setUser} />
+          <CharacterDisplay {...this.state} {...this.props} set_unit={this.setUnit} />
         )
     }
   }
