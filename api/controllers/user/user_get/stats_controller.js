@@ -2,6 +2,9 @@
 import UserDatabase from "../../../../lib/databases/user_database.js"
 import MasterDatabase from "../../../../lib/databases/master_database.js"
 
+import currentTime from "../../../../lib/time/current_time.js"
+import gachaData from "../../../../lib/gacha/gacha_components/gacha_data.js"
+
 /**
  * Requests the nozomi bot user stats profile information
  * @param req the request route parameter
@@ -13,6 +16,13 @@ const statsController = async (req, res) => {
     if (req.session.mutual_guilds[req.params.server_id] !== undefined) {
       const master_db = new MasterDatabase()
       const user_db = new UserDatabase(req.params.server_id)
+
+      // Check for point expiration
+      if (currentTime() > user_db.getUser(req.session.user_data.id).point_expiration) {
+        // Update the user's next point expiry
+        gachaData(req.session.user_data.id, req.params.server_id)
+      }
+
       try {
         const user_info = { 
           experience_team_data: master_db.getExperienceTeam(),

@@ -51,12 +51,6 @@ class Header extends Component {
                 <Nav.Link eventKey="3" as={Link} to="/daily">
                   Daily
                 </Nav.Link>
-                <Nav.Link eventKey="4" as={Link} to="/badges">
-                  Badges
-                </Nav.Link>
-                <Nav.Link eventKey="5" as={Link} to="/exchange">
-                  Exchange
-                </Nav.Link>
                 <Nav.Link eventKey="6" as={Link} to="/leaderboard">
                   Leaderboard
                 </Nav.Link>

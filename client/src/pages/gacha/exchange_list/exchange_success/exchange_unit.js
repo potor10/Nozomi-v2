@@ -19,6 +19,12 @@ const exchangeUnit = async (component, unit_id) => {
   if (res.status === 200) {
     let exchange_data = await res.json()
 
+    let user = component.props.user_stats
+    user.exchange_points -= 300
+    user.amulets += exchange_data.amulets_obtained
+
+    component.props.set_user(user)
+
     component.setState({
       ...exchange_data,
       exchange_loaded: 1

@@ -55,8 +55,9 @@ class Home extends Component {
             <Route path="/daily">
               <Daily {...this.state} {...this.props} set_user={this.setUserStats} />
             </Route>
-            <Route path="/leaderboard" 
-              component={Leaderboard} />
+            <Route path="/leaderboard">
+              <Leaderboard {...this.state} {...this.props} />
+            </Route>
             <Route path="/">
               <Profile {...this.state} {...this.props} />
             </Route>

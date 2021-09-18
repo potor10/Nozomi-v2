@@ -26,17 +26,14 @@ class CharactersDisplay extends Component {
           <Col xs={4} md={3} lg={2}
             key={character.unit_id} 
             className={`${styles.character_container} text-center`}>
-            <Link
-              to={`/character/${character.unit_id}`} 
-              className={styles.character_button}>
-              <div 
-                className={styles.character_image_wrapper}>
-                <img 
-                  className={styles.character_image} 
+            <Link to={`/character/${character.unit_id}`} className={styles.character_button}>
+              <div className={styles.character_image_wrapper}>
+                <div className={styles.character_border}
                   style={{ 
                     backgroundImage: `url(/images/icon/icon_equipment_${this.props.promotion_data[character.unit_id][character.promotion_level-1].equip_slot_2}.png)`
-                  }}
-                  src={getUnitIconUrl(character)} />
+                  }} 
+                />
+                <img className={styles.character_image} src={getUnitIconUrl(character)} />
                 <span 
                   className={styles.star_display}>
                   <StarLevel 

@@ -24,8 +24,8 @@
 }
 
 .character_name {
-  font-size: 20px;
-  margin: 10px 0 0 0;
+  font-size: 12px;
+  margin: 0 0 0 0;
   display: block;
 }
 
@@ -37,6 +37,19 @@
   width: 100px;
   height: 100px;
   padding: 6px;
+}
+
+.character_border {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  z-index: -1;
+  mask: 
+    linear-gradient(to top,    transparent 92%,#fff 8%),
+    linear-gradient(to bottom, transparent 92%,#fff 8%),
+    linear-gradient(to left  , transparent 92%,#fff 8%),
+    linear-gradient(to right , transparent 92%,#fff 8%);
+  mask-repeat:no-repeat;
   background-size: contain;
 }
 
