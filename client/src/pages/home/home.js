@@ -13,6 +13,7 @@ import Characters from '../characters/characters'
 import Daily from '../daily/daily'
 import Gacha from '../gacha/gacha'
 import Leaderboard from '../leaderboard/leaderboard'
+import Particles from "react-particles-js"
 
 // Import Functions
 import userStats from "./user_stats"
@@ -60,6 +61,7 @@ class Home extends Component {
             </Route>
             <Route path="/">
               <Profile {...this.state} {...this.props} />
+              <Particles className="particles" />
             </Route>
           </Switch>
         )

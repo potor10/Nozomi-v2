@@ -1,6 +1,5 @@
 // Import Modules
 import React, { Component } from 'react'
-import Particles from 'react-particles-js'
 import QueryString from 'query-string'
 
 // Import Styles
@@ -87,7 +86,6 @@ class App extends Component {
     return (
       <>
         {this.renderLogin()}
-        <Particles className="particles" />
       </>
     )
   }

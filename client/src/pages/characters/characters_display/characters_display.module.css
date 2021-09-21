@@ -19,8 +19,6 @@
 
 .character_button:hover {
   color: black;
-  text-shadow: 1px 1px 1px white;
-  transition: color 0.5s linear;
 }
 
 .character_name {
@@ -43,6 +41,9 @@
   width: 100px;
   height: 100px;
   position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
   z-index: -1;
   mask: 
     linear-gradient(to top,    transparent 92%,#fff 8%),
@@ -55,6 +56,11 @@
 
 @media (max-width:768px){
   .character_image {
+    width: 90px;
+    height: 90px;
+  }
+
+  .character_border {
     width: 90px;
     height: 90px;
   }

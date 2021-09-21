@@ -9,7 +9,6 @@ const fetchLeaderboard = async (component, server_id) => {
   if (leaderboard_res.status === 200) {
     
     let leaderboard = await leaderboard_res.json()
-    console.log('awesome')
   
     component.setState({ 
       leaderboard_loaded: 1,
