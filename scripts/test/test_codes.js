@@ -24,7 +24,23 @@ console.log(user_db.getUser(discord_id))
 console.log(redeem_db.getRedeem(code1, discord_id))
 
 import redeemCode from '../../lib/redeem/redeem_code.js'
-redeemCode(code1, discord_id, server_id)
+console.log(redeemCode(code1, discord_id, server_id))
+console.log(redeemCode(code1, discord_id, server_id))
 
 console.log(user_db.getUser(discord_id))
 console.log(redeem_db.getRedeem(code1, discord_id))
+
+import CollectionDatabase from '../../lib/databases/collection_database.js'
+const collection_db = new CollectionDatabase(server_id)
+collection_db.initDatabase()
+collection_db.resetDatabase()
+
+console.log(collection_db.getAllUnits(discord_id))
+
+let code2 = code_db.addCode('unit', 100301, null, 999999)
+console.log(code2)
+
+console.log(redeemCode(code2, discord_id, server_id))
+console.log(redeemCode(code2, discord_id, server_id))
+
+console.log(collection_db.getAllUnits(discord_id))
