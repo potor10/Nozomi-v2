@@ -19,6 +19,8 @@ import gacha_post from './routes/gacha/gacha_post.js'
 import user_get from './routes/user/user_get.js'
 import user_post from './routes/user/user_post.js'
 import exchange_post from './routes/exchange/exchange_post.js'
+import support_get from './routes/support/support_get.js'
+import support_post from './routes/support/support_post.js'
 
 class NozomiApi {
   constructor() {
@@ -97,6 +99,10 @@ class NozomiApi {
 
     // Exchange Routes
     this._app.use(ROUTE_PREFIX+'exchange', exchange_post)
+
+    // Support Routes
+    this._app.use(ROUTE_PREFIX+'support', support_get)
+    this._app.use(ROUTE_PREFIX+'support', support_post)
 
     // 404, page can't be found
     this._app.use((req, res) => { res.status(404).send('404 page not found') })

@@ -75,11 +75,7 @@ class Characters extends Component {
               <Row>
                 <Col md={12}>
                   <InputGroup>
-                    <FormControl 
-                      id="search" 
-                      placeholder="search" 
-                      aria-label="search" 
-                      aria-describedby="search" />
+                    <FormControl id="search" placeholder="search" aria-label="search" aria-describedby="search" />
                     <Button 
                       onClick={() => {
                         const search_term = document.getElementById('search').value
